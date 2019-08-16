@@ -27,4 +27,6 @@ public interface FootprintMapper {
     int updateByPrimaryKeySelective(Footprint record);
 
     int updateByPrimaryKey(Footprint record);
+
+    List<Footprint> listFootPrintByCondition(@Param("userId") String userId,@Param("goodsId") String goodsId);
 }

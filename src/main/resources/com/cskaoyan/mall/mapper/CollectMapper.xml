@@ -240,4 +240,13 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="listColletByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    cskaoyan_mall_collect
+    where
+    user_id like #{userId}
+    and value_id like #{valueId}
+  </select>
 </mapper>
