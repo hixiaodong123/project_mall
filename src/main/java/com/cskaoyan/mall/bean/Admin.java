@@ -21,7 +21,7 @@ public class Admin {
 
     private Boolean deleted;
 
-    private String roleIds;
+    private int[] roleIds;
 
     @Override
     public String toString()
@@ -113,11 +113,11 @@ public class Admin {
         this.deleted = deleted;
     }
 
-    public String getRoleIds() {
+    public int[] getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(String roleIds) {
-        this.roleIds = roleIds == null ? null : roleIds.trim();
+    public void setRoleIds(int[] roleIds) {
+        this.roleIds = roleIds;
     }
 }

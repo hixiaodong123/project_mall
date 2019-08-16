@@ -1,14 +1,10 @@
 package com.cskaoyan.mall.controller;
 
-import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.base.TotalInfo;
 import com.cskaoyan.mall.bean.base.UserInfo;
-import com.cskaoyan.mall.mapper.AdMapper;
 import com.cskaoyan.mall.service.IndexTotalService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,8 +72,6 @@ public class LoginController
         return baseResponseModel;
 
     }
-
-
 
 
 }
