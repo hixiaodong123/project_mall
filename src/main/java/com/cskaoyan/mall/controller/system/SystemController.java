@@ -2,7 +2,7 @@ package com.cskaoyan.mall.controller.system;
 
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.service.system.SystemService;
-import com.cskaoyan.mall.utils.system.SuccessResponseUtils;
+import com.cskaoyan.mall.utils.SuccessResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

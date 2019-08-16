@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.utils.system;
+package com.cskaoyan.mall.utils;
 
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 
