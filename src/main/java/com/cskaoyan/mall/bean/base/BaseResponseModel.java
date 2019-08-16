@@ -52,4 +52,5 @@ public class BaseResponseModel<T>
     {
         this.errno = errno;
     }
+
 }

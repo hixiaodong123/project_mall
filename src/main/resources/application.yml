@@ -8,6 +8,10 @@ spring:
     username: ${myUsername}
     password: ${myPassword}
     type: ${myType}
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
 
 
 
@@ -18,3 +22,4 @@ server:
 ##配置handler
 mybatis:
   type-handlers-package: com.cskaoyan.mall.handler
+
