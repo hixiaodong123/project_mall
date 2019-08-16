@@ -27,4 +27,6 @@ public interface SearchHistoryMapper {
     int updateByPrimaryKeySelective(SearchHistory record);
 
     int updateByPrimaryKey(SearchHistory record);
+
+    List<SearchHistory> listSearchHistoryByCondition(@Param("userId") String userId,@Param("keyword") String keyword);
 }
