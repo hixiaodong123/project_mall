@@ -9,16 +9,12 @@ spring:
     password: ${myPassword}
     type: ${myType}
 
-##配置handler
+
 
 ## 端口号设置,配合前端
 server:
   port: 80
 
-## 分页插件配置
-#  pagehelper.helperDialect=mysql
-#  pagehelper.reasonable=true
-#  pagehelper.supportMethodsArguments=true
-#  pagehelper.params=count=countSql
+##配置handler
 mybatis:
   type-handlers-package: com.cskaoyan.mall.handler
