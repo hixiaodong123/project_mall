@@ -13,8 +13,3 @@ spring:
 server:
   port: 80
 
-## 分页插件配置
-#  pagehelper.helperDialect=mysql
-#  pagehelper.reasonable=true
-#  pagehelper.supportMethodsArguments=true
-#  pagehelper.params=count=countSql
