@@ -1,0 +1,20 @@
+## 数据库配置
+spring:
+  profiles:
+    active: db
+  datasource:
+    driver-class-name: ${myDriverClassName}
+    url: ${myUrl}
+    username: ${myUsername}
+    password: ${myPassword}
+    type: ${myType}
+
+## 端口号设置,配合前端
+server:
+  port: 80
+
+## 分页插件配置
+#  pagehelper.helperDialect=mysql
+#  pagehelper.reasonable=true
+#  pagehelper.supportMethodsArguments=true
+#  pagehelper.params=count=countSql
