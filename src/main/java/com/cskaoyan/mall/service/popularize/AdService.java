@@ -1,13 +1,12 @@
-package com.cskaoyan.mall.mapper;
+package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.Ad;
 import com.cskaoyan.mall.bean.AdExample;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-public interface AdMapper {
+import java.util.List;
+
+public interface AdService {
     long countByExample(AdExample example);
 
     int deleteByExample(AdExample example);
@@ -29,5 +28,4 @@ public interface AdMapper {
     int updateByPrimaryKeySelective(Ad record);
 
     int updateByPrimaryKey(Ad record);
-
 }
