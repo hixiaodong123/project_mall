@@ -14,8 +14,8 @@ public class CollectServiceImpl implements CollectService {
     CollectMapper collectMapper;
 
     @Override
-    public List<Collect> listColletByCondition(String userId, String valueId) {
-        List<Collect> users = collectMapper.listColletByCondition(userId,valueId);
+    public List<Collect> listColletByCondition(String userId, String valueId,String sort, String order) {
+        List<Collect> users = collectMapper.listColletByCondition(userId,valueId,sort,order);
         return users;
     }
 }

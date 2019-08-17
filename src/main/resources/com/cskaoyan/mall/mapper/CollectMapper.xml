@@ -248,5 +248,6 @@
     where
     user_id like #{userId}
     and value_id like #{valueId}
+    order by #{sort} #{order}
   </select>
 </mapper>

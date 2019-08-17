@@ -24,7 +24,7 @@ public class SearchHistoryController {
         keyword = BaseEncapsulation.judgeString(keyword);
         //按页查询user
         PageHelper.startPage(page,limit);
-        List<SearchHistory> searchHistoryList = searchHistoryService.listSearchHistoryByCondition("%" + userId + "%","%" + keyword + "%");
+        List<SearchHistory> searchHistoryList = searchHistoryService.listSearchHistoryByCondition("%" + userId + "%","%" + keyword + "%", sort, order);
         //封装BaseResponseModel
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(searchHistoryList);
         return encapsulation;

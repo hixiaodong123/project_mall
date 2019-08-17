@@ -30,15 +30,12 @@ public class LoginController
 
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-    public BaseResponseModel<String> login(UserInfo userInfo)
-    {
-
+    public BaseResponseModel<String> login(UserInfo userInfo) {
         return new BaseResponseModel<>("5aa0ae65-914f-4d3c-9fbf-82f87628218b", "成功", 0);
     }
 
     @RequestMapping(value = "/auth/info", method = RequestMethod.GET)
-    public BaseResponseModel info()
-    {
+    public BaseResponseModel info() {
         BaseResponseModel<UserInfo> baseResponseModel = new BaseResponseModel<>();
 
         UserInfo userInfo = new UserInfo();
@@ -55,8 +52,7 @@ public class LoginController
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public BaseResponseModel dashboard()
-    {
+    public BaseResponseModel dashboard() {
 
         Long totalGoods = indexTotalService.queryGoodsTotal();
         Long totalUser = indexTotalService.queryUserTotal();

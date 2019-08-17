@@ -329,5 +329,6 @@
     user_id like #{userId}
     and
     name like #{name}
+    order by #{sort} #{order}
   </select>
 </mapper>

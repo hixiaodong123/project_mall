@@ -25,7 +25,7 @@ public class AddressController {
         name = BaseEncapsulation.judgeString(name);
         //按页查询address
         PageHelper.startPage(page,limit);
-        List<Address> addressList = addressService.listAddressByCondition("%" + userId + "%","%" + name + "%");
+        List<Address> addressList = addressService.listAddressByCondition("%" + userId + "%","%" + name + "%",sort,order);
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(addressList);
         return encapsulation;
     }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FootPrintService {
 
-    List<Footprint> listFootPrintByCondition(String userId, String goodsId);
+    List<Footprint> listFootPrintByCondition(String userId, String goodsId, String sort, String order);
 }

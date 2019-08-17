@@ -28,5 +28,5 @@ public interface FootprintMapper {
 
     int updateByPrimaryKey(Footprint record);
 
-    List<Footprint> listFootPrintByCondition(@Param("userId") String userId,@Param("goodsId") String goodsId);
+    List<Footprint> listFootPrintByCondition(@Param("userId") String userId,@Param("goodsId") String goodsId,@Param("sort") String sort,@Param("order") String order);
 }

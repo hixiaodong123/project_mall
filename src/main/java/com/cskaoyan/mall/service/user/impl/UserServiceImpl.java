@@ -15,8 +15,9 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public List<User> listUserByCondition(String username,String mobile) {
+    public List<User> listUserByCondition(String username,String mobile, String sort, String order) {
         UserExample userExample = new UserExample();
+        userExample.setOrderByClause(sort + " " + order);
         userExample.createCriteria().andUsernameLike(username).andMobileLike(mobile);
         List<User> users = userMapper.selectByExample(userExample);
         return users;

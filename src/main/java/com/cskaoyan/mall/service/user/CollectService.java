@@ -5,5 +5,5 @@ import com.cskaoyan.mall.bean.Collect;
 import java.util.List;
 
 public interface CollectService {
-    List<Collect> listColletByCondition(String userId, String valueId);
+    List<Collect> listColletByCondition(String userId, String valueId, String sort, String order);
 }

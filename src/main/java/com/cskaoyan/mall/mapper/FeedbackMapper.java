@@ -28,5 +28,5 @@ public interface FeedbackMapper {
 
     int updateByPrimaryKey(Feedback record);
 
-    List<Feedback> listFeedbackByCondition(@Param("username") String username,@Param("id") String id);
+    List<Feedback> listFeedbackByCondition(@Param("username") String username,@Param("id") String id,@Param("sort") String sort,@Param("order") String order);
 }
