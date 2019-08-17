@@ -28,5 +28,5 @@ public interface CollectMapper {
 
     int updateByPrimaryKey(Collect record);
 
-    List<Collect> listColletByCondition(@Param("userId") String userId,@Param("valueId") String valueId);
+    List<Collect> listColletByCondition(@Param("userId") String userId,@Param("valueId") String valueId,@Param("sort") String sort,@Param("order") String order);
 }

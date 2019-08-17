@@ -16,8 +16,8 @@ public class AddressServiceImpl implements AddressService {
     AddressMapper addressMapper;
 
     @Override
-    public List<Address> listAddressByCondition(String userId, String name) {
-        List<Address> users = addressMapper.listAddressByCondition(userId,name);
+    public List<Address> listAddressByCondition(String userId, String name,String sort, String order) {
+        List<Address> users = addressMapper.listAddressByCondition(userId,name,sort,order);
         return users;
     }
 }

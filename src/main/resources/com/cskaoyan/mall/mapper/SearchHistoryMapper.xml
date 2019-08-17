@@ -248,5 +248,6 @@
     where
     user_id like #{userId}
     and keyword like #{keyword}
+    order by #{sort} #{order}
   </select>
 </mapper>

@@ -5,5 +5,5 @@ import com.cskaoyan.mall.bean.Address;
 import java.util.List;
 
 public interface AddressService {
-    List<Address> listAddressByCondition(String userId,String name);
+    List<Address> listAddressByCondition(String userId,String name,String sort,String order);
 }

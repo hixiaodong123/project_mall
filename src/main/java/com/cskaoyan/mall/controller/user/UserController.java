@@ -26,7 +26,7 @@ public class UserController {
         mobile = BaseEncapsulation.judgeString(mobile);
         //按页查询user
         PageHelper.startPage(page,limit);
-        List<User> userList = userService.listUserByCondition("%" + username + "%","%" + mobile + "%");
+        List<User> userList = userService.listUserByCondition("%" + username + "%","%" + mobile + "%", sort, order);
         //封装BaseResponseModel
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(userList);
         return encapsulation;

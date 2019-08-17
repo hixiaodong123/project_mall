@@ -14,8 +14,8 @@ public class FootPrintServiceImpl implements FootPrintService {
     FootprintMapper footprintMapper;
 
     @Override
-    public List<Footprint> listFootPrintByCondition(String userId, String goodsId) {
-        List<Footprint> footprintList = footprintMapper.listFootPrintByCondition(userId,goodsId);
+    public List<Footprint> listFootPrintByCondition(String userId, String goodsId, String sort, String order) {
+        List<Footprint> footprintList = footprintMapper.listFootPrintByCondition(userId,goodsId,sort,order);
         return footprintList;
     }
 }

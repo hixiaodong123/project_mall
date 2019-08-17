@@ -25,7 +25,7 @@ public class FeedbackController {
         id = BaseEncapsulation.judgeString(id);
         //按页查询collect
         PageHelper.startPage(page,limit);
-        List<Feedback> feedbackList = feedbackService.listFeedbackByCondition("%" + username + "%","%" + id + "%");
+        List<Feedback> feedbackList = feedbackService.listFeedbackByCondition("%" + username + "%","%" + id + "%", sort, order);
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(feedbackList);
         return encapsulation;
     }

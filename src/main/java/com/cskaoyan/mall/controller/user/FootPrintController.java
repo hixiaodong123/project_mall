@@ -26,7 +26,7 @@ public class FootPrintController {
         goodsId = BaseEncapsulation.judgeString(goodsId);
         //按页查询footPrint
         PageHelper.startPage(page,limit);
-        List<Footprint> footprintList = footPrintService.listFootPrintByCondition("%" + userId + "%","%" + goodsId + "%");
+        List<Footprint> footprintList = footPrintService.listFootPrintByCondition("%" + userId + "%","%" + goodsId + "%", sort, order);
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(footprintList);
         return encapsulation;
     }

@@ -5,5 +5,5 @@ import com.cskaoyan.mall.bean.Feedback;
 import java.util.List;
 
 public interface FeedbackService {
-    List<Feedback> listFeedbackByCondition(String username, String id);
+    List<Feedback> listFeedbackByCondition(String username, String id, String sort, String order);
 }

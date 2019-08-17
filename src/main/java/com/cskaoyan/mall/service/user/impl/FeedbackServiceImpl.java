@@ -14,8 +14,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     FeedbackMapper feedbackMapper;
 
     @Override
-    public List<Feedback> listFeedbackByCondition(String username, String id) {
-        List<Feedback> feedbackList = feedbackMapper.listFeedbackByCondition(username,id);
+    public List<Feedback> listFeedbackByCondition(String username, String id, String sort, String order) {
+        List<Feedback> feedbackList = feedbackMapper.listFeedbackByCondition(username, id, sort, order);
         return feedbackList;
     }
 }

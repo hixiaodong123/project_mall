@@ -14,8 +14,8 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     SearchHistoryMapper searchHistoryMapper;
 
     @Override
-    public List<SearchHistory> listSearchHistoryByCondition(String userId, String keyword) {
-        List<SearchHistory> searchHistoryList = searchHistoryMapper.listSearchHistoryByCondition(userId,keyword);
+    public List<SearchHistory> listSearchHistoryByCondition(String userId, String keyword, String sort, String order) {
+        List<SearchHistory> searchHistoryList = searchHistoryMapper.listSearchHistoryByCondition(userId,keyword,sort,order);
         return searchHistoryList;
     }
 }

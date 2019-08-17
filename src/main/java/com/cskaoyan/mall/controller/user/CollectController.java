@@ -26,7 +26,7 @@ public class CollectController {
         valueId = BaseEncapsulation.judgeString(valueId);
         //按页查询collect
         PageHelper.startPage(page,limit);
-        List<Collect> collectList = collectService.listColletByCondition("%" + userId + "%","%" + valueId + "%");
+        List<Collect> collectList = collectService.listColletByCondition("%" + userId + "%","%" + valueId + "%", sort, order);
         BaseResponseModel<Map<String, Object>> encapsulation = BaseEncapsulation.encapsulation(collectList);
         return encapsulation;
     }
