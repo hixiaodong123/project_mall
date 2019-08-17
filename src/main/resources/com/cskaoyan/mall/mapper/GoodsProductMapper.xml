@@ -272,4 +272,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="GoodsProductMap" type="com.cskaoyan.mall.bean.GoodsProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+
+  <select id="selectGoodsProductByGoodsId" resultMap="GoodsProductMap">
+    select id, goods_id, specifications, price, `number`, url, add_time, update_time, deleted
+    from cskaoyan_mall_goods_product
+    where goods_id = #{goodsId}
+  </select>
 </mapper>
