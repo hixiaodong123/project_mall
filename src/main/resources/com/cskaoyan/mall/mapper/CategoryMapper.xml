@@ -320,4 +320,17 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllCat" resultMap="BaseResultMap">
+    select id, `name`, keywords, `desc`, pid, icon_url, pic_url, `level`, sort_order, add_time, update_time,deleted
+    from cskaoyan_mall_category
+    where level = #{level}
+  </select>
+
+  <select id="selectByPid" resultMap="BaseResultMap">
+    select id, `name`, keywords, `desc`, pid, icon_url, pic_url, `level`, sort_order, add_time, update_time,deleted
+    from cskaoyan_mall_category
+    where pid = #{pid}
+  </select>
+
 </mapper>

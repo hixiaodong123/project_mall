@@ -35,17 +35,6 @@ public class String2ArrayHandler implements TypeHandler<int[]> {
         return transfer(string);
     }
 
-    private int[] transfer(String string) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        int[] ints = new int[0];
-        try {
-            ints = objectMapper.readValue(string, int[].class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ints;
-    }
-
     @Override
     public int[] getResult(ResultSet resultSet, int i) throws SQLException {
         String string = resultSet.getString(i);
@@ -57,4 +46,15 @@ public class String2ArrayHandler implements TypeHandler<int[]> {
         String string = callableStatement.getString(i);
         return transfer(string);
     }
+    private int[] transfer(String content) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        int[] ints = new int[0];
+        try {
+            ints = objectMapper.readValue(content, int[].class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ints;
+    }
 }
+

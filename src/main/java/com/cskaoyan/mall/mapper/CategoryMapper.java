@@ -27,4 +27,8 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    List<Category> selectAllCat(@Param("level") String level);
+
+    List<Category> selectByPid(@Param("pid") int pid);
 }
