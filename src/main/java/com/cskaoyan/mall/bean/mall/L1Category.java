@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.bean;
+package com.cskaoyan.mall.bean.mall;
 
 public class L1Category {
     private int value;

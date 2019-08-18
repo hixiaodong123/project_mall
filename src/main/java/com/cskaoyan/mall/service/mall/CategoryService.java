@@ -1,7 +1,7 @@
 package com.cskaoyan.mall.service.mall;
 
 import com.cskaoyan.mall.bean.CategoryList;
-import com.cskaoyan.mall.bean.L1Category;
+import com.cskaoyan.mall.bean.mall.L1Category;
 
 import java.util.List;
 

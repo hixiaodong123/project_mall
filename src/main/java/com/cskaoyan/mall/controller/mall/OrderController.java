@@ -4,9 +4,12 @@ import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.OrderGoods;
 import com.cskaoyan.mall.bean.User;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.bean.page.PageBean;
 import com.cskaoyan.mall.service.mall.OrderGoodsService;
 import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,10 +38,10 @@ public class OrderController {
         if(userId == null) {
             userId = 0;
         }
+        PageHelper.startPage(page, limit);
         List<Order> orders = orderService.queryOrderList(orderStatusArray, sort, order, orderSn, userId);
-        Map data = new HashMap<>();
-        data.put("items", orders);
-        data.put("total", orders.size());
+        PageInfo<Order> pageInfo = new PageInfo<>(orders);
+        PageBean<Order> data = new PageBean<>(orders, pageInfo.getTotal());
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);

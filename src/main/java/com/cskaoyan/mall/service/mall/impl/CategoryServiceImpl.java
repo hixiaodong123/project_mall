@@ -1,7 +1,7 @@
 package com.cskaoyan.mall.service.mall.impl;
 
 import com.cskaoyan.mall.bean.CategoryList;
-import com.cskaoyan.mall.bean.L1Category;
+import com.cskaoyan.mall.bean.mall.L1Category;
 import com.cskaoyan.mall.mapper.CategoryMapper;
 import com.cskaoyan.mall.service.mall.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

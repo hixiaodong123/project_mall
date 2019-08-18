@@ -2,15 +2,16 @@ package com.cskaoyan.mall.controller.mall;
 
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.bean.page.PageBean;
 import com.cskaoyan.mall.service.mall.KeywordService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("admin")
@@ -20,10 +21,10 @@ public class KeywordController {
 
     @RequestMapping("keyword/list")
     public BaseResponseModel list(int page, int limit, String keyword, String url, String sort, String order) {
+        PageHelper.startPage(page, limit);
         List<Keyword> keywords = keywordService.queryKeywordList(keyword, url, sort, order);
-        Map data = new HashMap();
-        data.put("items", keywords);
-        data.put("total", keywords.size());
+        PageInfo<Keyword> pageInfo = new PageInfo<>(keywords);
+        PageBean<Keyword> data = new PageBean<>(keywords, pageInfo.getTotal());
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);

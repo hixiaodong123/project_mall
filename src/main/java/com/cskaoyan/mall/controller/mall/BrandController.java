@@ -2,15 +2,16 @@ package com.cskaoyan.mall.controller.mall;
 
 import com.cskaoyan.mall.bean.Brand;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.bean.page.PageBean;
 import com.cskaoyan.mall.service.mall.BrandService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("admin")
@@ -20,10 +21,10 @@ public class BrandController {
 
     @RequestMapping("brand/list")
     public BaseResponseModel list(int page, int limit, Integer id, String name, String sort, String order) {
-        List<Brand> items = brandService.queryBrandList(id, name, sort, order);
-        Map data = new HashMap<>();
-        data.put("items",items);
-        data.put("total",items.size());
+        PageHelper.startPage(page, limit);
+        List<Brand> brands = brandService.queryBrandList(id, name, sort, order);
+        PageInfo<Brand> pageInfo = new PageInfo<>(brands);
+        PageBean<Brand> data = new PageBean<>(brands, pageInfo.getTotal());
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         baseResponseModel.setErrno(0);
         baseResponseModel.setErrmsg("成功");

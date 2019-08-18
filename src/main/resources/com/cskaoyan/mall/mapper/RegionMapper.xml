@@ -8,17 +8,17 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="code" jdbcType="INTEGER" property="code" />
   </resultMap>
-  <resultMap id="RegionMap" type="com.cskaoyan.mall.bean.Province">
+  <resultMap id="RegionMap" type="com.cskaoyan.mall.bean.mall.Province">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="code" jdbcType="INTEGER" property="code" />
-    <collection property="children" ofType="com.cskaoyan.mall.bean.City">
+    <collection property="children" ofType="com.cskaoyan.mall.bean.mall.City">
       <result column="cityId" property="id" />
       <result column="cityName" property="name" />
       <result column="cityType" property="type" />
       <result column="cityCode" property="code" />
-      <collection property="children" ofType="com.cskaoyan.mall.bean.Area">
+      <collection property="children" ofType="com.cskaoyan.mall.bean.mall.Area">
         <result column="areaId" property="id" />
         <result column="areaName" property="name" />
         <result column="areaType" property="type" />

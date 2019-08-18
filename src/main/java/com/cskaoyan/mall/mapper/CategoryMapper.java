@@ -5,7 +5,7 @@ import com.cskaoyan.mall.bean.CategoryExample;
 import java.util.List;
 
 import com.cskaoyan.mall.bean.CategoryList;
-import com.cskaoyan.mall.bean.L1Category;
+import com.cskaoyan.mall.bean.mall.L1Category;
 import org.apache.ibatis.annotations.Param;
 
 public interface CategoryMapper {

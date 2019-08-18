@@ -1,6 +1,10 @@
-package com.cskaoyan.mall.bean;
+package com.cskaoyan.mall.bean.mall;
 
-public class Area {
+import com.cskaoyan.mall.bean.mall.City;
+
+import java.util.List;
+
+public class Province {
     private Integer id;
 
     private Integer pid;
@@ -10,6 +14,8 @@ public class Area {
     private Byte type;
 
     private Integer code;
+
+    private List<City> children;
 
     public Integer getId() {
         return id;
@@ -49,5 +55,13 @@ public class Area {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public List<City> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<City> children) {
+        this.children = children;
     }
 }
