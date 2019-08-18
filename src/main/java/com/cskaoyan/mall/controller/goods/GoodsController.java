@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.controller.goods;
 
 import com.cskaoyan.mall.bean.Goods;
+import com.cskaoyan.mall.bean.UpdateGoods;
 import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.utils.GoodsReturnUntil;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
@@ -33,7 +34,7 @@ public class GoodsController {
             Map<String, Object> map1 = goodsService.selectGoodsByGoodSn(page, limit,goodsSn,sort,order);
             return ReturnMapUntil.returnMap(map1,"成功",0);
         }else if(name != null){
-            Map<String, Object> map1 = goodsService.selectAllGoodsList(page, limit,sort,order);
+            Map<String, Object> map1 = goodsService.selectGoodsByGoodsName(page, limit,name,sort,order);
             return ReturnMapUntil.returnMap(map1,"成功",0);
         }else{
             Map<String, Object> map1 = goodsService.selectAllGoodsList(page, limit,sort,order);
@@ -56,4 +57,17 @@ public class GoodsController {
         int i = goodsService.deleteGoods(goods);
         return GoodsReturnUntil.goodsReturnUtil(i==1);
     }
+
+    //编辑修改更新
+    @RequestMapping("update")
+    public Map<String,Object> updateGoods(@RequestBody UpdateGoods map){
+        return goodsService.updateGoods(map);
+    }
+
+    //商品上架
+    @RequestMapping("create")
+    public Map<String,Object> createGoods(@RequestBody UpdateGoods map){
+        return goodsService.createGoods(map);
+    }
+
 }

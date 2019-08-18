@@ -31,4 +31,6 @@ public interface CategoryMapper {
     List<Category> selectAllCat(@Param("level") String level);
 
     List<Category> selectByPid(@Param("pid") int pid);
+
+    Integer selectFirstLevelBySortOrder(@Param("sortOrder")Byte sortOrder);
 }

@@ -274,9 +274,10 @@
   </update>
 
   <resultMap id="OtherBrandMap" type="com.cskaoyan.mall.bean.otherbean.OtherBrand">
-  <id column="id" jdbcType="INTEGER" property="value" />
-  <result column="name" jdbcType="VARCHAR" property="label" />
+      <id column="id" jdbcType="INTEGER" property="value" />
+      <result column="name" jdbcType="VARCHAR" property="label" />
   </resultMap>
+
   <select id="selectAllBrand" resultMap="OtherBrandMap">
     select id, `name`
     from cskaoyan_mall_brand

@@ -46,4 +46,6 @@ public interface GoodsMapper {
     List<Goods> selectGoodsByGoodSnAndName(String name,String goodsSn,String sort,String order);
 
     Goods selectGoodsByCategoryId(@Param("categoryId") int categoryId);
+
+    List<Goods> selectGoodsByGoodsName(@Param("goodsName") String goodsName,String sort,String order);
 }
