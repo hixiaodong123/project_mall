@@ -106,13 +106,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Admin">
-    insert into cskaoyan_mall_admin (id, username, password, 
-      last_login_ip, last_login_time, avatar, 
-      add_time, update_time, deleted, 
-      role_ids)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, 
+    insert into cskaoyan_mall_admin ( username, password,
+      avatar, add_time, update_time,role_ids)
+    values ( #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{avatar,jdbcType=VARCHAR},
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{roleIds,typeHandler=com.cskaoyan.mall.handler.String2ArrayHandler})
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Admin">

@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.service;
+package com.cskaoyan.mall.service.admin;
 
 import com.cskaoyan.mall.bean.Admin;
 
@@ -9,9 +9,9 @@ public interface AdminService {
 
     boolean insertAdmin(Admin admin);
 
-    boolean deleteAdminById(String adminId);
+    boolean deleteAdminById(int adminId);
 
-    boolean deleteAdminByIds(String[] adminIds);
+    boolean deleteAdminByIds(int[] adminIds);
 
     boolean updateAdmin(Admin admin);
 
@@ -19,11 +19,12 @@ public interface AdminService {
 
     List<Map> listAdminsBySort(String orderBy);
 
-    Admin listAdminById(String adminId);
+    Admin listAdminById(int adminId);
 
-    List<Map> listAdminsByLikeId(String adminId);
+    List<Map> listAdminsByLikeId(int adminId);
 
     List<Map> listAdminsByLikeName(String username, String orderBy);
-    
 
+
+    Admin listAdminByName(String username);
 }
