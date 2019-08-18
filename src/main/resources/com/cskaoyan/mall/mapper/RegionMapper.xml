@@ -8,6 +8,24 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="code" jdbcType="INTEGER" property="code" />
   </resultMap>
+  <resultMap id="RegionMap" type="com.cskaoyan.mall.bean.Province">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <collection property="children" ofType="com.cskaoyan.mall.bean.City">
+      <result column="cityId" property="id" />
+      <result column="cityName" property="name" />
+      <result column="cityType" property="type" />
+      <result column="cityCode" property="code" />
+      <collection property="children" ofType="com.cskaoyan.mall.bean.Area">
+        <result column="areaId" property="id" />
+        <result column="areaName" property="name" />
+        <result column="areaType" property="type" />
+        <result column="areaCode" property="code" />
+      </collection>
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -208,4 +226,24 @@
       code = #{code,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryRegionList" resultMap="RegionMap">
+    select
+    region1.id,
+    region1.name,
+    region1.type,
+    region1.code,
+    region2.id as cityId,
+    region2.name as cityName,
+    region2.type as cityType,
+    region2.code as cityCode,
+    region3.id as areaId,
+    region3.name as areaName,
+    region3.type as areaType,
+    region3.code as areaCode
+    from cskaoyan_mall_region region1
+    left join cskaoyan_mall_region region2 on region1.id = region2.pid
+    left join cskaoyan_mall_region region3 on region2.id = region3.pid
+    where region1.type = 1;
+  </select>
 </mapper>

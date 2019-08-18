@@ -27,4 +27,8 @@ public interface IssueMapper {
     int updateByPrimaryKeySelective(Issue record);
 
     int updateByPrimaryKey(Issue record);
+
+    List<Issue> queryIssueList(@Param("question") String question, @Param("sort") String sort, @Param("order") String order);
+
+    Issue queryIssueByAnswerAndQuestion(@Param("answer") String answer, @Param("question") String question);
 }
