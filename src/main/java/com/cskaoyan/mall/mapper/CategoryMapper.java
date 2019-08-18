@@ -27,11 +27,17 @@ public interface CategoryMapper {
 
     int updateByExample(@Param("record") Category record, @Param("example") CategoryExample example);
 
+    int updateByPrimaryKeySelective(Category record);
+
     int updateByPrimaryKeySelective(CategoryList record);
 
     int updateByPrimaryKey(Category record);
 
     List<L1Category> queryL1Category();
 
+    List<Category> selectByPid(@Param("pid") int pid);
+
     List<CategoryList> queryCategoryList();
+
+    Integer selectFirstLevelBySortOrder(@Param("sortOrder")Byte sortOrder);
 }

@@ -272,22 +272,32 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  <select id="queryBrandList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from cskaoyan_mall_brand where 1 = 1
-    <if test="id != null">
-        and id = #{id}
-    </if>
-    <if test="name != null">
-        and name like concat("%",#{name},"%")
-    </if>
-    <if test="sort == 'add_time' and order == 'desc'">
-      order by add_time desc
-    </if>
+
+    <resultMap id="OtherBrandMap" type="com.cskaoyan.mall.bean.otherbean.OtherBrand">
+        <id column="id" jdbcType="INTEGER" property="value" />
+        <result column="name" jdbcType="VARCHAR" property="label" />
+    </resultMap>
+
+    <select id="selectAllBrand" resultMap="OtherBrandMap">
+    select id, `name`
+    from cskaoyan_mall_brand
   </select>
-  <select id="selectBrandByDescAndNameAndFloorPriceAndPicUrl" resultMap="BaseResultMap">
+
+    <select id="queryBrandList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cskaoyan_mall_brand where 1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null">
+            and name like concat("%",#{name},"%")
+        </if>
+        <if test="sort == 'add_time' and order == 'desc'">
+            order by add_time desc
+        </if>
+    </select>
+    <select id="selectBrandByDescAndNameAndFloorPriceAndPicUrl" resultMap="BaseResultMap">
     select
     id, `name`, `desc`, pic_url, floor_price, add_time, update_time
     from cskaoyan_mall_brand

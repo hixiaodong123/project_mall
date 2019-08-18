@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.GoodsAttribute;
 import com.cskaoyan.mall.bean.GoodsAttributeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface GoodsAttributeMapper {
     long countByExample(GoodsAttributeExample example);
@@ -27,4 +28,9 @@ public interface GoodsAttributeMapper {
     int updateByPrimaryKeySelective(GoodsAttribute record);
 
     int updateByPrimaryKey(GoodsAttribute record);
+
+    @Select("select count(*) from cskaoyan_mall_goods_attribute where attribute=#{attribute} and value=#{value}")
+    int selectGoodsAttributeByAttributeAndValue(@Param("attribute") String attribute,@Param("value") String value);
+
+    List<GoodsAttribute> selectGoodsAttributeByGoodsId(@Param("id") int id);
 }

@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, attribute, value, add_time, update_time, deleted
+    id, goods_id, attribute, `value`, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.GoodsAttributeExample" resultMap="BaseResultMap">
     select
@@ -240,4 +240,10 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectGoodsAttributeByGoodsId" resultMap="BaseResultMap">
+    select id, goods_id, attribute, `value`, add_time, update_time, deleted
+    from cskaoyan_mall_goods_attribute
+    where goods_id = #{id}
+  </select>
 </mapper>
