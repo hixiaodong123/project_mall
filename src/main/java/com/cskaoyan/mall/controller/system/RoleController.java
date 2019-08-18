@@ -3,6 +3,7 @@ package com.cskaoyan.mall.controller.system;
 
 import com.cskaoyan.mall.bean.Role;
 import com.cskaoyan.mall.bean.page.Page;
+import com.cskaoyan.mall.service.admin.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

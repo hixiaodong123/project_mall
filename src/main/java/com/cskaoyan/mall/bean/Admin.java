@@ -1,9 +1,12 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Admin {
-    private Integer id;
+    private int id;
 
     private String username;
 
@@ -11,17 +14,23 @@ public class Admin {
 
     private String lastLoginIp;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 
     private String avatar;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private Boolean deleted;
 
-    private String roleIds;
+    private int[] roleIds;
 
     @Override
     public String toString()
@@ -41,11 +50,11 @@ public class Admin {
         return sb.toString();
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -113,11 +122,11 @@ public class Admin {
         this.deleted = deleted;
     }
 
-    public String getRoleIds() {
+    public int[] getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(String roleIds) {
-        this.roleIds = roleIds == null ? null : roleIds.trim();
+    public void setRoleIds(int[] roleIds) {
+        this.roleIds = roleIds;
     }
 }

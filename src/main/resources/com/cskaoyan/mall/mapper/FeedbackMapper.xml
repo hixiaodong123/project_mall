@@ -320,4 +320,15 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listFeedbackByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    cskaoyan_mall_feedback
+    where
+    username like #{username}
+    and id like #{id}
+    order by #{sort} #{order}
+  </select>
 </mapper>

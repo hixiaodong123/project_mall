@@ -1,14 +1,10 @@
 package com.cskaoyan.mall.controller;
 
-import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.base.TotalInfo;
 import com.cskaoyan.mall.bean.base.UserInfo;
-import com.cskaoyan.mall.mapper.AdMapper;
 import com.cskaoyan.mall.service.IndexTotalService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,15 +30,12 @@ public class LoginController
 
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-    public BaseResponseModel<String> login(UserInfo userInfo)
-    {
-
+    public BaseResponseModel<String> login(UserInfo userInfo) {
         return new BaseResponseModel<>("5aa0ae65-914f-4d3c-9fbf-82f87628218b", "成功", 0);
     }
 
     @RequestMapping(value = "/auth/info", method = RequestMethod.GET)
-    public BaseResponseModel info()
-    {
+    public BaseResponseModel info() {
         BaseResponseModel<UserInfo> baseResponseModel = new BaseResponseModel<>();
 
         UserInfo userInfo = new UserInfo();
@@ -59,8 +52,7 @@ public class LoginController
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public BaseResponseModel dashboard()
-    {
+    public BaseResponseModel dashboard() {
 
         Long totalGoods = indexTotalService.queryGoodsTotal();
         Long totalUser = indexTotalService.queryUserTotal();
@@ -76,8 +68,6 @@ public class LoginController
         return baseResponseModel;
 
     }
-
-
 
 
 }

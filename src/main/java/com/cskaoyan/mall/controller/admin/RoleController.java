@@ -1,8 +1,9 @@
-package com.cskaoyan.mall.controller.system;
+package com.cskaoyan.mall.controller.admin;
 
 
+import com.cskaoyan.mall.bean.Role;
 import com.cskaoyan.mall.bean.page.Page;
-import com.cskaoyan.mall.service.admin.AdminService;
+import com.cskaoyan.mall.service.admin.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,34 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("admin/admin")
-public class AdminController {
+@RequestMapping("admin/role")
+public class RoleController {
+
 
     @Autowired
-    AdminService adminService;
+    RoleService roleService;
 
     @RequestMapping("list")
-    public Map<String, Object> listAdmin(Page page,String username) {
+    public Map<String, Object> listRole(Page page) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(page.getPage(), page.getLimit());
-        List<Map> list = new ArrayList<>();
-        String orderBy = page.getSort() + " " + page.getOrder();
-        if (username == null) {
-            list = adminService.listAdminsBySort(orderBy);
-        } else {
-            list = adminService.listAdminsByLikeName(username, orderBy);
+        List<Role> roles = roleService.listRolesBySort(page.getSort()+" " +page.getOrder());
+        Map data = returnList(roles);
+        map.put("data", data);
+        return returnSuccess(map);
+    }
+
+    @RequestMapping("options")
+    public Map<String, Object> options() {
+        List data = new ArrayList();
+        List<Role> roles = roleService.listRoles();
+        for (Role role : roles) {
+            Map<String, Object> temp = new HashMap<>();
+            temp.put("value", role.getId());
+            temp.put("label", role.getName());
+            data.add(temp);
         }
-        Map data = returnList(list);
+        Map map = new HashMap();
         map.put("data", data);
         return returnSuccess(map);
     }
@@ -44,8 +55,8 @@ public class AdminController {
         return map;
     }
 
-    private Map returnList(List<Map> list) {
-        PageInfo<Map> pageInfo = new PageInfo<>(list);
+    private Map returnList(List list) {
+        PageInfo pageInfo = new PageInfo<>(list);
         long total = pageInfo.getTotal();
         Map<String, Object> map = new HashMap<>();
         map.put("total", total);

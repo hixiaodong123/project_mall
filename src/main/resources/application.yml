@@ -8,8 +8,22 @@ spring:
     username: ${myUsername}
     password: ${myPassword}
     type: ${myType}
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+
+oss:
+  bucket: cskaoyan
+  endpoint: oss-cn-beijing.aliyuncs.com
+  access-key: LTAI8EgTxlc4QQZr
+  secret: RBDvSGZOR8DaUJxlLrW4Ed46RVnAkR
 
 ## 端口号设置,配合前端
 server:
   port: 80
+
+##配置handler
+mybatis:
+  type-handlers-package: com.cskaoyan.mall.handler
 

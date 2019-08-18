@@ -225,4 +225,15 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listFootPrintByCondition" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    cskaoyan_mall_footprint
+    where
+    user_id like #{userId}
+    and goods_id like #{goodsId}
+    order by #{sort} #{order}
+  </select>
 </mapper>

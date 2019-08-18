@@ -1,9 +1,12 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Storage {
-    private Integer id;
+    private int id;
 
     private String key;
 
@@ -11,21 +14,25 @@ public class Storage {
 
     private String type;
 
-    private Integer size;
+    private long size;
 
     private String url;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private Boolean deleted;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,11 +60,11 @@ public class Storage {
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
