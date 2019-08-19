@@ -5,6 +5,8 @@ import com.cskaoyan.mall.bean.BrandExample;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.cskaoyan.mall.bean.otherbean.OtherBrand;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -34,4 +36,6 @@ public interface BrandMapper {
     List<Brand> queryBrandList(@Param("id") Integer id, @Param("name") String name, @Param("sort") String sort, @Param ("order")String order);
 
     Brand selectBrandByDescAndNameAndFloorPriceAndPicUrl(@Param("desc") String desc, @Param("name") String name, @Param("floorPrice") BigDecimal floorPrice, @Param("picUrl") String picUrl);
+
+    List<OtherBrand> selectAllBrand();
 }

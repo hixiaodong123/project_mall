@@ -7,7 +7,7 @@ import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.page.PageBean;
 import com.cskaoyan.mall.service.mall.OrderGoodsService;
 import com.cskaoyan.mall.service.mall.OrderService;
-import com.cskaoyan.mall.service.mall.UserService;
+import com.cskaoyan.mall.service.user.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

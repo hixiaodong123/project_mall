@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.controller.mall;
 
+import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.CategoryList;
 import com.cskaoyan.mall.bean.mall.L1Category;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
@@ -55,6 +56,20 @@ public class CategoryController {
         if(i == 1) {
             baseResponseModel.setErrno(0);
             baseResponseModel.setErrmsg("成功");
+        }
+        return baseResponseModel;
+    }
+
+    @RequestMapping("category/create")
+    public BaseResponseModel create(@RequestBody Category category) {
+        int insert = categoryService.insert(category);
+        BaseResponseModel baseResponseModel = new BaseResponseModel();
+        if(insert == 1) {
+            Category category1 = categoryService.selectCategoryByLevelAndKeywordsAndDescAndPid(category.getLevel(), category.getKeywords(),
+                    category.getDesc(), category.getPid());
+            baseResponseModel.setErrmsg("成功");
+            baseResponseModel.setErrno(0);
+            baseResponseModel.setData(category1);
         }
         return baseResponseModel;
     }

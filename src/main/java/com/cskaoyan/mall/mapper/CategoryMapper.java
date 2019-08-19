@@ -35,9 +35,14 @@ public interface CategoryMapper {
 
     List<L1Category> queryL1Category();
 
-    List<Category> selectByPid(@Param("pid") int pid);
-
     List<CategoryList> queryCategoryList();
 
+    List<Category> selectAllCat(@Param("level") String level);
+
+    List<Category> selectByPid(@Param("pid") int pid);
+
     Integer selectFirstLevelBySortOrder(@Param("sortOrder")Byte sortOrder);
+
+    Category selectCategoryByLevelAndKeywordsAndDescAndPid(String level, String keywords, String desc, Integer pid);
+
 }

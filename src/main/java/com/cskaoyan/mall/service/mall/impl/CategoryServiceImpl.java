@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.service.mall.impl;
 
+import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.CategoryList;
 import com.cskaoyan.mall.bean.mall.L1Category;
 import com.cskaoyan.mall.mapper.CategoryMapper;
@@ -36,6 +37,18 @@ public class CategoryServiceImpl implements CategoryService {
     public int deleteByPrimaryKey(Integer id) {
         int i = categoryMapper.deleteByPrimaryKey(id);
         return i;
+    }
+
+    @Override
+    public int insert(Category category) {
+        int insert = categoryMapper.insert(category);
+        return insert;
+    }
+
+    @Override
+    public Category selectCategoryByLevelAndKeywordsAndDescAndPid(String level, String keywords, String desc, Integer pid) {
+        Category category = categoryMapper.selectCategoryByLevelAndKeywordsAndDescAndPid(level, keywords, desc, pid);
+        return category;
     }
 
 

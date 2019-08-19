@@ -375,4 +375,10 @@
     where sort_order = #{sortOrder} and `level` = 'L1'
   </select>
 
+  <select id="selectCategoryByLevelAndKeywordsAndDescAndPid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where `level` = #{level} and keywords = #{keywords} and `desc` = #{desc} and pid = #{pid}
+  </select>
 </mapper>
