@@ -40,14 +40,18 @@ public class LoginServiceImpl implements LoginService{
         for (int id : ids) {
             List<String> s = permissionMapper.queryPermissionsByRolesId(id);
             for (String s1 : s) {
-                String s2 = s1.replace(':', '/');
-                if(s2.contains("creat")||s2.contains("delete")||s2.contains("update")||s2.contains("permissions")||
-                   s2.contains("reply")||s2.contains("ship")||s2.contains("storage/read")||s2.contains("refund")){
-                    String s3 = "POST /" + s2;
-                    list.add(s3);
+                if(!s1.equals("*")){
+                    String s2 = s1.replace(':', '/');
+                    if(s2.contains("creat")||s2.contains("delete")||s2.contains("update")||s2.contains("permissions")||
+                            s2.contains("reply")||s2.contains("ship")||s2.contains("storage/read")||s2.contains("refund")){
+                        String s3 = "POST /" + s2;
+                        list.add(s3);
+                    }else{
+                        String s3 = "GET /" + s2;
+                        list.add(s3);
+                    }
                 }else{
-                    String s3 = "GET /" + s2;
-                    list.add(s3);
+                    list.add(s1);
                 }
             }
         }
