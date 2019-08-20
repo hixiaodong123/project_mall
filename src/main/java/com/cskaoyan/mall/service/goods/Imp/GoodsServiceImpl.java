@@ -10,10 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -27,11 +24,14 @@ public class GoodsServiceImpl implements GoodsService {
     GoodsProductMapper goodsProductMapper;
     @Autowired
     GoodsSpecificationMapper goodsSpecificationMapper;
+    @Autowired
+    GoodsAttributeMapper goodsAttributeMapper;
 
     @Override
     public Map<String, Object> selectGoodsByGoodSnAndName(int page, int limit, String name, String goodsSn, String sort, String order) {
         PageHelper.startPage(page,limit);
-        List<Goods> goods = goodsMapper.selectGoodsByGoodSnAndName(name,goodsSn,sort,order);
+        String name1="%"+name+"%";
+        List<Goods> goods = goodsMapper.selectGoodsByGoodSnAndName(name1,goodsSn,sort,order);
         PageInfo<Goods> pageInfo = new PageInfo<>(goods);
         long total = pageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -56,6 +56,19 @@ public class GoodsServiceImpl implements GoodsService {
     public Map<String, Object> selectGoodsByGoodSn(int page, int limit, String goodsSn, String sort, String order) {
         PageHelper.startPage(page,limit);
         List<Goods> goods = goodsMapper.selectGoodsByGoodSn(goodsSn,sort,order);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        long total = pageInfo.getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("items",goods);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> selectGoodsByGoodsName(int page, int limit, String goodsName, String sort, String order) {
+        PageHelper.startPage(page,limit);
+        String name1="%"+goodsName+"%";
+        List<Goods> goods = goodsMapper.selectGoodsByGoodsName(name1,sort,order);
         PageInfo<Goods> pageInfo = new PageInfo<>(goods);
         long total = pageInfo.getTotal();
         HashMap<String, Object> map = new HashMap<>();
@@ -100,11 +113,15 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Map<String, Object> returnGoodsDetail(int id) {
         HashMap<String, Object> map1 = new HashMap<>();
-        int[] arr1={1006002};
-        int[] arr2 = {};
-        map1.put("attributes",arr1);
-        map1.put("categoryIds",arr2);
+        List<GoodsAttribute> attributes = goodsAttributeMapper.selectGoodsAttributeByGoodsId(id);
+        map1.put("attributes",attributes);
         Goods goods = goodsMapper.selectByPrimaryKey(id);
+        Integer categoryId = goods.getCategoryId();
+        Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        Byte sortOrder = category.getSortOrder();
+        Integer firstLevel = categoryMapper.selectFirstLevelBySortOrder(sortOrder);
+        int[] arr={firstLevel,categoryId};
+        map1.put("categoryIds",arr);
         map1.put("goods",goods);
         List<GoodsProduct> products = goodsProductMapper.selectGoodsProductByGoodsId(id);
         map1.put("products",products);
@@ -113,4 +130,216 @@ public class GoodsServiceImpl implements GoodsService {
         return ReturnMapUntil.returnMap(map1,"成功",0);
     }
 
+    @Override
+    public Map<String, Object> updateGoods(UpdateGoods map) {
+        Date date = new Date();
+        GoodsAttribute[] attributes = map.getAttributes();
+        Goods goods = map.getGoods();
+        GoodsProduct[] products = map.getProducts();
+        GoodsSpecification[] specifications = map.getSpecifications();
+        for (GoodsAttribute attribute : attributes) {
+            if(attribute.getAttribute()==null && attribute.getValue()==null){
+                HashMap<String, Object> map2 = new HashMap<>();
+                map2.put("errmsg","商品参数为空");
+                map2.put("errno",401);
+                return map2;
+            }
+            else if(attribute.getAttribute()==null||attribute.getValue()==null){
+                HashMap<String, Object> map2 = new HashMap<>();
+                map2.put("errmsg","参数不对");
+                map2.put("errno",401);
+                return map2;
+            }else {
+                String attribute1 = attribute.getAttribute();
+                String value = attribute.getValue();
+                int i = goodsAttributeMapper.selectGoodsAttributeByAttributeAndValue(attribute1,value);
+                if(i==0){
+                    Integer id = goods.getId();
+                    attribute.setGoodsId(id);
+                    attribute.setAddTime(date);
+                    attribute.setUpdateTime(date);
+                    attribute.setDeleted(false);
+                    goodsAttributeMapper.insert(attribute);
+                }else{
+                    attribute.setUpdateTime(date);
+                    goodsAttributeMapper.updateByPrimaryKeySelective(attribute);
+                }
+            }
+        }
+        goodsMapper.updateByPrimaryKeySelective(goods);
+        for (GoodsProduct product : products) {
+            if(product.getId()!=0){
+                GoodsProduct goodsProduct = goodsProductMapper.selectByPrimaryKey(product.getId());
+                if(!goodsProduct.equals(product)){
+                    product.setUpdateTime(date);
+                    goodsProductMapper.updateByPrimaryKeySelective(product);
+                }
+            }else {
+                product.setAddTime(date);
+                product.setUpdateTime(date);
+                product.setDeleted(false);
+                product.setGoodsId(goods.getId());
+                goodsProductMapper.insert(product);
+            }
+        }
+        for (GoodsSpecification specification : specifications) {
+            if(specification.getId()!=null){
+                GoodsSpecification specification1 = goodsSpecificationMapper.selectByPrimaryKey(specification.getId());
+                if(!specification.equals(specification1)){
+                    specification.setUpdateTime(date);
+                    goodsSpecificationMapper.updateByPrimaryKeySelective(specification);
+                }
+            }else{
+                specification.setAddTime(date);
+                specification.setUpdateTime(date);
+                specification.setDeleted(false);
+                specification.setGoodsId(goods.getId());
+                goodsSpecificationMapper.insert(specification);
+            }
+        }
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("errmsg","成功");
+        map1.put("errno",0);
+        return map1;
+    }
+
+    @Override
+    public Map<String, Object> createGoods(UpdateGoods map) {
+        Date date = new Date();
+        GoodsAttribute[] attributes = map.getAttributes();
+        Goods goods = map.getGoods();
+        GoodsProduct[] products = map.getProducts();
+        GoodsSpecification[] specifications = map.getSpecifications();
+        goods.setAddTime(date);
+        goods.setUpdateTime(date);
+        goods.setDeleted(false);
+        Integer goodsId = Integer.valueOf(goods.getGoodsSn());
+        goods.setId(goodsId);
+        goodsMapper.insertSelective(goods);
+        for (GoodsAttribute attribute : attributes) {
+            if(attribute.getAttribute()==null && attribute.getValue()==null){
+                HashMap<String, Object> map2 = new HashMap<>();
+                map2.put("errmsg","商品参数为空");
+                map2.put("errno",401);
+                return map2;
+            }
+            else if(attribute.getAttribute()==null||attribute.getValue()==null){
+                HashMap<String, Object> map2 = new HashMap<>();
+                map2.put("errmsg","参数不对");
+                map2.put("errno",401);
+                return map2;
+            }else {
+                    attribute.setGoodsId(goodsId);
+                    attribute.setAddTime(date);
+                    attribute.setUpdateTime(date);
+                    attribute.setDeleted(false);
+                    goodsAttributeMapper.insert(attribute);
+            }
+        }
+        goodsMapper.updateByPrimaryKeySelective(goods);
+        for (GoodsProduct product : products) {
+            if(product.getId()!=0){
+                GoodsProduct goodsProduct = goodsProductMapper.selectByPrimaryKey(product.getId());
+                if(!goodsProduct.equals(product)){
+                    product.setUpdateTime(date);
+                    goodsProductMapper.updateByPrimaryKeySelective(product);
+                }
+            }else {
+                product.setAddTime(date);
+                product.setUpdateTime(date);
+                product.setDeleted(false);
+                product.setGoodsId(goodsId);
+                goodsProductMapper.insert(product);
+            }
+        }
+        for (GoodsSpecification specification : specifications) {
+            if(specification.getId()!=null){
+                GoodsSpecification specification1 = goodsSpecificationMapper.selectByPrimaryKey(specification.getId());
+                if(!specification.equals(specification1)){
+                    specification.setUpdateTime(date);
+                    goodsSpecificationMapper.updateByPrimaryKeySelective(specification);
+                }
+            }else{
+                specification.setAddTime(date);
+                specification.setUpdateTime(date);
+                specification.setDeleted(false);
+                specification.setGoodsId(goodsId);
+                goodsSpecificationMapper.insert(specification);
+            }
+        }
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("errmsg","成功");
+        map1.put("errno",0);
+        return map1;
+    }
+
+    @Override
+    public long countByExample(GoodsExample example) {
+        return goodsMapper.countByExample(example);
+    }
+
+    @Override
+    public int deleteByExample(GoodsExample example) {
+        return goodsMapper.deleteByExample(example);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return goodsMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insert(Goods record) {
+        return goodsMapper.insert(record);
+    }
+
+    @Override
+    public int insertSelective(Goods record) {
+        return goodsMapper.insertSelective(record);
+    }
+
+    @Override
+    public List<Goods> selectByExampleWithBLOBs(GoodsExample example) {
+        return goodsMapper.selectByExampleWithBLOBs(example);
+    }
+
+    @Override
+    public List<Goods> selectByExample(GoodsExample example) {
+        return goodsMapper.selectByExample(example);
+    }
+
+    @Override
+    public Goods selectByPrimaryKey(Integer id) {
+        return goodsMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByExampleSelective(Goods record, GoodsExample example) {
+        return goodsMapper.updateByExampleSelective(record, example);
+    }
+
+    @Override
+    public int updateByExampleWithBLOBs(Goods record, GoodsExample example) {
+        return goodsMapper.updateByExampleWithBLOBs(record, example);
+    }
+
+    @Override
+    public int updateByExample(Goods record, GoodsExample example) {
+        return goodsMapper.updateByExample(record, example);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Goods record) {
+        return goodsMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateByPrimaryKeyWithBLOBs(Goods record) {
+        return goodsMapper.updateByPrimaryKeyWithBLOBs(record);
+    }
+
+    @Override
+    public int updateByPrimaryKey(Goods record) {
+        return goodsMapper.updateByPrimaryKey(record);
+    }
 }

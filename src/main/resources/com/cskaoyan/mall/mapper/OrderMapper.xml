@@ -540,4 +540,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryOrderList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_order where 1 = 1
+    <if test="orderStatusArray != 0">
+      and order_status = #{orderStatusArray}
+    </if>
+    <if test="orderSn != null">
+      and order_sn  = #{orderSn}
+    </if>
+    <if test="userId != 0">
+      and user_id = #{userId}
+    </if>
+    <if test="sort == 'add_time' and order == 'desc'">
+      order by add_time desc
+    </if>
+  </select>
 </mapper>

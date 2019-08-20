@@ -303,4 +303,16 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByConditions" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_groupon
+    <where>
+      <if test="goodsId !=null">
+        groupon_id = #{goodsId}
+      </if>
+      and deleted = 0
+    </where>
+  </select>
 </mapper>

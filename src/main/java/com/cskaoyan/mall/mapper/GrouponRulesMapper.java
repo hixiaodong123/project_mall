@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.mapper;
 
+import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponRules;
 import com.cskaoyan.mall.bean.GrouponRulesExample;
 import java.util.List;
@@ -17,6 +18,8 @@ public interface GrouponRulesMapper {
     int insertSelective(GrouponRules record);
 
     List<GrouponRules> selectByExample(GrouponRulesExample example);
+
+    List<GrouponRules> selectByConditions(@Param("goodsId")Integer goodsId, @Param("sort") String sort, @Param("order") String order);
 
     GrouponRules selectByPrimaryKey(Integer id);
 

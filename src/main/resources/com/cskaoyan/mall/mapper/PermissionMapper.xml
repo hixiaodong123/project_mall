@@ -225,4 +225,18 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryPermissionsByName" resultType="string">
+    select p.permission
+    from cskaoyan_mall_admin ad
+    left join cskaoyan_mall_role ro on ad.role_ids = ro.id
+    left join cskaoyan_mall_permission p on ro.id = p.role_id
+    where username = #{username}
+  </select>
+
+  <select id="queryPermissionsByRolesId" resultType="string">
+    select permission
+    from cskaoyan_mall_permission
+    where role_id = #{id}
+  </select>
 </mapper>

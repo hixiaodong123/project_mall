@@ -18,6 +18,10 @@ public interface GrouponMapper {
 
     List<Groupon> selectByExample(GrouponExample example);
 
+    List<Groupon> selectByConditions(@Param("goodsId")Integer goodsId,
+                                     @Param("sort")String sort,
+                                     @Param("order")String order);
+
     Groupon selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Groupon record, @Param("example") GrouponExample example);

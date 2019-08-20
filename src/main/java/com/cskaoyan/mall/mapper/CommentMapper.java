@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.Comment;
 import com.cskaoyan.mall.bean.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);
@@ -27,4 +28,15 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectGoodsCommentByUserIdAndValueId(String userId,String valueId,String sort,String order);
+
+    List<Comment> selectGoodsCommentByUserId(String userId ,String sort,String order);
+
+    List<Comment> selectGoodsCommentByValueId(String valueId ,String sort,String order);
+
+    List<Comment> selectGoodsComment(String sort,String order);
+
+    @Select("select count(*) from cskaoyan_mall_comment")
+    int selectAllGoodsCommentNum();
 }

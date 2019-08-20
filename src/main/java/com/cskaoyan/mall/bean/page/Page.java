@@ -1,7 +1,6 @@
 package com.cskaoyan.mall.bean.page;
 
 public class Page {
-
     private int page;
     private int limit;
     private String sort;

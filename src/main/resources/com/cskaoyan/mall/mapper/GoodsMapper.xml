@@ -535,7 +535,7 @@
   </update>
 
   <select id="selectAllGoodsList" resultMap="BaseResultMap">
-    select id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    select id, goods_sn, `name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
@@ -543,7 +543,7 @@
   </select>
 
   <select id="selectGoodsByGoodSn" resultMap="BaseResultMap">
-    select id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    select id, goods_sn, `name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
@@ -551,17 +551,26 @@
     order by #{sort} #{order}
   </select>
 
-  <select id="selectGoodsByGoodSnAndName" resultMap="BaseResultMap">
-    select id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+  <select id="selectGoodsByGoodsName" resultMap="BaseResultMap">
+    select id, goods_sn, `name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
-    where goods_sn = #{goodsSn} and name = #{name}
+    where `name` like #{goodsName}
+    order by #{sort} #{order}
+  </select>
+
+  <select id="selectGoodsByGoodSnAndName" resultMap="BaseResultMap">
+    select id, goods_sn, `name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
+    add_time, update_time, deleted ,detail
+    from cskaoyan_mall_goods
+    where goods_sn = #{goodsSn} and `name` like #{name}
     order by #{sort} #{order}
   </select>
 
   <select id="selectGoodsByCategoryId" resultMap="BaseResultMap">
-    select id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    select id, goods_sn, `name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods

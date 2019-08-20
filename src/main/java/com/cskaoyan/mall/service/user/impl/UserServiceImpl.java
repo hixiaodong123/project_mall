@@ -22,4 +22,10 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.selectByExample(userExample);
         return users;
     }
+
+    @Override
+    public User selectByPrimaryKey(int id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        return user;
+    }
 }

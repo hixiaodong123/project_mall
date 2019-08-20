@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, link, url, position, content, start_time, end_time, enabled, add_time, 
+    id, `name`, link, url, `position`, content, start_time, end_time, enabled, `add_time`,
     update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.AdExample" resultMap="BaseResultMap">
@@ -109,10 +109,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Ad">
-    insert into cskaoyan_mall_ad (id, name, link, 
-      url, position, content, 
+    insert into cskaoyan_mall_ad (id, `name`, link,
+      url, `position`, content,
       start_time, end_time, enabled, 
-      add_time, update_time, deleted
+      `add_time`, update_time, deleted
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{position,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR}, 
@@ -321,4 +321,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_ad
+    <where>
+      <if test="name != null">
+        `name` like CONCAT("%",#{name},"%")
+      </if>
+      <if test="content != null">
+        and content like CONCAT("%",#{content},"%")
+      </if>
+        and deleted = 0
+    </where>
+    <if test="sort != null">
+      order by #{sort} ${order}
+    </if>
+  </select>
 </mapper>
