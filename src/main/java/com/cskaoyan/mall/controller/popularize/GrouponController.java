@@ -1,11 +1,10 @@
 package com.cskaoyan.mall.controller.popularize;
 
-import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponRules;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
-import com.cskaoyan.mall.service.popularize.GoodsService;
+import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.service.popularize.GrouponRulesService;
 import com.cskaoyan.mall.service.popularize.GrouponService;
 import com.cskaoyan.mall.utils.popularize.PopularizeUtils;

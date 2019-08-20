@@ -303,4 +303,36 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectGoodsCommentByUserIdAndValueId" resultMap="BaseResultMap">
+    select id, value_id, `type`, content, user_id, has_picture, pic_urls, star,
+     add_time, update_time, deleted
+     from cskaoyan_mall_comment
+     where value_id = #{valueId} and user_id = #{userId} and  deleted = 0
+     order by #{sort} #{order}
+  </select>
+
+  <select id="selectGoodsCommentByUserId" resultMap="BaseResultMap">
+    select id, value_id, `type`, content, user_id, has_picture, pic_urls, star,
+     add_time, update_time, deleted
+     from cskaoyan_mall_comment
+     where  user_id = #{userId} and  deleted = 0
+     order by #{sort} #{order}
+  </select>
+
+  <select id="selectGoodsCommentByValueId" resultMap="BaseResultMap">
+    select id, value_id, `type`, content, user_id, has_picture, pic_urls, star,
+     add_time, update_time, deleted
+     from cskaoyan_mall_comment
+     where  value_id = #{valueId} and  deleted = 0
+     order by #{sort} #{order}
+  </select>
+
+  <select id="selectGoodsComment" resultMap="BaseResultMap">
+    select id, value_id, `type`, content, user_id, has_picture, pic_urls, star,
+     add_time, update_time, deleted
+     from cskaoyan_mall_comment
+     where deleted = 0
+     order by #{sort} #{order}
+  </select>
 </mapper>

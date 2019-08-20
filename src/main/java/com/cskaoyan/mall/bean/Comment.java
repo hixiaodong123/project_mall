@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.bean;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Comment {
@@ -15,7 +16,7 @@ public class Comment {
 
     private Boolean hasPicture;
 
-    private String picUrls;
+    private String[] picUrls;
 
     private Short star;
 
@@ -23,7 +24,7 @@ public class Comment {
 
     private Date updateTime;
 
-    private Boolean deleted;
+    private boolean deleted;
 
     public Integer getId() {
         return id;
@@ -73,12 +74,12 @@ public class Comment {
         this.hasPicture = hasPicture;
     }
 
-    public String getPicUrls() {
+    public String[] getPicUrls() {
         return picUrls;
     }
 
-    public void setPicUrls(String picUrls) {
-        this.picUrls = picUrls == null ? null : picUrls.trim();
+    public void setPicUrls(String[] picUrls) {
+        this.picUrls = picUrls;
     }
 
     public Short getStar() {
@@ -105,11 +106,28 @@ public class Comment {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", valueId=" + valueId +
+                ", type=" + type +
+                ", content='" + content + '\'' +
+                ", userId=" + userId +
+                ", hasPicture=" + hasPicture +
+                ", picUrls=" + Arrays.toString(picUrls) +
+                ", star=" + star +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", deleted=" + deleted +
+                '}';
     }
 }

@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, desc, pic_url, sort_order, floor_price, add_time, update_time, deleted
+    id, `name`, `desc`, pic_url, sort_order, floor_price, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.BrandExample" resultMap="BaseResultMap">
     select
@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_brand
     where id = #{id,jdbcType=INTEGER}
@@ -104,7 +104,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Brand">
-    insert into cskaoyan_mall_brand (id, name, desc, 
+    insert into cskaoyan_mall_brand (id, `name`, `desc`,
       pic_url, sort_order, floor_price, 
       add_time, update_time, deleted
       )
@@ -262,8 +262,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cskaoyan.mall.bean.Brand">
     update cskaoyan_mall_brand
-    set name = #{name,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
+      `desc` = #{desc,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
       sort_order = #{sortOrder,jdbcType=TINYINT},
       floor_price = #{floorPrice,jdbcType=DECIMAL},
@@ -272,4 +272,35 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <resultMap id="OtherBrandMap" type="com.cskaoyan.mall.bean.otherbean.OtherBrand">
+        <id column="id" jdbcType="INTEGER" property="value" />
+        <result column="name" jdbcType="VARCHAR" property="label" />
+    </resultMap>
+
+    <select id="selectAllBrand" resultMap="OtherBrandMap">
+    select id, `name`
+    from cskaoyan_mall_brand
+  </select>
+
+    <select id="queryBrandList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cskaoyan_mall_brand where 1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null">
+            and name like concat("%",#{name},"%")
+        </if>
+        <if test="sort == 'add_time' and order == 'desc'">
+            order by add_time desc
+        </if>
+    </select>
+    <select id="selectBrandByDescAndNameAndFloorPriceAndPicUrl" resultMap="BaseResultMap">
+    select
+    id, `name`, `desc`, pic_url, floor_price, add_time, update_time
+    from cskaoyan_mall_brand
+    where `name` = #{name} and `desc` = #{desc} and floor_price = #{floorPrice} and pic_url = #{picUrl}
+  </select>
 </mapper>

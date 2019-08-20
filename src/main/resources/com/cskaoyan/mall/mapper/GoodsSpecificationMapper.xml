@@ -255,4 +255,10 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectGoodsSpecificationByGoodsId" resultMap="BaseResultMap">
+    select id, goods_id, specification, `value`, pic_url, add_time, update_time, deleted
+    from cskaoyan_mall_goods_specification
+    where goods_id = #{goodsId}
+  </select>
 </mapper>

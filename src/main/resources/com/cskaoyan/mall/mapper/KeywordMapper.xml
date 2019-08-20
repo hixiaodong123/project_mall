@@ -272,4 +272,25 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryKeywordList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_keyword where 1 = 1
+    <if test="keyword != null">
+      and keyword like concat("%", #{keyword}, "%")
+    </if>
+    <if test="url != null">
+      and url like concat("%", #{url}, "%")
+    </if>
+    <if test="sort == 'add_time' and order == 'desc'">
+      order by add_time desc
+    </if>
+  </select>
+  <select id="queryKeywordByKeywordAndUrl" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_keyword
+    where keyword = #{keyword} and url = #{url}
+  </select>
 </mapper>

@@ -15,6 +15,28 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
+  <resultMap id="L1Category" type="com.cskaoyan.mall.bean.mall.L1Category">
+    <result column="id" property="value" />
+    <result column="name" property="label" />
+  </resultMap>
+  <resultMap id="CategoryListMap" type="com.cskaoyan.mall.bean.CategoryList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <collection property="children" ofType="com.cskaoyan.mall.bean.Category">
+      <id column="L2Id" jdbcType="INTEGER" property="id" />
+      <result column="L2Name" jdbcType="VARCHAR" property="name" />
+      <result column="L2Keywords" jdbcType="VARCHAR" property="keywords" />
+      <result column="L2Desc" jdbcType="VARCHAR" property="desc" />
+      <result column="L2Icon_url" jdbcType="VARCHAR" property="iconUrl" />
+      <result column="L2Pic_url" jdbcType="VARCHAR" property="picUrl" />
+      <result column="L2Level" jdbcType="VARCHAR" property="level" />
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -74,7 +96,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, keywords, desc, pid, icon_url, pic_url, level, sort_order, add_time, update_time, 
+    id, `name`, keywords, `desc`, pid, icon_url, pic_url, `level`, sort_order, add_time, update_time,
     deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.CategoryExample" resultMap="BaseResultMap">
@@ -108,9 +130,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Category">
-    insert into cskaoyan_mall_category (id, name, keywords, 
-      desc, pid, icon_url, 
-      pic_url, level, sort_order, 
+    insert into cskaoyan_mall_category (id, `name`, keywords,
+      `desc`, pid, icon_url,
+      pic_url, `level`, sort_order,
       add_time, update_time, deleted
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
@@ -132,7 +154,7 @@
         keywords,
       </if>
       <if test="desc != null">
-        desc,
+        `desc`,
       </if>
       <if test="pid != null">
         pid,
@@ -253,7 +275,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       keywords = #{record.keywords,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
       pid = #{record.pid,jdbcType=INTEGER},
       icon_url = #{record.iconUrl,jdbcType=VARCHAR},
       pic_url = #{record.picUrl,jdbcType=VARCHAR},
@@ -266,17 +288,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.mall.bean.Category">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cskaoyan.mall.bean.CategoryList">
     update cskaoyan_mall_category
     <set>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="keywords != null">
         keywords = #{keywords,jdbcType=VARCHAR},
       </if>
       <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+        `desc` = #{desc,jdbcType=VARCHAR},
       </if>
       <if test="pid != null">
         pid = #{pid,jdbcType=INTEGER},
@@ -309,7 +331,7 @@
     update cskaoyan_mall_category
     set name = #{name,jdbcType=VARCHAR},
       keywords = #{keywords,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      `desc` = #{desc,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=INTEGER},
       icon_url = #{iconUrl,jdbcType=VARCHAR},
       pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -320,4 +342,43 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryL1Category" resultMap="L1Category">
+    select
+    id, name
+    from cskaoyan_mall_category
+    where level = 'L1'
+  </select>
+  <select id="queryCategoryList" resultMap="CategoryListMap">
+    select
+    L1.id,
+    L1.name,
+    L1.keywords,
+    L1.desc,
+    L1.icon_url,
+    L1.pic_url,
+    L1.level,
+    L2.id as L2Id,
+    L2.name as L2Name,
+    L2.keywords as L2Keywords,
+    L2.desc as L2Desc,
+    L2.icon_url as L2Icon_url,
+    L2.pic_url as L2Pic_url,
+    L2.level as L2Level
+    from cskaoyan_mall_category L1
+    left join cskaoyan_mall_category L2 on L1.id = L2.pid
+  </select>
+
+  <select id="selectFirstLevelBySortOrder" resultType="_int">
+    select id
+    from cskaoyan_mall_category
+    where sort_order = #{sortOrder} and `level` = 'L1'
+  </select>
+
+  <select id="selectCategoryByLevelAndKeywordsAndDescAndPid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where `level` = #{level} and keywords = #{keywords} and `desc` = #{desc} and pid = #{pid}
+  </select>
 </mapper>

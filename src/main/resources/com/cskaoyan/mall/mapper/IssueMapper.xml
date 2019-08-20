@@ -225,4 +225,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryIssueList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_issue where 1 = 1
+    <if test="question != null">
+      and question like concat("%",#{question},"%")
+    </if>
+    <if test="sort == 'add_time' and order == 'desc'">
+      order by add_time desc
+    </if>
+  </select>
+  <select id="queryIssueByAnswerAndQuestion" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_issue
+    where answer = #{answer} and question = #{question}
+  </select>
 </mapper>
