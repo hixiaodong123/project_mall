@@ -27,4 +27,6 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    String queryRolesNameById(@Param("id") int id);
 }

@@ -286,4 +286,23 @@
       role_ids = #{roleIds,typeHandler=com.cskaoyan.mall.handler.String2ArrayHandler}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryPasswordByName" resultType="string">
+    select password from cskaoyan_mall_admin where username = #{username}
+  </select>
+
+  <resultMap id="RoleIdsMap" type="com.cskaoyan.mall.bean.Admin">
+    <result column="role_ids" property="roleIds" typeHandler="com.cskaoyan.mall.handler.String2ArrayHandler"/>
+  </resultMap>
+  <select id="selectRolesIdByName" resultMap="RoleIdsMap" >
+    select role_ids from cskaoyan_mall_admin where username = #{username}
+</select>
+
+  <select id="queryUserByName" resultMap="BaseResultMap">
+    select id, username, password, last_login_ip, last_login_time, avatar, add_time, update_time,
+    deleted, role_ids
+    from cskaoyan_mall_admin
+    where username = #{username}
+  </select>
+
 </mapper>

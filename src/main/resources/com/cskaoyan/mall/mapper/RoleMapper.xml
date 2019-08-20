@@ -240,4 +240,8 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryRolesNameById" resultType="string">
+    select name from cskaoyan_mall_role where id = #{id}
+  </select>
 </mapper>
