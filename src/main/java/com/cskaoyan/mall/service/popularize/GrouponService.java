@@ -1,11 +1,12 @@
-package com.cskaoyan.mall.mapper;
+package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface GrouponMapper {
+import java.util.List;
+
+public interface GrouponService {
     long countByExample(GrouponExample example);
 
     int deleteByExample(GrouponExample example);

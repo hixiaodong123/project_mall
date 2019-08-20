@@ -1,12 +1,16 @@
-package com.cskaoyan.mall.mapper;
+package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponRules;
 import com.cskaoyan.mall.bean.GrouponRulesExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface GrouponRulesMapper {
+import java.util.List;
+
+public interface GrouponRulesService {
+
+    List<GrouponRules> selectByConditions(@Param("goodsId") Integer goodsId, @Param("sort") String sort, @Param("order") String order);
+
     long countByExample(GrouponRulesExample example);
 
     int deleteByExample(GrouponRulesExample example);
@@ -18,8 +22,6 @@ public interface GrouponRulesMapper {
     int insertSelective(GrouponRules record);
 
     List<GrouponRules> selectByExample(GrouponRulesExample example);
-
-    List<GrouponRules> selectByConditions(@Param("goodsId")Integer goodsId, @Param("sort") String sort, @Param("order") String order);
 
     GrouponRules selectByPrimaryKey(Integer id);
 

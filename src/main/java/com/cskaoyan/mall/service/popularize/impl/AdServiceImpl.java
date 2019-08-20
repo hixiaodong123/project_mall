@@ -46,6 +46,12 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
+    public List<Ad> selectAll(String name, String centent, String sort, String order) {
+        return adMapper.selectAll(name, centent, sort, order);
+    }
+
+
+    @Override
     public Ad selectByPrimaryKey(Integer id) {
         return adMapper.selectByPrimaryKey(id);
     }

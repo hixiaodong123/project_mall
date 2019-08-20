@@ -1,11 +1,17 @@
-package com.cskaoyan.mall.mapper;
+package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.Topic;
 import com.cskaoyan.mall.bean.TopicExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface TopicMapper {
+import java.util.List;
+
+public interface TopicService {
+    List<Topic> selectByConditions(@Param("title") String title,
+                                   @Param("subtitle") String subtitle,
+                                   @Param("sort") String sort,
+                                   @Param("order") String order);
+
     long countByExample(TopicExample example);
 
     int deleteByExample(TopicExample example);
@@ -17,11 +23,6 @@ public interface TopicMapper {
     int insertSelective(Topic record);
 
     List<Topic> selectByExampleWithBLOBs(TopicExample example);
-
-    List<Topic> selectByConditions(@Param("title") String title,
-                                   @Param("subtitle") String subtitle,
-                                   @Param("sort") String sort,
-                                   @Param("order") String order);
 
     List<Topic> selectByExample(TopicExample example);
 
@@ -40,4 +41,5 @@ public interface TopicMapper {
     int updateByPrimaryKeyWithBLOBs(Topic record);
 
     int updateByPrimaryKey(Topic record);
+
 }

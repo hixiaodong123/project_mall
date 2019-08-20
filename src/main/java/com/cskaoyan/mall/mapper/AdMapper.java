@@ -20,6 +20,8 @@ public interface AdMapper {
 
     List<Ad> selectByExample(AdExample example);
 
+    List<Ad> selectAll(@Param("name")String name,@Param("content") String content,@Param("sort") String sort, @Param("order") String order);
+
     Ad selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Ad record, @Param("example") AdExample example);

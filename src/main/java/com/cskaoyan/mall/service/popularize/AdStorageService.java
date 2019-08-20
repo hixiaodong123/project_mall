@@ -21,6 +21,8 @@ public interface AdStorageService {
 
     Storage selectByPrimaryKey(Integer id);
 
+    Storage selectByKey(@Param("key") String key);
+
     int updateByExampleSelective(@Param("record") Storage record, @Param("example") StorageExample example);
 
     int updateByExample(@Param("record") Storage record, @Param("example") StorageExample example);

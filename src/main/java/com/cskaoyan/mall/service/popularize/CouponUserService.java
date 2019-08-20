@@ -1,11 +1,13 @@
-package com.cskaoyan.mall.mapper;
+package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.CouponUser;
 import com.cskaoyan.mall.bean.CouponUserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface CouponUserMapper {
+import java.util.List;
+
+public interface CouponUserService {
+
     long countByExample(CouponUserExample example);
 
     int deleteByExample(CouponUserExample example);

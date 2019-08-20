@@ -51,6 +51,11 @@ public class AdStorageServiceImpl implements AdStorageService {
     }
 
     @Override
+    public Storage selectByKey(String key) {
+        return storageMapper.selectByKey(key);
+    }
+
+    @Override
     public int updateByExampleSelective(Storage record, StorageExample example) {
         return storageMapper.updateByExampleSelective(record, example);
     }

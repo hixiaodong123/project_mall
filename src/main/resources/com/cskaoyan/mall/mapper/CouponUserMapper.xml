@@ -303,4 +303,27 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByConditions" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_coupon_user
+    <where>
+      <if test="couponId != null">
+        coupon_id = #{couponId}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="status !=null">
+        and status = #{status}
+      </if>
+      and deleted = 0
+    </where>
+    <if test="sort != null">
+      order by #{sort} ${order}
+    </if>
+
+  </select>
+
 </mapper>
