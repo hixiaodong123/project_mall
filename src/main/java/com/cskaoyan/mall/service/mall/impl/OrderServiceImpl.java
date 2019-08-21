@@ -24,4 +24,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderMapper.selectByPrimaryKey(Integer.valueOf(id));
         return order;
     }
+
+    @Override
+    public int updateOrderStatuByOrderId(Order order) {
+        return 0;
+    }
 }

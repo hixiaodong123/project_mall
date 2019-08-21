@@ -65,4 +65,9 @@ public class OrderController {
         return baseResponseModel;
     }
 
+    @RequestMapping("order/ship")
+    public BaseResponseModel ship(Order order) {
+        return null;
+    }
+
 }
