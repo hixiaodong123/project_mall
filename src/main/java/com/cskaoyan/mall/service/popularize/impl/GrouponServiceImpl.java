@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.popularize.impl;
 
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponExample;
+import com.cskaoyan.mall.bean.wx.GrouponWX;
 import com.cskaoyan.mall.mapper.GrouponMapper;
 import com.cskaoyan.mall.service.popularize.GrouponService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,10 @@ public class GrouponServiceImpl implements GrouponService {
     @Override
     public int updateByPrimaryKey(Groupon record) {
         return grouponMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<GrouponWX> selectGrouponWXList() {
+        return null;
     }
 }

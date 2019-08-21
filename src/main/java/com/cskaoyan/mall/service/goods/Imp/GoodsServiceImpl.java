@@ -361,7 +361,36 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<FloorGood> selectFloorGoods() {
+    public List<FloorGood> selectFloorGoods(int categoryListSize) {
+        //先查出一级category列表
+        List<Category> categoryList = categoryMapper.selectAllCat("L1");
+        //根据categoryListSize缩减category列表长度
+        categoryList = categoryList.subList(0,categoryListSize);
+        GoodsExample goodsExample = new GoodsExample();
+        //创建List<FloorGood>对象，封装结果
+        List<FloorGood> floorGoods = new ArrayList<>();
+        //遍历categoryList，对每种分类封装一个FloorGood
+        for (Category category : categoryList) {
+            //创建二级category列表，根据二级category列表中category的id查找good
+            List<Category> secondCategoryList = categoryMapper.selectByPid(category.getId());
+            List<Goods> goodsList = new ArrayList<>();
+            for (Category c : secondCategoryList) {
+                goodsExample.createCriteria().andCategoryIdEqualTo(c.getId());
+                goodsList = goodsMapper.selectByExample(goodsExample);
+            }
+            FloorGood floorGood = new FloorGood();
+            floorGood.setName(category.getName());
+            floorGood.setId(category.getId());
+            floorGood.setGoods(goodsList);
+            //添加floorGood到List<FloorGood>对象
+            floorGoods.add(floorGood);
+        }
+        return floorGoods;
+    }
 
+    @Override
+    public List<Goods> selectAllGoods() {
+        List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
+        return goods;
     }
 }
