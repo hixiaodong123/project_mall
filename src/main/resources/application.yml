@@ -49,3 +49,7 @@ server:
 mybatis:
   type-handlers-package: com.cskaoyan.mall.handler
 
+logging:
+  path: /spring/log
+  level:
+    com.cskaoyan.mall.mapper: debug
