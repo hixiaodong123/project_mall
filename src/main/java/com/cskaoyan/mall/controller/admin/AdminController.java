@@ -27,7 +27,6 @@ public class AdminController {
 
     @RequestMapping("list")
     public Map<String, Object> listAdmin(Page page,String username) {
-        Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(page.getPage(), page.getLimit());
         List<Map> list ;
         String orderBy = page.getSort() + " " + page.getOrder();
@@ -65,7 +64,7 @@ public class AdminController {
         admin.setAddTime(date);
         admin.setUpdateTime(date);
         adminService.insertAdmin(admin);
-        Admin findAdmin = adminService.listAdminByName(admin.getUsername());
+        Admin findAdmin = adminService.listAdminById(admin.getId());
         String addTime = date2String(findAdmin.getAddTime());
         String updateTime = date2String(findAdmin.getUpdateTime());
         Map<String, Object> map = new HashMap<>();

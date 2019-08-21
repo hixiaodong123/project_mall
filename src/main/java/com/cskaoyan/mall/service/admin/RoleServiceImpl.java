@@ -6,7 +6,8 @@ import com.cskaoyan.mall.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -16,22 +17,32 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean insertRole(Role role) {
-        return false;
+        return 0 != roleMapper.insert(role);
     }
 
     @Override
-    public boolean deleteRoleById(String roleId) {
-        return false;
+    public boolean deleteRoleById(int id) {
+        Role role = roleMapper.selectByPrimaryKey(id);
+        role.setDeleted(true);
+        return 0 != roleMapper.updateByPrimaryKey(role);
     }
 
     @Override
-    public boolean deleteRoleByIds(String[] roleIds) {
+    public boolean deleteRoleByIds(int[] ids) {
         return false;
     }
 
     @Override
     public boolean updateRole(Role role) {
-        return false;
+        if (role.getName() == null) return false;
+        Role findRole = listRoleByName(role.getName());
+        if (findRole == null) {
+            findRole = listRoleById(role.getId());
+        }
+        if (findRole.getName().equals(role.getName()) && findRole.getId() != role.getId()) return false;
+        findRole.setDesc(role.getDesc());
+        findRole.setName(role.getName());
+        return 0 != roleMapper.updateByPrimaryKey(findRole);
     }
 
     @Override
@@ -40,24 +51,58 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.selectByExample(roleExample);
     }
     @Override
-    public List<Role> listRolesBySort(String sort) {
+    public List<Map> listRolesBySort(String sort) {
         RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andDeletedEqualTo(false);
         roleExample.setOrderByClause(sort);
-        return roleMapper.selectByExample(roleExample);
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        return returnMap(roles);
+    }
+
+    private List<Map> returnMap(List<Role> roles) {
+        List<Map> list = new ArrayList<>();
+        for (Role role: roles) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("addTime", date2String(role.getAddTime()));
+            map.put("deleted", role.getDeleted());
+            map.put("desc", role.getDesc());
+            map.put("enabled", role.getEnabled());
+            map.put("id", role.getId());
+            map.put("name", role.getName());
+            map.put("updateTime", date2String(role.getUpdateTime()));
+            list.add(map);
+        }
+        return list;
     }
 
     @Override
-    public Role listRoleById(String roleId) {
-        return null;
+    public Role listRoleById(int id) {
+        return roleMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<Role> listRolesByLikeId(String roleId) {
-        return null;
+    public Role listRoleByName(String name) {
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andNameEqualTo(name);
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        if (roles.size() == 0) return null;
+        return roles.get(0);
     }
 
     @Override
-    public List<Role> listRolesByLikeType(String roleId) {
-        return null;
+    public List<Map> listRolesByLikeName(String name, String sort) {
+        RoleExample roleExample = new RoleExample();
+        name = "%" + name + "%";
+        roleExample.createCriteria().andNameLike(name).andDeletedEqualTo(false);
+        roleExample.setOrderByClause(sort);
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        return returnMap(roles);
+    }
+    
+
+    //    将数据库中的日期转化为指定格式的字符串
+    private String date2String(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
     }
 }
