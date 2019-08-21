@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.GoodsExample;
 import com.cskaoyan.mall.bean.UpdateGoods;
+import com.cskaoyan.mall.bean.wx.FloorGood;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -58,4 +59,10 @@ public interface GoodsService {
     int updateByPrimaryKeyWithBLOBs(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    List<Goods> selectHotGoods();
+
+    List<Goods> selectNewGoods();
+
+    List<FloorGood> selectFloorGoods();
 }

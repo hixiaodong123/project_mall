@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.goods.Imp;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.otherbean.OtherBrand;
+import com.cskaoyan.mall.bean.wx.FloorGood;
 import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
@@ -341,5 +342,26 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int updateByPrimaryKey(Goods record) {
         return goodsMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<Goods> selectHotGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsHotEqualTo(true);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        return goods;
+    }
+
+    @Override
+    public List<Goods> selectNewGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsNewEqualTo(true);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        return goods;
+    }
+
+    @Override
+    public List<FloorGood> selectFloorGoods() {
+
     }
 }
