@@ -67,6 +67,7 @@ public class OrderController {
 
     @RequestMapping("order/ship")
     public BaseResponseModel ship(Order order) {
+        int i = orderService.updateOrderStatuByOrderId(order.getId(), order.getShipChannel(), order.getShipSn());
         return null;
     }
 
