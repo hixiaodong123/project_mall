@@ -82,8 +82,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, desc, tag, total, discount, min, limit, type, status, goods_type, goods_value, 
-    code, time_type, days, start_time, end_time, add_time, update_time, deleted
+    id, `name`, `desc`, tag, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value,
+    `code`, time_type, days, start_time, end_time, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.CouponExample" resultMap="BaseResultMap">
     select
@@ -116,9 +116,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Coupon">
-    insert into cskaoyan_mall_coupon (id, name, desc, 
+    insert into cskaoyan_mall_coupon (id, `name`, `desc`,
       tag, total, discount, 
-      min, limit, type, 
+      `min`, `limit`, type,
       status, goods_type, goods_value, 
       code, time_type, days, 
       start_time, end_time, add_time, 
@@ -362,10 +362,10 @@
     update cskaoyan_mall_coupon
     <set>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+        `desc` = #{desc,jdbcType=VARCHAR},
       </if>
       <if test="tag != null">
         tag = #{tag,jdbcType=VARCHAR},
@@ -377,13 +377,13 @@
         discount = #{discount,jdbcType=DECIMAL},
       </if>
       <if test="min != null">
-        min = #{min,jdbcType=DECIMAL},
+        `min` = #{min,jdbcType=DECIMAL},
       </if>
       <if test="limit != null">
-        limit = #{limit,jdbcType=SMALLINT},
+        `limit` = #{limit,jdbcType=SMALLINT},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=SMALLINT},
+        `type` = #{type,jdbcType=SMALLINT},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=SMALLINT},
@@ -444,4 +444,25 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_coupon
+    <where>
+      <if test="name != null">
+        `name` like CONCAT("%",#{name},"%")
+      </if>
+      <if test="type != null">
+        and `type` = #{type}
+      </if>
+      <if test="status !=null">
+        and status = #{status}
+      </if>
+      and deleted = 0
+    </where>
+    <if test="sort != null">
+      order by #{sort} ${order}
+    </if>
+  </select>
 </mapper>

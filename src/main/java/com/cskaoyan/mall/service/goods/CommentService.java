@@ -15,4 +15,5 @@ public interface CommentService {
     Map<String,Object> selectAllGoodsCommentList(int page, int limit, String sort, String order);
 
     int deleteComment(Comment comment);
+
 }

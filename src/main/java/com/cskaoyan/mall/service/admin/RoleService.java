@@ -3,26 +3,25 @@ package com.cskaoyan.mall.service.admin;
 import com.cskaoyan.mall.bean.Role;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoleService {
 
     boolean insertRole(Role role);
 
-    boolean deleteRoleById(String roleId);
+    boolean deleteRoleById(int id);
 
-    boolean deleteRoleByIds(String[] roleIds);
+    boolean deleteRoleByIds(int[] ids);
 
     boolean updateRole(Role role);
 
     List<Role> listRoles();
 
-    List<Role> listRolesBySort(String sort);
+    List<Map> listRolesBySort(String sort);
 
-    Role listRoleById(String roleId);
+    Role listRoleById(int id);
 
-    List<Role> listRolesByLikeId(String roleId);
+    List<Map> listRolesByLikeName(String name, String sort);
 
-    List<Role> listRolesByLikeType(String roleId);
-    
-
+    Role listRoleByName(String name);
 }

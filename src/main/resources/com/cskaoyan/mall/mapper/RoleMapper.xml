@@ -101,13 +101,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cskaoyan.mall.bean.Role">
-    insert into cskaoyan_mall_role (id, `name`, `desc`, 
-      enabled, add_time, update_time, 
-      deleted)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT})
+  <insert id="insert" parameterType="com.cskaoyan.mall.bean.Role" useGeneratedKeys="true" keyProperty="id">
+    insert into cskaoyan_mall_role ( `name`, `desc`,add_time, update_time)
+    values (#{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+    now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Role">
     insert into cskaoyan_mall_role
@@ -183,7 +180,7 @@
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -200,7 +197,7 @@
       desc = #{record.desc,jdbcType=VARCHAR},
       enabled = #{record.enabled,jdbcType=BIT},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -222,7 +219,7 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
@@ -236,8 +233,12 @@
       `desc` = #{desc,jdbcType=VARCHAR},
       enabled = #{enabled,jdbcType=BIT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryRolesNameById" resultType="string">
+    select name from cskaoyan_mall_role where id = #{id}
+  </select>
 </mapper>

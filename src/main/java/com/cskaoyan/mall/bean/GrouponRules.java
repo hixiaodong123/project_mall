@@ -1,7 +1,11 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.regex.PatternSyntaxException;
 
 public class GrouponRules {
     private Integer id;
@@ -20,6 +24,8 @@ public class GrouponRules {
 
     private Date updateTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expireTime;
 
     private Boolean deleted;

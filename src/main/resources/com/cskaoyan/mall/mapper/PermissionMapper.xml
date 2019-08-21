@@ -101,11 +101,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Permission">
-    insert into cskaoyan_mall_permission (id, role_id, permission, 
+    insert into cskaoyan_mall_permission (role_id, permission,
       add_time, update_time, deleted
       )
-    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
+    values (#{roleId,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR},
+      now(), now(), #{deleted,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.Permission">
@@ -173,7 +173,7 @@
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -189,7 +189,7 @@
       role_id = #{record.roleId,jdbcType=INTEGER},
       permission = #{record.permission,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,7 +208,7 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
@@ -221,8 +221,22 @@
     set role_id = #{roleId,jdbcType=INTEGER},
       permission = #{permission,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryPermissionsByName" resultType="string">
+    select p.permission
+    from cskaoyan_mall_admin ad
+    left join cskaoyan_mall_role ro on ad.role_ids = ro.id
+    left join cskaoyan_mall_permission p on ro.id = p.role_id
+    where username = #{username}
+  </select>
+
+  <select id="queryPermissionsByRolesId" resultType="string">
+    select permission
+    from cskaoyan_mall_permission
+    where role_id = #{id}
+  </select>
 </mapper>

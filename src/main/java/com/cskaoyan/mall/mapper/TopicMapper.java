@@ -18,9 +18,16 @@ public interface TopicMapper {
 
     List<Topic> selectByExampleWithBLOBs(TopicExample example);
 
+    List<Topic> selectByConditions(@Param("title") String title,
+                                   @Param("subtitle") String subtitle,
+                                   @Param("sort") String sort,
+                                   @Param("order") String order);
+
     List<Topic> selectByExample(TopicExample example);
 
     Topic selectByPrimaryKey(Integer id);
+
+    Topic selectByTitle(@Param("title") String title);
 
     int updateByExampleSelective(@Param("record") Topic record, @Param("example") TopicExample example);
 

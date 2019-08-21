@@ -27,4 +27,11 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    String queryPasswordByName(@Param("username") String username);
+
+    int[] selectRolesIdByName(@Param("username") String username);
+
+    Admin queryUserByName(@Param("username")String username);
+
 }

@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.mapper;
 
+import com.cskaoyan.mall.bean.Ad;
 import com.cskaoyan.mall.bean.Coupon;
 import com.cskaoyan.mall.bean.CouponExample;
 import java.util.List;
@@ -17,6 +18,8 @@ public interface CouponMapper {
     int insertSelective(Coupon record);
 
     List<Coupon> selectByExample(CouponExample example);
+
+    List<Coupon> selectAll(@Param("name")String name, @Param("type") Integer type,@Param("status") Integer status, @Param("sort") String sort, @Param("order") String order);
 
     Coupon selectByPrimaryKey(Integer id);
 

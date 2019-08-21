@@ -18,6 +18,12 @@ public interface CouponUserMapper {
 
     List<CouponUser> selectByExample(CouponUserExample example);
 
+    List<CouponUser> selectByConditions(@Param("couponId") Integer couponId,
+                                      @Param("userId") Integer userId,
+                                      @Param("status") Integer status,
+                                      @Param("sort") String sort,
+                                      @Param("order") String order);
+
     CouponUser selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CouponUser record, @Param("example") CouponUserExample example);

@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.User;
 import com.cskaoyan.mall.bean.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -27,6 +28,9 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    @Select("select count(*) from cskaoyan_mall_user")
+    int queryAllUserNum();
 
     String queryPasswordByName(String username);
 

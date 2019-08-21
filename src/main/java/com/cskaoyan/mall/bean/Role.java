@@ -1,9 +1,12 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Role {
-    private Integer id;
+    private int id;
 
     private String name;
 
@@ -11,17 +14,21 @@ public class Role {
 
     private Boolean enabled;
 
+    @DateTimeFormat(pattern="yyyy-MM-ddHH:mm:ss")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-ddHH:mm:ss")
     private Date addTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-ddHH:mm:ss")
+    @JsonFormat(timezone="GMT+8",pattern="yyyy-MM-ddHH:mm:ss")
     private Date updateTime;
 
     private Boolean deleted;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
