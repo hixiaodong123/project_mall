@@ -33,6 +33,4 @@ public interface GrouponService {
     int updateByPrimaryKeySelective(Groupon record);
 
     int updateByPrimaryKey(Groupon record);
-
-    List<GrouponWX> selectGrouponWXList();
 }

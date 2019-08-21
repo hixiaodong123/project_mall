@@ -9,6 +9,7 @@ import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.service.mall.BrandService;
 import com.cskaoyan.mall.service.mall.CategoryService;
 import com.cskaoyan.mall.service.popularize.CouponService;
+import com.cskaoyan.mall.service.popularize.GrouponRulesService;
 import com.cskaoyan.mall.service.popularize.GrouponService;
 import com.cskaoyan.mall.service.popularize.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class WXHomeController {
     @Autowired
     TopicService topicService;//专题
     @Autowired
-    GrouponService grouponService;//团购
+    GrouponRulesService grouponRulesService;//团购
     @Autowired
     CategoryService categoryService;//分类
 
@@ -40,6 +41,7 @@ public class WXHomeController {
     int brandListSize = 4;
     int topicListSize = 5;
     int categoryListSize = 3;
+    int goodsListSize = 8;
 
     @RequestMapping("/index")
     public BaseResponseModel initHome(){
@@ -52,11 +54,11 @@ public class WXHomeController {
         //3.channel数据
         List<Category> channelList = categoryService.firstCategory();
         //4.couponList数据
-        List<Coupon> couponList = couponService.selectAll(null,null,null,"add_time","desc");
+        List<Coupon> couponList = couponService.selectAll(null,null,null,null,null);
         //5.floorGoodsList数据
-        List<FloorGood> floorGoodsList = goodsService.selectFloorGoods(3);
+        List<FloorGood> floorGoodsList = goodsService.selectFloorGoods(categoryListSize,goodsListSize);
         //6.grouponList数据
-        List<GrouponWX> grouponList = grouponService.selectGrouponWXList();
+        List<GrouponWX> grouponList = grouponRulesService.selectGrouponWXList();
         //7.hotGoodsList数据
         List<Goods> hotGoodsList = goodsService.selectHotGoods();//查询isHot为true的商品
         //8.newGoodsList数据
@@ -72,7 +74,7 @@ public class WXHomeController {
         map.put("channel",channelList);
         map.put("couponList",couponList);
         map.put("floorGoodsList",floorGoodsList);
-        map.put("grouponList",/*grouponList*/null);
+        map.put("grouponList",grouponList);
         map.put("hotGoodsList",hotGoodsList);
         map.put("newGoodsList",newGoodsList);
         map.put("topicList",topicList);

@@ -3,6 +3,7 @@ package com.cskaoyan.mall.service.popularize;
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponRules;
 import com.cskaoyan.mall.bean.GrouponRulesExample;
+import com.cskaoyan.mall.bean.wx.GrouponWX;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface GrouponRulesService {
     int updateByPrimaryKeySelective(GrouponRules record);
 
     int updateByPrimaryKey(GrouponRules record);
+
+    List<GrouponWX> selectGrouponWXList();
 }

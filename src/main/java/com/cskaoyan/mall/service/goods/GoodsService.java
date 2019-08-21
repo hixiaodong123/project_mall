@@ -64,7 +64,7 @@ public interface GoodsService {
 
     List<Goods> selectNewGoods();
 
-    List<FloorGood> selectFloorGoods(int categoryListSize);
+    List<FloorGood> selectFloorGoods(int categoryListSize,int goodsListSize);
 
     List<Goods> selectAllGoods();
 }

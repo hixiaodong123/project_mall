@@ -76,8 +76,4 @@ public class GrouponServiceImpl implements GrouponService {
         return grouponMapper.updateByPrimaryKey(record);
     }
 
-    @Override
-    public List<GrouponWX> selectGrouponWXList() {
-        return null;
-    }
 }

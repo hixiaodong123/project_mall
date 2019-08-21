@@ -361,12 +361,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<FloorGood> selectFloorGoods(int categoryListSize) {
+    public List<FloorGood> selectFloorGoods(int categoryListSize,int goodsListSize) {
         //先查出一级category列表
         List<Category> categoryList = categoryMapper.selectAllCat("L1");
         //根据categoryListSize缩减category列表长度
         categoryList = categoryList.subList(0,categoryListSize);
-        GoodsExample goodsExample = new GoodsExample();
         //创建List<FloorGood>对象，封装结果
         List<FloorGood> floorGoods = new ArrayList<>();
         //遍历categoryList，对每种分类封装一个FloorGood
@@ -375,13 +374,15 @@ public class GoodsServiceImpl implements GoodsService {
             List<Category> secondCategoryList = categoryMapper.selectByPid(category.getId());
             List<Goods> goodsList = new ArrayList<>();
             for (Category c : secondCategoryList) {
+                GoodsExample goodsExample = new GoodsExample();
                 goodsExample.createCriteria().andCategoryIdEqualTo(c.getId());
-                goodsList = goodsMapper.selectByExample(goodsExample);
+                goodsList.addAll(goodsMapper.selectByExample(goodsExample));
             }
+            goodsList = goodsList.size() > goodsListSize ? goodsList.subList(0,goodsListSize) : goodsList;
             FloorGood floorGood = new FloorGood();
             floorGood.setName(category.getName());
             floorGood.setId(category.getId());
-            floorGood.setGoods(goodsList);
+            floorGood.setGoodsList(goodsList);
             //添加floorGood到List<FloorGood>对象
             floorGoods.add(floorGood);
         }

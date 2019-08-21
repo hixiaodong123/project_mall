@@ -5,18 +5,18 @@ import com.cskaoyan.mall.bean.Goods;
 import java.util.List;
 
 public class FloorGood {
-    private List<Goods> goods;
+    private List<Goods> goodsList;
 
     private Integer Id;
 
     private String name;
 
-    public List<Goods> getGoods() {
-        return goods;
+    public List<Goods> getGoodsList() {
+        return goodsList;
     }
 
-    public void setGoods(List<Goods> goods) {
-        this.goods = goods;
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
     }
 
     public Integer getId() {
