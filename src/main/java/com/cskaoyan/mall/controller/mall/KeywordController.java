@@ -58,6 +58,7 @@ public class KeywordController {
 
     @RequestMapping("keyword/create")
     public BaseResponseModel create(@RequestBody Keyword keyword) {
+        keyword.setSortOrder(100);
         int insert = keywordService.insert(keyword);
         Keyword queryKeyword = keywordService.queryKeywordByKeywordAndUrl(keyword.getKeyword(), keyword.getUrl());
         BaseResponseModel baseResponseModel = new BaseResponseModel();

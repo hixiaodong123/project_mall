@@ -18,6 +18,16 @@
   <resultMap id="L1Category" type="com.cskaoyan.mall.bean.mall.L1Category">
     <result column="id" property="value" />
     <result column="name" property="label" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <resultMap id="CategoryListMap" type="com.cskaoyan.mall.bean.CategoryList">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -345,7 +355,7 @@
 
   <select id="queryL1Category" resultMap="L1Category">
     select
-    id, name
+    <include refid="Base_Column_List" />
     from cskaoyan_mall_category
     where level = 'L1'
   </select>

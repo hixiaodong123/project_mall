@@ -27,4 +27,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    String queryPasswordByName(String username);
+
+    List<String> queryPermissionsByName(String username);
 }
