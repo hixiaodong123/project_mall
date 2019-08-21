@@ -9,5 +9,5 @@ public interface OrderService {
 
     Order selectByPrimaryKey(String id);
 
-    int updateOrderStatuByOrderId(Order order);
+    int updateOrderStatuByOrderId(int order_satus, String ship_channel, String ship_sn);
 }

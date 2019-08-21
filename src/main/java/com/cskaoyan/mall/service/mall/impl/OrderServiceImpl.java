@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int updateOrderStatuByOrderId(Order order) {
+    public int updateOrderStatuByOrderId(int order_satus, String ship_channel, String ship_sn) {
         return 0;
     }
 }

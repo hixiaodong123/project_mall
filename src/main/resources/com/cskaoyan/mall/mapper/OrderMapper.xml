@@ -558,4 +558,9 @@
       order by add_time desc
     </if>
   </select>
+  <update id="updateOrderStatuById">
+    update cskaoyan_mall_order
+    set order_status, ship_channel, ship_sn
+    values (301, #{ship_channel}, #{ship_sn})
+  </update>
 </mapper>
