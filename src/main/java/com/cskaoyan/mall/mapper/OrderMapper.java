@@ -35,4 +35,9 @@ public interface OrderMapper {
 
     @Select("select count(*) from cskaoyan_mall_order")
     int queryAllOrderNum();
+
+    @Select("select count(*) from cskaoyan_mall_order where order_status = #{status}")
+    long queryOrderStatusNum(@Param("status") int status);
+
+    int updateOrderStatuByOrderId(@Param("order_status") int order_satus, @Param("ship_channel") String ship_channel, @Param("ship_sn") String ship_sn);
 }

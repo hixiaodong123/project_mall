@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.popularize;
 
 import com.cskaoyan.mall.bean.Groupon;
 import com.cskaoyan.mall.bean.GrouponExample;
+import com.cskaoyan.mall.bean.wx.GrouponWX;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

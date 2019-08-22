@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.service.mall.impl;
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.CategoryExample;
 import com.cskaoyan.mall.bean.CategoryList;
 import com.cskaoyan.mall.bean.mall.L1Category;
 import com.cskaoyan.mall.mapper.CategoryMapper;
@@ -19,6 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
     public List<L1Category> queryL1Category() {
         List<L1Category> l1 = categoryMapper.queryL1Category();
         return l1;
+    }
+
+    @Override
+    public List<Category> firstCategory() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andPidEqualTo(0).andDeletedEqualTo(false);
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        return categoryList;
     }
 
     @Override

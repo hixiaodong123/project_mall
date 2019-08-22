@@ -11,6 +11,8 @@ public interface CategoryService {
 
     List<L1Category> queryL1Category();
 
+    List<Category> firstCategory();
+
     List<CategoryList> queryCategoryList();
 
     int updateByPrimaryKeySelective(CategoryList categoryList);
