@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.goods.Imp;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.otherbean.OtherBrand;
+import com.cskaoyan.mall.bean.wx.FloorGood;
 import com.cskaoyan.mall.mapper.*;
 import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
@@ -122,7 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
         Integer firstLevel = categoryMapper.selectFirstLevelBySortOrder(sortOrder);
         int[] arr={firstLevel,categoryId};
         map1.put("categoryIds",arr);
-        map1.put("wxgoods",goods);
+        map1.put("goods",goods);
         List<GoodsProduct> products = goodsProductMapper.selectGoodsProductByGoodsId(id);
         map1.put("products",products);
         List<GoodsSpecification> specifications = goodsSpecificationMapper.selectGoodsSpecificationByGoodsId(id);
@@ -346,5 +347,56 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Goods> queryGoodsByKeywordOrId(String keyword, String sort, String order, int categoryId) {
         return goodsMapper.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
+    }
+
+    @Override
+    public List<Goods> selectHotGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsHotEqualTo(true);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        return goods;
+    }
+
+    @Override
+    public List<Goods> selectNewGoods() {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andIsNewEqualTo(true);
+        List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+        return goods;
+    }
+
+    @Override
+    public List<FloorGood> selectFloorGoods(int categoryListSize, int goodsListSize) {
+        //先查出一级category列表
+        List<Category> categoryList = categoryMapper.selectAllCat("L1");
+        //根据categoryListSize缩减category列表长度
+        categoryList = categoryList.subList(0,categoryListSize);
+        //创建List<FloorGood>对象，封装结果
+        List<FloorGood> floorGoods = new ArrayList<>();
+        //遍历categoryList，对每种分类封装一个FloorGood
+        for (Category category : categoryList) {
+            //创建二级category列表，根据二级category列表中category的id查找good
+            List<Category> secondCategoryList = categoryMapper.selectByPid(category.getId());
+            List<Goods> goodsList = new ArrayList<>();
+            for (Category c : secondCategoryList) {
+                GoodsExample goodsExample = new GoodsExample();
+                goodsExample.createCriteria().andCategoryIdEqualTo(c.getId());
+                goodsList.addAll(goodsMapper.selectByExample(goodsExample));
+            }
+            goodsList = goodsList.size() > goodsListSize ? goodsList.subList(0,goodsListSize) : goodsList;
+            FloorGood floorGood = new FloorGood();
+            floorGood.setName(category.getName());
+            floorGood.setId(category.getId());
+            floorGood.setGoodsList(goodsList);
+            //添加floorGood到List<FloorGood>对象
+            floorGoods.add(floorGood);
+        }
+        return floorGoods;
+    }
+
+    @Override
+    public List<Goods> selectAllGoods() {
+        List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
+        return goods;
     }
 }

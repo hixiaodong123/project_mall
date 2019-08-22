@@ -86,8 +86,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_sn, name, category_id, brand_id, gallery, keywords, brief, is_on_sale, 
-    sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price, 
+    id, goods_sn,`name`, category_id, brand_id, gallery, keywords, brief, is_on_sale,
+    sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted
   </sql>
   <sql id="Blob_Column_List">
@@ -142,7 +142,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Goods">
-    insert into cskaoyan_mall_goods (id, goods_sn, name, 
+    insert into cskaoyan_mall_goods (id, goods_sn, `name`,
       category_id, brand_id, gallery, 
       keywords, brief, is_on_sale, 
       sort_order, pic_url, share_url, 
@@ -167,7 +167,7 @@
         goods_sn,
       </if>
       <if test="name != null">
-        name,
+        `name`,
       </if>
       <if test="categoryId != null">
         category_id,
@@ -306,7 +306,7 @@
         goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.categoryId != null">
         category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -371,7 +371,7 @@
     update cskaoyan_mall_goods
     set id = #{record.id,jdbcType=INTEGER},
       goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
       brand_id = #{record.brandId,jdbcType=INTEGER},
       gallery = #{record.gallery,jdbcType=VARCHAR},
@@ -398,7 +398,7 @@
     update cskaoyan_mall_goods
     set id = #{record.id,jdbcType=INTEGER},
       goods_sn = #{record.goodsSn,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
       brand_id = #{record.brandId,jdbcType=INTEGER},
       gallery = #{record.gallery,jdbcType=VARCHAR},
@@ -427,7 +427,7 @@
         goods_sn = #{goodsSn,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=INTEGER},
@@ -489,7 +489,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cskaoyan.mall.bean.Goods">
     update cskaoyan_mall_goods
     set goods_sn = #{goodsSn,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       brand_id = #{brandId,jdbcType=INTEGER},
       gallery = #{gallery,jdbcType=VARCHAR},
@@ -513,7 +513,7 @@
   <update id="updateByPrimaryKey" parameterType="com.cskaoyan.mall.bean.Goods">
     update cskaoyan_mall_goods
     set goods_sn = #{goodsSn,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       brand_id = #{brandId,jdbcType=INTEGER},
       gallery = #{gallery,jdbcType=VARCHAR},

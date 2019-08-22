@@ -39,4 +39,8 @@ public interface OrderMapper {
     int updateStatuAs301ByOrderId(@Param("id") int orderId, @Param("shipChannel") String shipChannel, @Param("shipSn") String shipSn);
 
     int updateStatuAs203ByOrderId(@Param("id") int orderId, @Param("refundMoney") int refundMoney);
+    @Select("select count(*) from cskaoyan_mall_order where order_status = #{status}")
+    long queryOrderStatusNum(@Param("status") int status);
+
+    int updateOrderStatuByOrderId(@Param("order_status") int order_satus, @Param("ship_channel") String ship_channel, @Param("ship_sn") String ship_sn);
 }

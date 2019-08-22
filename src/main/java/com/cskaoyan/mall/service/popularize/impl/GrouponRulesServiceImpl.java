@@ -1,13 +1,15 @@
 package com.cskaoyan.mall.service.popularize.impl;
 
-import com.cskaoyan.mall.bean.Groupon;
-import com.cskaoyan.mall.bean.GrouponRules;
-import com.cskaoyan.mall.bean.GrouponRulesExample;
+import com.cskaoyan.mall.bean.*;
+import com.cskaoyan.mall.bean.wx.GrouponWX;
+import com.cskaoyan.mall.mapper.GoodsMapper;
+import com.cskaoyan.mall.mapper.GrouponMapper;
 import com.cskaoyan.mall.mapper.GrouponRulesMapper;
 import com.cskaoyan.mall.service.popularize.GrouponRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +17,12 @@ public class GrouponRulesServiceImpl implements GrouponRulesService {
 
     @Autowired
     GrouponRulesMapper grouponRulesMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
+
+    @Autowired
+    GrouponMapper grouponMapper;
 
     @Override
     public List<GrouponRules> selectByConditions(Integer goodsId, String sort, String order) {
@@ -74,5 +82,22 @@ public class GrouponRulesServiceImpl implements GrouponRulesService {
     @Override
     public int updateByPrimaryKey(GrouponRules record) {
         return grouponRulesMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<GrouponWX> selectGrouponWXList() {
+        List<GrouponRules> grouponRules = grouponRulesMapper.selectByExample(new GrouponRulesExample());
+        List<GrouponWX> grouponWXList = new ArrayList<>();
+        for (GrouponRules grouponRule : grouponRules) {
+            Goods goods = goodsMapper.selectByPrimaryKey(grouponRule.getGoodsId());
+            GrouponWX grouponWX = new GrouponWX();
+            grouponWX.setGoods(goods);
+            grouponWX.setGroupon_price(goods.getRetailPrice().intValue() - grouponRule.getDiscount().intValue());
+            GrouponExample grouponExample = new GrouponExample();
+            grouponExample.createCriteria().andGrouponIdEqualTo(grouponRule.getId());
+            grouponWX.setGroupon_num(grouponMapper.selectByExample(grouponExample).size());
+            grouponWXList.add(grouponWX);
+        }
+        return grouponWXList;
     }
 }

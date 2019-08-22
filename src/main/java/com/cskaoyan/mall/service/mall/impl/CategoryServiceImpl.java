@@ -23,6 +23,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> firstCategory() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andPidEqualTo(0).andDeletedEqualTo(false);
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        return categoryList;
+    }
+
+    @Override
     public List<CategoryList> queryCategoryList() {
         List<CategoryList> categories = categoryMapper.queryCategoryList();
         return categories;

@@ -33,6 +33,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public long queryOrderStatusNum(int status) {
+        orderMapper.queryOrderStatusNum(status);
+        return 0;
+    }
+
+    @Override
     public int updateStatuAs301ByOrderId(int orderId, String shipChannel, String shipSn) {
         int i = orderMapper.updateStatuAs301ByOrderId(orderId, shipChannel, shipSn);
         return i;

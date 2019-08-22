@@ -12,4 +12,5 @@ public interface OrderService {
     int updateStatuAs301ByOrderId(int orderId, String shipChannel, String shipSn);
 
     int updateStatuAs203ByOrderId(int orderId, int refundMoney);
+    long queryOrderStatusNum(int status);
 }

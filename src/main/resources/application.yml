@@ -5,9 +5,9 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://localhost:3306/production_mall?useUnicode=true&characterEncoding=utf-8
       username: root
-      password: 123456
+      password: 123156
       type: com.alibaba.druid.pool.DruidDataSource
       # 初始化大小，最小，最大
       initial-size: 5
@@ -49,3 +49,7 @@ server:
 mybatis:
   type-handlers-package: com.cskaoyan.mall.handler
 
+logging:
+  path: /spring/log
+  level:
+    com.cskaoyan.mall.mapper: debug
