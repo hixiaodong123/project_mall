@@ -31,4 +31,6 @@ public interface UserMapper {
 
     @Select("select count(*) from cskaoyan_mall_user")
     int queryAllUserNum();
+
+    User selectByUsername(String username);
 }

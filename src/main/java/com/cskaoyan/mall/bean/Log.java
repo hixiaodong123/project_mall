@@ -1,15 +1,18 @@
 package com.cskaoyan.mall.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Log {
-    private Integer id;
+    private int id;
 
     private String admin;
 
     private String ip;
 
-    private Integer type;
+    private int type;
 
     private String action;
 
@@ -19,17 +22,33 @@ public class Log {
 
     private String comment;
 
+    public Log() {
+    }
+
+    public Log(String admin, String ip, int type, String action, Boolean status, String result) {
+        this.admin = admin;
+        this.ip = ip;
+        this.type = type;
+        this.action = action;
+        this.status = status;
+        this.result = result;
+    }
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private Boolean deleted;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +68,11 @@ public class Log {
         this.ip = ip == null ? null : ip.trim();
     }
 
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 

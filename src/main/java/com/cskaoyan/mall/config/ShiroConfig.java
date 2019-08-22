@@ -39,9 +39,11 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         HashMap<String, String> filterChainDefinitionMap = new HashMap<>();
 
-        //filterChainDefinitionMap.put("/index","anon");
+        filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/admin/auth/login","anon");
-        //filterChainDefinitionMap.put("/hello","perms[hello]");
+        filterChainDefinitionMap.put("/wx/auth/login","anon");
+        filterChainDefinitionMap.put("wx/auth/register","anon");
+        filterChainDefinitionMap.put("wx/auth/regCaptcha","anon");
         filterChainDefinitionMap.put("/**","authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 

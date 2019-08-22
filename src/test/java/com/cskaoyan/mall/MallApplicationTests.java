@@ -2,8 +2,10 @@ package com.cskaoyan.mall;
 
 import com.cskaoyan.mall.bean.Api;
 import com.cskaoyan.mall.bean.Authorization;
+import com.cskaoyan.mall.service.admin.AdminService;
 import com.cskaoyan.mall.service.admin.ApiService;
 import com.cskaoyan.mall.service.admin.AuthorizationService;
+import com.cskaoyan.mall.service.user.UserService;
 import com.cskaoyan.mall.utils.json.JsonUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,12 @@ public class MallApplicationTests {
 
     @Autowired
     ApiService ap;
+
+    @Autowired
+    AdminService adminService;
+
+    @Autowired
+    UserService userService;
 
     /* 授权表
     CREATE TABLE `cskaoyan_mall_authorization` (
@@ -98,4 +106,13 @@ public class MallApplicationTests {
             }
         }
     }
+
+
+    //加密原admin和user中的密码
+    @Test
+    public void encryptOldPassword() {
+//        List<Map> maps = adminService.listAdmins();
+    }
+
+
 }
