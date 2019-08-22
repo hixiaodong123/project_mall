@@ -33,4 +33,6 @@ public interface GoodsProductMapper {
 
     @Select("select count(*) from cskaoyan_mall_goods_product")
     int queryAllGoodsProductNum();
+
+    int queryGoodsProductNumByGoodsId(@Param("goodsId") Integer goodsId);
 }

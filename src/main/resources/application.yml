@@ -4,11 +4,11 @@ spring:
     active: db
   datasource:
     druid:
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/production_mall?useUnicode=true&characterEncoding=utf-8
-      username: root
-      password: 123156
-      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: ${myDriverClassName}
+      url: ${myUrl}
+      username: ${myUsername}
+      password: ${myPassword}
+      type: ${myType}
       # 初始化大小，最小，最大
       initial-size: 5
       min-idle: 5

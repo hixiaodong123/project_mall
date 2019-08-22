@@ -35,4 +35,6 @@ public interface UserMapper {
     String queryPasswordByName(String username);
 
     List<String> queryPermissionsByName(String username);
+
+    User selectByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
 }

@@ -85,7 +85,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, pid, name, type, code
+    id, pid, `name`, `type`, code
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.RegionExample" resultMap="BaseResultMap">
     select
@@ -245,5 +245,12 @@
     left join cskaoyan_mall_region region2 on region1.id = region2.pid
     left join cskaoyan_mall_region region3 on region2.id = region3.pid
     where region1.type = 1;
+  </select>
+
+  <select id="selectRegionByPid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_region
+    where pid = #{pid}
   </select>
 </mapper>

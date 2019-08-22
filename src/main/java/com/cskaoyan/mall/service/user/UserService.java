@@ -10,4 +10,6 @@ public interface UserService {
     List<User> listUserByCondition(String username,String mobile, String sort, String order);
 
     User selectByPrimaryKey(int id);
+
+    User selectByUsernameAndPassword(String username, String password);
 }

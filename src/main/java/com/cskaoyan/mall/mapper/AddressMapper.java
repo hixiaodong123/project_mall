@@ -29,4 +29,8 @@ public interface AddressMapper {
     int updateByPrimaryKey(Address record);
 
     List<Address> listAddressByCondition(@Param("userId") String userId,@Param("name") String name,@Param("sort") String sort,@Param("order") String order);
+
+    List<Address> selectAddressByUserId(@Param("userId") Integer userId);
+
+    int updateByAddressIdForDelete(@Param("addressId") Integer addressId);
 }

@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, user_id, province_id, city_id, area_id, address, mobile, is_default, add_time, 
+    id, `name`, user_id, province_id, city_id, area_id, address, mobile, is_default, add_time,
     update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.cskaoyan.mall.bean.AddressExample" resultMap="BaseResultMap">
@@ -108,7 +108,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.Address">
-    insert into cskaoyan_mall_address (id, name, user_id, 
+    insert into cskaoyan_mall_address (id, `name`, user_id,
       province_id, city_id, area_id, 
       address, mobile, is_default, 
       add_time, update_time, deleted
@@ -331,4 +331,18 @@
     name like #{name}
     order by #{sort} #{order}
   </select>
+
+  <select id="selectAddressByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_address
+    where user_id = #{userId}
+    and deleted = 0
+  </select>
+
+  <update id="updateByAddressIdForDelete">
+    update cskaoyan_mall_address
+    set deleted = 1
+    where id = #{addressId}
+  </update>
 </mapper>
