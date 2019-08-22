@@ -3,6 +3,7 @@ package com.cskaoyan.mall.controller.wxcontroller.wxsearch;
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.service.mall.KeywordService;
+import com.cskaoyan.mall.service.user.SearchHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,9 @@ import java.util.Map;
 public class WXSearchController {
     @Autowired
     KeywordService keywordService;
+
+    @Autowired
+    SearchHistoryService searchHistoryService;
 
     @RequestMapping("search/index")
     public BaseResponseModel searchIndex() {
