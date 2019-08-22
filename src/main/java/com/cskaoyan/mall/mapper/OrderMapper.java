@@ -30,12 +30,15 @@ public interface OrderMapper {
 
     int updateByPrimaryKey(Order record);
 
-    List<Order> queryOrderList(@Param("orderStatusArray") int orderStatusArray, @Param("sort") String sort,
+    List<Order> queryOrderList(@Param("statue") int statue, @Param("sort") String sort,
                                @Param("order") String order, @Param("orderSn") String orderSn, @Param("userId") int userId);
 
     @Select("select count(*) from cskaoyan_mall_order")
     int queryAllOrderNum();
 
+    int updateStatuAs301ByOrderId(@Param("id") int orderId, @Param("shipChannel") String shipChannel, @Param("shipSn") String shipSn);
+
+    int updateStatuAs203ByOrderId(@Param("id") int orderId, @Param("refundMoney") int refundMoney);
     @Select("select count(*) from cskaoyan_mall_order where order_status = #{status}")
     long queryOrderStatusNum(@Param("status") int status);
 

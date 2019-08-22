@@ -5,11 +5,12 @@ import com.cskaoyan.mall.bean.Order;
 import java.util.List;
 
 public interface OrderService {
-    List<Order> queryOrderList(int orderStatusArray, String sort, String order, String orderSn, int userId);
+    List<Order> queryOrderList(int[] orderStatusArray, String sort, String order, String orderSn, int userId);
 
     Order selectByPrimaryKey(String id);
 
-    long queryOrderStatusNum(int status);
+    int updateStatuAs301ByOrderId(int orderId, String shipChannel, String shipSn);
 
-    int updateOrderStatuByOrderId(int order_satus, String ship_channel, String ship_sn);
+    int updateStatuAs203ByOrderId(int orderId, int refundMoney);
+    long queryOrderStatusNum(int status);
 }

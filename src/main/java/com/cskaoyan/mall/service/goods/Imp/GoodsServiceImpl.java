@@ -345,6 +345,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Goods> queryGoodsByKeywordOrId(String keyword, String sort, String order, int categoryId) {
+        return goodsMapper.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
+    }
+
+    @Override
     public List<Goods> selectHotGoods() {
         GoodsExample goodsExample = new GoodsExample();
         goodsExample.createCriteria().andIsHotEqualTo(true);
@@ -361,7 +366,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<FloorGood> selectFloorGoods(int categoryListSize,int goodsListSize) {
+    public List<FloorGood> selectFloorGoods(int categoryListSize, int goodsListSize) {
         //先查出一级category列表
         List<Category> categoryList = categoryMapper.selectAllCat("L1");
         //根据categoryListSize缩减category列表长度
