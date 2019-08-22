@@ -67,8 +67,7 @@ public class MyOssClient {
 		String name = file.getOriginalFilename();
 		if (null == name) return null;
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-		uuid = "test" + name.substring(name.lastIndexOf("."));//测试专用，用户覆盖服务器端数据，避免造成太多测试数据
-
+//		uuid = "test" + name.substring(name.lastIndexOf("."));//测试专用，用户覆盖服务器端数据，避免造成太多测试数据
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		objectMetadata.setContentLength(size);
 		objectMetadata.setContentType(contentType);

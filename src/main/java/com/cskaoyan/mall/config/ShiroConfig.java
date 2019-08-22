@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Properties;
 
 @Configuration
@@ -37,7 +38,7 @@ public class ShiroConfig {
 
         shiroFilterFactoryBean.setLoginUrl("/index");
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        HashMap<String, String> filterChainDefinitionMap = new HashMap<>();
+        HashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/admin/auth/login","anon");
