@@ -357,7 +357,7 @@
     select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_category
-    where level = 'L1'
+    where level = 'L1' and deleted = 0
   </select>
   <select id="queryCategoryList" resultMap="CategoryListMap">
     select
@@ -404,5 +404,12 @@
     <include refid="Base_Column_List" />
     from cskaoyan_mall_category
     where pid = #{pid}
+  </select>
+
+  <select id="queryAllParentCategory" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where `level` = 'L1' and deleted = 0
   </select>
 </mapper>

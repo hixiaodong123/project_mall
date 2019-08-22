@@ -6,6 +6,7 @@ import com.cskaoyan.mall.service.mall.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,9 +15,15 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
-    public List<Order> queryOrderList(int orderStatusArray, String sort, String order, String orderSn, int userId) {
-        List<Order> orders = orderMapper.queryOrderList(orderStatusArray, sort, order, orderSn, userId);
-        return orders;
+    public List<Order> queryOrderList(int[] orderStatusArray, String sort, String order, String orderSn, int userId) {
+        List<Order> orderList = new ArrayList<>();
+        for(int statue : orderStatusArray) {
+            List<Order> orders = orderMapper.queryOrderList(statue, sort, order, orderSn, userId);
+            for(Order order1 : orders) {
+                orderList.add(order1);
+            }
+        }
+        return orderList;
     }
 
     @Override
@@ -26,7 +33,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int updateOrderStatuByOrderId(int order_satus, String ship_channel, String ship_sn) {
-        return 0;
+    public int updateStatuAs301ByOrderId(int orderId, String shipChannel, String shipSn) {
+        int i = orderMapper.updateStatuAs301ByOrderId(orderId, shipChannel, shipSn);
+        return i;
+    }
+
+    @Override
+    public int updateStatuAs203ByOrderId(int orderId, int refundMoney) {
+        int i = orderMapper.updateStatuAs203ByOrderId(orderId, refundMoney);
+        return i;
     }
 }

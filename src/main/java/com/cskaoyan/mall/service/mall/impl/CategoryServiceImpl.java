@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.service.mall.impl;
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.CategoryExample;
 import com.cskaoyan.mall.bean.CategoryList;
 import com.cskaoyan.mall.bean.mall.L1Category;
 import com.cskaoyan.mall.mapper.CategoryMapper;
@@ -51,5 +52,39 @@ public class CategoryServiceImpl implements CategoryService {
         return category;
     }
 
+    @Override
+    public Category selectByPrimaryKey(int id) {
+        Category category = categoryMapper.selectByPrimaryKey(id);
+        return category;
+    }
 
+    @Override
+    public List<Category> selectByExample(CategoryExample categoryExample) {
+        List<Category> categories = categoryMapper.selectByExample(categoryExample);
+        return categories;
+    }
+
+    @Override
+    public List<Category> selectByPid(int pid) {
+        List<Category> categories = categoryMapper.selectByPid(pid);
+        return categories;
+    }
+
+    @Override
+    public List<Category> queryBrotherCategory(Integer pid) {
+        List<Category> categoryList = categoryMapper.selectByPid(pid);
+        return categoryList;
+    }
+
+    @Override
+    public Category queryParentCategory(Integer pid) {
+        Category category = categoryMapper.selectByPrimaryKey(pid);
+        return category;
+    }
+
+    @Override
+    public List<Category> queryAllParentCategory() {
+        List<Category> categoryList = categoryMapper.queryAllParentCategory();
+        return categoryList;
+    }
 }

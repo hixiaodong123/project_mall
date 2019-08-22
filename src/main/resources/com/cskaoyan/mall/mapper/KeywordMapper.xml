@@ -293,4 +293,16 @@
     from cskaoyan_mall_keyword
     where keyword = #{keyword} and url = #{url}
   </select>
+  <select id="queryHotKeyword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_keyword
+    where is_hot = 1
+  </select>
+  <select id="queryKeyword" resultType="java.lang.String">
+    select
+    keyword
+    from cskaoyan_mall_keyword
+    where keyword like concat("%", #{keyword}, "%")
+  </select>
 </mapper>

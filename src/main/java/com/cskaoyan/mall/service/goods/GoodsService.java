@@ -58,4 +58,6 @@ public interface GoodsService {
     int updateByPrimaryKeyWithBLOBs(Goods record);
 
     int updateByPrimaryKey(Goods record);
+
+    List<Goods> queryGoodsByKeywordOrId(String keyword, String sort, String order, int categoryId);
 }

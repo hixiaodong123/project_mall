@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.service.mall;
 
 import com.cskaoyan.mall.bean.Category;
+import com.cskaoyan.mall.bean.CategoryExample;
 import com.cskaoyan.mall.bean.CategoryList;
 import com.cskaoyan.mall.bean.mall.L1Category;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +22,16 @@ public interface CategoryService {
 
     Category selectCategoryByLevelAndKeywordsAndDescAndPid(@Param("level") String level, @Param("keywords") String keywords,
                                                            @Param("desc") String desc, @Param("pid") Integer pid);
+
+    Category selectByPrimaryKey(int id);
+
+    List<Category> selectByExample(CategoryExample categoryExample);
+
+    List<Category> selectByPid (int pid);
+
+    List<Category> queryBrotherCategory(Integer pid);
+
+    Category queryParentCategory(Integer pid);
+
+    List<Category> queryAllParentCategory();
 }

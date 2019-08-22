@@ -545,8 +545,8 @@
     select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_order where 1 = 1
-    <if test="orderStatusArray != 0">
-      and order_status = #{orderStatusArray}
+    <if test="statue != 0">
+      and order_status = ${statue}
     </if>
     <if test="orderSn != null">
       and order_sn  = #{orderSn}
@@ -558,9 +558,16 @@
       order by add_time desc
     </if>
   </select>
-  <update id="updateOrderStatuById">
+  <update id="updateStatuAs301ByOrderId">
     update cskaoyan_mall_order
-    set order_status, ship_channel, ship_sn
-    values (301, #{ship_channel}, #{ship_sn})
+    set order_status = 301,
+    ship_channel = #{shipChannel},
+    ship_sn = #{shipSn}
+    where id = ${id}
+  </update>
+  <update id="updateStatuAs203ByOrderId">
+    update cskaoyan_mall_order
+    set order_status = 203
+    where id = ${id} and actual_price = ${refundMoney}
   </update>
 </mapper>

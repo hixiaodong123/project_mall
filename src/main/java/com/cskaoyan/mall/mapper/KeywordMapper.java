@@ -31,4 +31,8 @@ public interface KeywordMapper {
     List<Keyword> queryKeywordList(@Param("keyword") String keyword, @Param("url") String url, @Param("sort") String sort, @Param("order") String order);
 
     Keyword queryKeywordByKeywordAndUrl(@Param("keyword") String keyword, @Param("url") String url);
+
+    List<Keyword> queryHotKeyword();
+
+    List<String> queryKeyword(@Param("keyword") String keyword);
 }

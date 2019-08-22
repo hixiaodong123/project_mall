@@ -122,7 +122,7 @@ public class GoodsServiceImpl implements GoodsService {
         Integer firstLevel = categoryMapper.selectFirstLevelBySortOrder(sortOrder);
         int[] arr={firstLevel,categoryId};
         map1.put("categoryIds",arr);
-        map1.put("goods",goods);
+        map1.put("wxgoods",goods);
         List<GoodsProduct> products = goodsProductMapper.selectGoodsProductByGoodsId(id);
         map1.put("products",products);
         List<GoodsSpecification> specifications = goodsSpecificationMapper.selectGoodsSpecificationByGoodsId(id);
@@ -341,5 +341,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public int updateByPrimaryKey(Goods record) {
         return goodsMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<Goods> queryGoodsByKeywordOrId(String keyword, String sort, String order, int categoryId) {
+        return goodsMapper.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
     }
 }
