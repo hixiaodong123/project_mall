@@ -55,6 +55,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Map<String, Object> selectGoodsCommentByValueId(String valueId) {
+        List<Comment> comments = commentMapper.selectGoodsCommentByValueId(valueId,"add_time","desc");
+        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
+        long total = pageInfo.getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("items",comments);
+        return map;
+    }
+
+    @Override
     public Map<String, Object> selectAllGoodsCommentList(int page, int limit, String sort, String order) {
         PageHelper.startPage(page,limit);
         List<Comment> comments = commentMapper.selectGoodsComment(sort,order);

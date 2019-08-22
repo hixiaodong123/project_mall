@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.realm;
 
+import com.cskaoyan.mall.bean.Admin;
 import com.cskaoyan.mall.mapper.AdminMapper;
 import com.cskaoyan.mall.mapper.PermissionMapper;
 import com.cskaoyan.mall.mapper.UserMapper;
@@ -28,7 +29,8 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
-        String password = adminMapper.queryPasswordByName(username);
+        Admin admin = adminMapper.queryUserByName(username);
+        String password = admin.getPassword();
 
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, "customRealm");
         return authenticationInfo;

@@ -8,6 +8,7 @@ import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -395,8 +396,30 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> selectAllGoods() {
-        List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
-        return goods;
+    public long selectAllGoods() {
+        long l = goodsMapper.countByExample(new GoodsExample());
+        return l;
+    }
+
+    @Override
+    public List<Goods> selectGoodsByCategoryId(Integer categoryId) {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andCategoryIdEqualTo(categoryId);
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        return goodsList;
+    }
+
+    @Override
+    public List<Goods> listGoodsByCondition(String s,Integer categoryId, String sort, String order) {
+        GoodsExample goodsExample = new GoodsExample();
+        if(categoryId != 0){
+            goodsExample.createCriteria().andCategoryIdEqualTo(categoryId);
+        }
+        goodsExample.createCriteria().andKeywordsLike(s);
+        if(!"".equals(sort) && !"".equals(order)){
+            goodsExample.setOrderByClause(sort + " " + order);
+        }
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        return goodsList;
     }
 }

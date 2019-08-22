@@ -539,7 +539,7 @@
     sort_order, pic_url, share_url, is_new, is_hot, unit, counter_price, retail_price,
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
-    order by #{sort} #{order}
+    order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsByGoodSn" resultMap="BaseResultMap">
@@ -548,7 +548,7 @@
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
     where goods_sn = #{goodsSn}
-    order by #{sort} #{order}
+    order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsByGoodsName" resultMap="BaseResultMap">
@@ -557,7 +557,7 @@
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
     where `name` like #{goodsName}
-    order by #{sort} #{order}
+    order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsByGoodSnAndName" resultMap="BaseResultMap">
@@ -566,7 +566,7 @@
     add_time, update_time, deleted ,detail
     from cskaoyan_mall_goods
     where goods_sn = #{goodsSn} and `name` like #{name}
-    order by #{sort} #{order}
+    order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsByCategoryId" resultMap="BaseResultMap">
@@ -587,7 +587,7 @@
       and category_id = #{id}
     </if>
     <if test="name != null">
-      and `name` like concat("%", #{name}, "%") order by ${sort} ${order}
+      and keywords like concat("%", #{name}, "%") order by ${sort} ${order}
     </if>
   </select>
 </mapper>

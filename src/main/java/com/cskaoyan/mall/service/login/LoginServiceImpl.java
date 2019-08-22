@@ -26,6 +26,7 @@ public class LoginServiceImpl implements LoginService{
     GoodsProductMapper goodsProductMapper;
     @Autowired
     UserMapper userMapper;
+
     @Override
     public Admin queryUserMessage(String username) {
         Admin admin = adminMapper.queryUserByName(username);

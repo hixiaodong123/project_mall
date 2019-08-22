@@ -50,6 +50,10 @@ public class StringArray2String implements TypeHandler<String[]> {
     }
 
     private String[] transfer(String content)  {
+        if(content == null){
+            String[] arr = {};
+            return arr;
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         String[] strings = new String[0];
         try {

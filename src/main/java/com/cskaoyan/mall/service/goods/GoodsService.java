@@ -68,5 +68,9 @@ public interface GoodsService {
 
     List<FloorGood> selectFloorGoods(int categoryListSize, int goodsListSize);
 
-    List<Goods> selectAllGoods();
+    long selectAllGoods();
+
+    List<Goods> selectGoodsByCategoryId(Integer categoryId);
+
+    List<Goods> listGoodsByCondition(String s,Integer categoryId, String sort, String order);
 }

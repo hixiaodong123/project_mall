@@ -12,6 +12,8 @@ public interface CommentService {
 
     Map<String,Object> selectGoodsCommentByValueId(int page, int limit, String valueId,  String sort, String order);
 
+    Map<String,Object> selectGoodsCommentByValueId(String valueId);
+
     Map<String,Object> selectAllGoodsCommentList(int page, int limit, String sort, String order);
 
     int deleteComment(Comment comment);

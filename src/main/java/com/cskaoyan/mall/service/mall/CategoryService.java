@@ -36,4 +36,6 @@ public interface CategoryService {
     Category queryParentCategory(Integer pid);
 
     List<Category> queryAllParentCategory();
+
+    Category selectCategoryById(Integer integer);
 }
