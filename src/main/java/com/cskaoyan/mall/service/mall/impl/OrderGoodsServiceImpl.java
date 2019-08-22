@@ -19,4 +19,15 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
         List<OrderGoods> orderGoods = orderGoodsMapper.selectByOrderId(orderId);
         return orderGoods;
     }
+
+    @Override
+    public List<OrderGoods> getOrderGoodsListByOrderId(int orderId) {
+        return orderGoodsMapper.getOrderGoodsListByOrderId(orderId);
+    }
+
+    @Override
+    public OrderGoods queryOrderGoodsByOrderIdAndGoodsId(int orderId, int goodsId) {
+        return orderGoodsMapper.queryOrderGoodsByOrderIdAndGoodsId(orderId,goodsId);
+    }
+
 }

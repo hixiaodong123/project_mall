@@ -29,4 +29,8 @@ public interface OrderGoodsMapper {
     int updateByPrimaryKey(OrderGoods record);
 
     List<OrderGoods> selectByOrderId(@Param("orderId") int orderId);
+
+    List<OrderGoods> getOrderGoodsListByOrderId(@Param("orderId") int orderId);
+
+    OrderGoods queryOrderGoodsByOrderIdAndGoodsId(@Param("orderId") int orderId,@Param("goodsId") int goodsId);
 }

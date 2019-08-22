@@ -309,7 +309,7 @@
      add_time, update_time, deleted
      from cskaoyan_mall_comment
      where value_id = #{valueId} and user_id = #{userId} and  deleted = 0
-     order by #{sort} #{order}
+     order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsCommentByUserId" resultMap="BaseResultMap">
@@ -317,7 +317,7 @@
      add_time, update_time, deleted
      from cskaoyan_mall_comment
      where  user_id = #{userId} and  deleted = 0
-     order by #{sort} #{order}
+     order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsCommentByValueId" resultMap="BaseResultMap">
@@ -325,7 +325,7 @@
      add_time, update_time, deleted
      from cskaoyan_mall_comment
      where  value_id = #{valueId} and  deleted = 0
-     order by #{sort} #{order}
+     order by ${sort} ${order}
   </select>
 
   <select id="selectGoodsComment" resultMap="BaseResultMap">
@@ -333,6 +333,7 @@
      add_time, update_time, deleted
      from cskaoyan_mall_comment
      where deleted = 0
-     order by #{sort} #{order}
+     order by ${sort} ${order}
   </select>
+
 </mapper>

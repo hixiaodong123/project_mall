@@ -5,13 +5,9 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: ${myUrl}
+      url: jdbc:mysql://localhost:3306/project_mall?useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: root
-<<<<<<< HEAD
-      password: 123456
-=======
-      password: ${myPassword}
->>>>>>> 29446a074befc0bbfea1d9fbfcfb2718206679d5
+      password: 521521
       type: com.alibaba.druid.pool.DruidDataSource
       # 初始化大小，最小，最大
       initial-size: 5
