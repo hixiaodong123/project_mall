@@ -44,4 +44,6 @@ public interface CategoryMapper {
     Integer selectFirstLevelBySortOrder(@Param("sortOrder")Byte sortOrder);
 
     Category selectCategoryByLevelAndKeywordsAndDescAndPid(String level, String keywords, String desc, Integer pid);
+
+    List<Category> queryAllParentCategory();
 }

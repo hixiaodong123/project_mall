@@ -60,11 +60,13 @@ public interface GoodsService {
 
     int updateByPrimaryKey(Goods record);
 
+    List<Goods> queryGoodsByKeywordOrId(String keyword, String sort, String order, int categoryId);
+
     List<Goods> selectHotGoods();
 
     List<Goods> selectNewGoods();
 
-    List<FloorGood> selectFloorGoods(int categoryListSize,int goodsListSize);
+    List<FloorGood> selectFloorGoods(int categoryListSize, int goodsListSize);
 
     List<Goods> selectAllGoods();
 }

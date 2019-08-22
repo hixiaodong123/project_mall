@@ -16,4 +16,8 @@ public interface KeywordService {
     int insert(Keyword keyword);
 
     Keyword queryKeywordByKeywordAndUrl(String keyword, String url);
+
+    List<Keyword> queryHotKeyword();
+
+    List<String> queryKeyword(String keyword);
 }

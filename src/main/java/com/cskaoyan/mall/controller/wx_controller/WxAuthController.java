@@ -26,7 +26,7 @@ public class WxAuthController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping("/auth/login")
+	/*@RequestMapping("/auth/login")
 	@ResponseBody
 	public Object login(@RequestBody User user, HttpServletRequest request) {
 		String username = user.getUsername();
@@ -55,7 +55,7 @@ public class WxAuthController {
 		result.put("tokenExpire", userToken.getExpireTime().toString());
 		result.put("userInfo", userInfo);
 		return BaseRespVo.ok(result);
-	}
+	}*/
 
 	@GetMapping("user/index")
 	public Object list(HttpServletRequest request) {

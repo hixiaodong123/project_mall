@@ -16,4 +16,6 @@ public interface CommentService {
 
     int deleteComment(Comment comment);
 
+    int insertComment(Comment comment);
+
 }

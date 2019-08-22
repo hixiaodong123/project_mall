@@ -3,6 +3,8 @@ package com.cskaoyan.mall.bean.mall;
 import java.util.Date;
 
 public class L1Category {
+    private int id;
+
     private int value;
 
     private String label;
@@ -26,6 +28,14 @@ public class L1Category {
     private Date updateTime;
 
     private Boolean deleted;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getValue() {
         return value;

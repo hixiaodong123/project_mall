@@ -48,4 +48,16 @@ public class KeywordServiceImpl implements KeywordService {
         Keyword queryKeyword = keywordMapper.queryKeywordByKeywordAndUrl(keyword, url);
         return queryKeyword;
     }
+
+    @Override
+    public List<Keyword> queryHotKeyword() {
+        keywordMapper.queryHotKeyword();
+        return null;
+    }
+
+    @Override
+    public List<String> queryKeyword(String keyword) {
+        List<String> queryKeyword = keywordMapper.queryKeyword(keyword);
+        return queryKeyword;
+    }
 }
