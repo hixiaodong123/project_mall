@@ -5,10 +5,12 @@ import com.cskaoyan.mall.bean.SearchHistory;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.service.mall.KeywordService;
 import com.cskaoyan.mall.service.user.SearchHistoryService;
+import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ public class WXSearchController {
     SearchHistoryService searchHistoryService;
 
     @RequestMapping("/index")
-    public BaseResponseModel indexSearch(){
+    public BaseResponseModel indexSearch(HttpServletRequest request){
         List<Keyword> rootKeyList = keywordService.queryKeywordList(null,null,null,null);
 
         Keyword defaultKeywordList = new Keyword();
@@ -41,8 +43,14 @@ public class WXSearchController {
         }
         //2.historyKeywordList 根据cskaoyan_mall_search_history表查询，同时点击查询后，需要增加相应数据
         //获得userId
-        List<SearchHistory> historyKeywordList = searchHistoryService.listSearchHistoryByCondition("1", "%%", "add_time", "desc");
-
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        List<SearchHistory> historyKeywordList = new ArrayList<>();
+        if(userId != null){
+            historyKeywordList = searchHistoryService.listSearchHistoryByCondition(userId + "", "%%", "add_time", "desc");
+        }else{
+            historyKeywordList = searchHistoryService.listSearchHistoryByCondition("999", "%%", "add_time", "desc");
+        }
         BaseResponseModel<Map> responseModel = new BaseResponseModel<>();
         HashMap<String, Object> map = new HashMap<>();
         map.put("defaultKeyword",defaultKeywordList);
@@ -55,9 +63,16 @@ public class WXSearchController {
     }
 
     @RequestMapping("/clearhistory")
-    public Map clearHistoryByUserId(){
+    public Map clearHistoryByUserId(HttpServletRequest request){
         //获得userId
-        int result = searchHistoryService.clearHistoryByUserId(1);
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        int result;
+        if(userId != null){
+            result = searchHistoryService.clearHistoryByUserId(userId);
+        }else{
+            result = searchHistoryService.clearHistoryByUserId(999);
+        }
         HashMap<String, Object> map = new HashMap<>();
         if(result == 1){
             map.put("errmsg","成功");

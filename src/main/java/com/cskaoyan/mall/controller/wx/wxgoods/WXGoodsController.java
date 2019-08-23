@@ -7,13 +7,16 @@ import com.cskaoyan.mall.service.mall.BrandService;
 import com.cskaoyan.mall.service.mall.CategoryService;
 import com.cskaoyan.mall.service.mall.IssueService;
 import com.cskaoyan.mall.service.popularize.GrouponRulesService;
+import com.cskaoyan.mall.service.user.CollectService;
 import com.cskaoyan.mall.service.user.SearchHistoryService;
 import com.cskaoyan.mall.service.user.UserService;
+import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController
@@ -52,6 +55,9 @@ public class WXGoodsController {
     @Autowired
     SearchHistoryService searchHistoryService;
 
+    @Autowired
+    CollectService collectService;
+
     //设置显示数目，避免网页响应时间过长
     int goodsListSize = 8;
     //搜索时需要保留category信息，故将其设为全局变量
@@ -72,7 +78,7 @@ public class WXGoodsController {
     }
 
     @RequestMapping("/detail")
-    public BaseResponseModel detailGoods(int id){
+    public BaseResponseModel detailGoods(int id,HttpServletRequest request){
         Goods goods = goodsService.selectByPrimaryKey(id);
 
         //1.attribute 根据goods_attribute表查询
@@ -107,7 +113,19 @@ public class WXGoodsController {
         List<Map> goodsSpecificationList = goodsSpecificationService.selectGoodsSpecificationByGoodsId(id);
 
         //9.userHasCollect 根据user表查询
-        String userHasCollect = "0";
+        String userHasCollect;
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        List<Collect> collects = new ArrayList<>();
+        if(userId != null){
+            collects = collectService.listColletByCondition(userId.toString(), id + "", "add_time", "desc");
+        }
+        if(collects.size() != 0){
+            userHasCollect = "1";
+        }else{
+            userHasCollect = "0";
+        }
+
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("attribute",attributeList);
@@ -161,7 +179,7 @@ public class WXGoodsController {
     }
 
     @RequestMapping("/list")
-    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId) {
+    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId, HttpServletRequest request) {
         PageHelper.startPage(page, size);
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         Map<String, Object> data = new HashMap<>();
@@ -188,7 +206,14 @@ public class WXGoodsController {
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         //获得userId，添加用户搜索记录,含去重操作
-        searchHistoryService.insertSearchHistory(keyword,1);
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        if(userId == null){
+            //默认未登录时，userId为999。通过这个id做searchHistory的操作
+            searchHistoryService.insertSearchHistory(keyword,999);
+        }else{
+            searchHistoryService.insertSearchHistory(keyword,userId);
+        }
         return baseResponseModel;
     }
 
