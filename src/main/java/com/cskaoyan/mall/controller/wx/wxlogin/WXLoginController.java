@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller;
+package com.cskaoyan.mall.controller.wx.wxlogin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cskaoyan.mall.bean.Admin;

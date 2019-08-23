@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wxcontroller.wxsearch;
+package com.cskaoyan.mall.controller.wx.wxsearch;
 
 import com.cskaoyan.mall.bean.Keyword;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;

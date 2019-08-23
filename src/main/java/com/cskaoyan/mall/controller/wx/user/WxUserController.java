@@ -10,6 +10,7 @@ import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.user.AddressService;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
+import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 import io.swagger.models.auth.In;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.*;
 
@@ -56,7 +58,9 @@ public class WxUserController {
     }*/
 
     @RequestMapping("order/list")
-    public Map<String,Object> returnOrderList(int showType,int page,int size){
+    public Map<String,Object> returnOrderList(int showType, int page, int size, HttpServletRequest request){
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
         int showType1 = showType*100 + 1;
         return orderService.returnOrderListType1(showType1,page,size);
     }
@@ -184,30 +188,7 @@ public class WxUserController {
         map.put("errno",0);
         return map;
     }*/
-   /* @RequestMapping("address/detail")
-    public Map<String,Object> returnAddressDetailById(int id){
-        Address address = addressService.selectAddressById(id);
-        String areaName = regionService.queryReginNameById(address.getAreaId());
-        String cityName = regionService.queryReginNameById(address.getCityId());
-        String provinceName = regionService.queryReginNameById(address.getProvinceId());
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("address",address.getAddress());
-        map.put("areaId",address.getAreaId());
-        map.put("areaName",areaName);
-        map.put("cityId",address.getCityId());
-        map.put("cityName",cityName);
-        map.put("id",id);
-        map.put("isDefault",address.getIsDefault());
-        map.put("mobile",address.getMobile());
-        map.put("name",address.getName());
-        map.put("provinceId",address.getProvinceId());
-        map.put("provinceName",provinceName);
-        HashMap<String, Object> map1 = new HashMap<>();
-        map1.put("data",map);
-        map1.put("errmsg","成功");
-        map1.put("errno",0);
-        return map1;
-    }*/
+
     /*@RequestMapping("address/save")
     public Map<String,Object> saveAddressDetail(@RequestBody() Address address){
         address.setUpdateTime(new Date());

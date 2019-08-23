@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wx_controller.cart;
+package com.cskaoyan.mall.controller.wx.cart;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/wx")
-public class CarController {
+public class CartController {
     @Autowired
     CartService cartService;
     @Autowired
@@ -133,6 +133,31 @@ public class CarController {
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
+    }
+
+    @RequestMapping("address/detail")
+    public Map<String,Object> returnAddressDetailById(int id){
+        Address address = addressService.selectAddressById(id);
+        String areaName = regionService.queryReginNameById(address.getAreaId());
+        String cityName = regionService.queryReginNameById(address.getCityId());
+        String provinceName = regionService.queryReginNameById(address.getProvinceId());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("address",address.getAddress());
+        map.put("areaId",address.getAreaId());
+        map.put("areaName",areaName);
+        map.put("cityId",address.getCityId());
+        map.put("cityName",cityName);
+        map.put("id",id);
+        map.put("isDefault",address.getIsDefault());
+        map.put("mobile",address.getMobile());
+        map.put("name",address.getName());
+        map.put("provinceId",address.getProvinceId());
+        map.put("provinceName",provinceName);
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("data",map);
+        map1.put("errmsg","成功");
+        map1.put("errno",0);
+        return map1;
     }
 
     @RequestMapping(value = "/address/save", method = RequestMethod.POST)
