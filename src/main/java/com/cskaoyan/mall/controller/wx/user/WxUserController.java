@@ -202,8 +202,8 @@ public class WxUserController {
             map.put("errno",500);
         }
         return map;
-    }*/
-
+    }
+*/
    /* @RequestMapping("region/list")
     public Map<String,Object> returnRegionListByPid(int pid){
         List<Region> regions = regionService.queryReginListByPid(pid);

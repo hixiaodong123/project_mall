@@ -60,4 +60,25 @@ public class AddressServiceImpl implements AddressService {
     public long countByExample(AddressExample example) {
         return addressMapper.countByExample(example);
     }
+
+    @Override
+    public int setAllAddressIsNotDefault() {
+        AddressExample example = new AddressExample();
+        example.createCriteria().andIsDefaultEqualTo(true);
+        List<Address> addresses = addressMapper.selectByExample(example);
+        for (Address address : addresses) {
+            address.setIsDefault(false);
+            addressMapper.updateByPrimaryKey(address);
+        }
+        return 1;
+    }
+
+    @Override
+    public int selectAddressIdByName(String name) {
+        AddressExample example = new AddressExample();
+        example.createCriteria().andNameEqualTo(name);
+        List<Address> addresses = addressMapper.selectByExample(example);
+        Integer id = addresses.get(0).getId();
+        return id;
+    }
 }

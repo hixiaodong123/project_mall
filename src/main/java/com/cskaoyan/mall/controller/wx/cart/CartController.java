@@ -166,14 +166,24 @@ public class CartController {
     @RequestMapping(value = "/address/save", method = RequestMethod.POST)
     public BaseResponseModel addressSave(@RequestBody Address address) {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
-        address.setId(null);
+        Boolean isDefault = address.getIsDefault();
+        if(isDefault==true){
+            addressService.setAllAddressIsNotDefault();
+        }
         address.setUserId(userId);
         address.setAddTime(new Date());
         address.setUpdateTime(new Date());
         address.setDeleted(false);
-        int insert = addressService.insert(address);
-        long l = addressService.countByExample(new AddressExample());
-        baseResponseModel.setData(l + 1);
+        int id=0;
+        if(address.getId()==0){
+            int insert = addressService.insert(address);
+            id = addressService.selectAddressIdByName(address.getName());
+        }else {
+            addressService.updateAddress(address);
+            id=address.getId();
+        }
+
+        baseResponseModel.setData(id);
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;

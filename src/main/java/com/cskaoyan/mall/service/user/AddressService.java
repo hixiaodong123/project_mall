@@ -25,4 +25,8 @@ public interface AddressService {
     int insert(Address record);
 
     long countByExample(AddressExample example);
+
+    int setAllAddressIsNotDefault();
+
+    int selectAddressIdByName(String name);
 }
