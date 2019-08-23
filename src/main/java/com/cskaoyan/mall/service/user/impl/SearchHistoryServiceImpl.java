@@ -4,7 +4,6 @@ import com.cskaoyan.mall.bean.SearchHistory;
 import com.cskaoyan.mall.bean.SearchHistoryExample;
 import com.cskaoyan.mall.mapper.SearchHistoryMapper;
 import com.cskaoyan.mall.service.user.SearchHistoryService;
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +38,10 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     @Override
     public void insertSearchHistory(String keyword, int userId) {
         SearchHistoryExample searchHistoryExample = new SearchHistoryExample();
-        if(keyword != null){
-            searchHistoryExample.createCriteria().andKeywordEqualTo(keyword);
-        }
-        searchHistoryExample.createCriteria().andDeletedEqualTo(false);
+        searchHistoryExample.createCriteria().andDeletedEqualTo(false).andUserIdEqualTo(userId).andKeywordEqualTo(keyword);
+//        if(keyword != null){
+//            searchHistoryExample.createCriteria().andKeywordEqualTo(keyword);
+//        }
         List<SearchHistory> list = searchHistoryMapper.selectByExample(searchHistoryExample);
         if(list == null || list.size() == 0){
             SearchHistory searchHistory = new SearchHistory();

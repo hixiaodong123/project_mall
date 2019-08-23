@@ -21,9 +21,9 @@ public interface GrouponService {
 
     List<Groupon> selectByExample(GrouponExample example);
 
-    List<Groupon> selectByConditions(@Param("goodsId")Integer goodsId,
-                                     @Param("sort")String sort,
-                                     @Param("order")String order);
+    List<Groupon> selectByConditions(@Param("goodsId") Integer goodsId,
+                                     @Param("sort") String sort,
+                                     @Param("order") String order);
 
     Groupon selectByPrimaryKey(Integer id);
 
