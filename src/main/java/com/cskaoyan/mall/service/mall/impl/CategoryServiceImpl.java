@@ -61,6 +61,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category selectCategoryById(Integer integer) {
+        Category category = categoryMapper.selectByPrimaryKey(integer);
+        return category;
+    }
+
+    @Override
     public Category selectByPrimaryKey(int id) {
         Category category = categoryMapper.selectByPrimaryKey(id);
         return category;
@@ -96,9 +102,5 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryList;
     }
 
-    @Override
-    public List<Category> queryChildCategory(int id) {
-        List<Category> categories = categoryMapper.queryChildCategory(id);
-        return categories;
-    }
+
 }

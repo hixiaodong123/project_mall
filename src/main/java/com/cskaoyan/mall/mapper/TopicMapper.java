@@ -40,4 +40,8 @@ public interface TopicMapper {
     int updateByPrimaryKeyWithBLOBs(Topic record);
 
     int updateByPrimaryKey(Topic record);
+
+    List queryGoodsById(@Param("id") int id);
+
+    List<Topic> selectTopicForFive();
 }

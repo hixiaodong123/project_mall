@@ -36,14 +36,16 @@ public interface GoodsMapper {
 
     int updateByPrimaryKey(Goods record);
 
-    List<Goods> selectAllGoodsList(String sort,String order);
+    List<Goods> selectAllGoodsList(@Param("sort") String sort,@Param("order") String order);
 
-    @Select("select count(*) from cskaoyan_mall_goods")
+
     int selectAllGoodsNum();
 
-    List<Goods> selectGoodsByGoodSn(String goodsSn,String sort,String order);
+    List<Goods> selectGoodsByGoodSn(@Param("goodsSn") String goodsSn,
+                                    @Param("sort") String sort,@Param("order") String order);
 
-    List<Goods> selectGoodsByGoodSnAndName(String name,String goodsSn,String sort,String order);
+    List<Goods> selectGoodsByGoodSnAndName(@Param("name") String name, @Param("goodsSn") String goodsSn,
+                                           @Param("sort") String sort,@Param("order") String order);
 
     Goods selectGoodsByCategoryId(@Param("categoryId") int categoryId);
 

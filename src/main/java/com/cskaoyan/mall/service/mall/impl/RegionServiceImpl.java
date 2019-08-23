@@ -18,4 +18,24 @@ public class RegionServiceImpl implements RegionService {
         List<Region> regions = regionMapper.queryRegionList();
         return regions;
     }
+
+    @Override
+    public String queryReginNameById(int id) {
+        Region region = regionMapper.selectByPrimaryKey(id);
+        if(region==null){
+            return null;
+        }else {
+            return region.getName();
+        }
+    }
+
+    @Override
+    public List<Region> queryReginListByPid(int pid) {
+        return regionMapper.selectReginListByPid(pid);
+    }
+
+    @Override
+    public List<Region> selectRegionByPid(Integer pid) {
+        return regionMapper.selectRegionByPid(pid);
+    }
 }

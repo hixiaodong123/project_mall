@@ -37,5 +37,5 @@ public interface CategoryService {
 
     List<Category> queryAllParentCategory();
 
-    List<Category> queryChildCategory(int id);
+    Category selectCategoryById(Integer integer);
 }

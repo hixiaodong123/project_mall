@@ -101,6 +101,14 @@
     from cskaoyan_mall_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cskaoyan_mall_user
     where id = #{id,jdbcType=INTEGER}
@@ -112,18 +120,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cskaoyan.mall.bean.User">
-    insert into cskaoyan_mall_user (id, username, password, 
-      gender, birthday, last_login_time, 
-      last_login_ip, user_level, nickname, 
-      mobile, avatar, weixin_openid, 
-      status, add_time, update_time, 
-      deleted)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{lastLoginIp,jdbcType=VARCHAR}, #{userLevel,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{weixinOpenid,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{deleted,jdbcType=BIT})
+    insert into cskaoyan_mall_user (username, password,last_login_time,mobile,
+      add_time, update_time)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      now(),#{mobile,jdbcType=VARCHAR},now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.cskaoyan.mall.bean.User">
     insert into cskaoyan_mall_user
@@ -221,7 +221,7 @@
         #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -280,7 +280,7 @@
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -306,7 +306,7 @@
       weixin_openid = #{record.weixinOpenid,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=TINYINT},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -355,7 +355,7 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
@@ -378,8 +378,17 @@
       weixin_openid = #{weixinOpenid,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_user
+    where username = #{username}
+    and password = #{password}
+  </select>
 </mapper>

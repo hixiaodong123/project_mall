@@ -3,7 +3,12 @@ package com.cskaoyan.mall.mapper;
 import com.cskaoyan.mall.bean.Cart;
 import com.cskaoyan.mall.bean.CartExample;
 import java.util.List;
+import java.util.Map;
+
+import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import org.apache.ibatis.annotations.Param;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface CartMapper {
     long countByExample(CartExample example);
@@ -27,4 +32,13 @@ public interface CartMapper {
     int updateByPrimaryKeySelective(Cart record);
 
     int updateByPrimaryKey(Cart record);
+
+    List<Cart> selectByUserId(@Param("userId") Integer userId);
+
+    List<Cart> selectByUserIdAndChecked(@Param("userId") Integer userId);
+
+    int updateByProductIdForDelete(@Param("productId") Integer productId);
+
+    int updateByProductIdForChecked(@Param("productId") Integer productId,@Param("checked")Integer checked);
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -55,6 +56,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Map<String, Object> selectGoodsCommentByValueId(String valueId) {
+        List<Comment> comments = commentMapper.selectGoodsCommentByValueId(valueId,"add_time","desc");
+        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
+        long total = pageInfo.getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("items",comments);
+        return map;
+    }
+
+    @Override
     public Map<String, Object> selectAllGoodsCommentList(int page, int limit, String sort, String order) {
         PageHelper.startPage(page,limit);
         List<Comment> comments = commentMapper.selectGoodsComment(sort,order);
@@ -71,5 +83,29 @@ public class CommentServiceImpl implements CommentService {
         comment.setDeleted(true);
         int i = commentMapper.updateByPrimaryKey(comment);
         return i;
+    }
+
+    @Override
+    public int insertComment(Comment comment) {
+        return commentMapper.insert(comment);
+    }
+
+    @Override
+    public Set<Integer> queryUserIdByValueId(int valueId, int type) {
+        Set<Integer> userId = commentMapper.queryUserIdByValueId(valueId, type);
+        return userId;
+    }
+
+    @Override
+    public List<Comment> queryComment(int valueId, int type, int showType, int userId) {
+        List<Comment> comments = commentMapper.queryComment(valueId, type, showType, userId);
+        return comments;
+    }
+
+    @Override
+    public Comment selectComment(Comment comment) {
+        Comment selectCommet = commentMapper.selectComment(comment.getContent(), comment.getHasPicture(), comment.getPicUrls(),
+                comment.getStar(), comment.getType(), comment.getValueId());
+        return selectCommet;
     }
 }

@@ -72,7 +72,7 @@ public class SystemServiceImpl implements SystemService
     public Map<String, Object> findByWxWord()
     {
         //使用工具类，展示页面
-        return SystemResponseUtils.view(systemMapper, "%wxcontroller%");
+        return SystemResponseUtils.view(systemMapper, "%wxController%");
     }
 
     @Override

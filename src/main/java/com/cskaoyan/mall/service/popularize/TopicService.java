@@ -1,5 +1,6 @@
 package com.cskaoyan.mall.service.popularize;
 
+import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.Topic;
 import com.cskaoyan.mall.bean.TopicExample;
 import org.apache.ibatis.annotations.Param;
@@ -42,4 +43,7 @@ public interface TopicService {
 
     int updateByPrimaryKey(Topic record);
 
+    List queryGoodsById(int id);
+
+    List<Topic> queryTopicRelated(int id);
 }

@@ -2,7 +2,9 @@ package com.cskaoyan.mall.service.admin;
 
 import com.cskaoyan.mall.bean.Admin;
 import com.cskaoyan.mall.bean.AdminExample;
+import com.cskaoyan.mall.bean.page.Page;
 import com.cskaoyan.mall.mapper.AdminMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Map> listAdmins() {
+    public List<Admin> listAdmins() {
         return null;
     }
 
@@ -117,4 +119,5 @@ public class AdminServiceImpl implements AdminService {
         if (admins.size() == 0) return null;
         return admins.get(0);
     }
+
 }

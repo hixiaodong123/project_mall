@@ -15,7 +15,7 @@ public interface AdminService {
 
     boolean updateAdmin(Admin admin);
 
-    List<Map> listAdmins();
+    List<Admin> listAdmins();
 
     List<Map> listAdminsBySort(String orderBy);
 
@@ -27,4 +27,6 @@ public interface AdminService {
 
 
     Admin listAdminByName(String username);
+
+
 }
