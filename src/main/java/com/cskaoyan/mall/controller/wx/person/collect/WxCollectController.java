@@ -3,6 +3,7 @@ package com.cskaoyan.mall.controller.wx.person.collect;
 import com.cskaoyan.mall.bean.Collect;
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.mapper.CollectMapper;
 import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.service.person.collect.WxCollectService;
 import com.cskaoyan.mall.utils.wx.UserTokenManager;
@@ -29,13 +30,15 @@ public class WxCollectController
 
     private final WxCollectService wxCollectService;
     private final GoodsService goodsService;
+    private final CollectMapper collectMapper;
 
 
     @Autowired
-    public WxCollectController(WxCollectService wxCollectService, GoodsService goodsService)
+    public WxCollectController(WxCollectService wxCollectService, GoodsService goodsService, CollectMapper collectMapper)
     {
         this.wxCollectService = wxCollectService;
         this.goodsService = goodsService;
+        this.collectMapper = collectMapper;
     }
 
 
@@ -95,10 +98,25 @@ public class WxCollectController
             Collect flag = wxCollectService.getCollect(collect.getUserId(), collect.getType(), collect.getValueId());
             if (flag != null)
             {
-                wxCollectService.delete(collect);
-                Map<String, Object> map = new HashMap<>();
-                map.put("type", "delete");
-                resp.setData(map);
+                //查询这个collect的删除状态
+                short deleted = collectMapper.queryDeleted(collect.getUserId(), collect.getType(), collect.getValueId());
+                if (deleted == 1)
+                {
+                    //数据存在但是删除状态
+                    wxCollectService.add2(collect);
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("type", "add");
+                    resp.setData(map);
+                }
+                else
+                {
+                    //如果是存在且不是删除状态
+                    wxCollectService.delete(collect);
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("type", "delete");
+                    resp.setData(map);
+                }
+
             }
             else
             {

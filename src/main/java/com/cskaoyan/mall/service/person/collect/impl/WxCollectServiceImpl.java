@@ -71,4 +71,10 @@ public class WxCollectServiceImpl implements WxCollectService
     {
         collectMapper.insertSelective(collect);
     }
+
+    @Override
+    public void add2(Collect collect)
+    {
+        collectMapper.updateAdd(collect.getValueId(),collect.getUserId(),collect.getType());
+    }
 }

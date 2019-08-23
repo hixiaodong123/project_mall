@@ -21,4 +21,6 @@ public interface WxCollectService
     void delete(Collect collect);
 
     void addCollect(Collect collect);
+
+    void add2(Collect collect);
 }
