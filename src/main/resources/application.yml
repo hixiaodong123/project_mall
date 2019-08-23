@@ -1,5 +1,9 @@
 ## 数据库配置
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
   profiles:
     active: db
   datasource:
@@ -53,3 +57,4 @@ logging:
   path: /spring/log
   level:
     com.cskaoyan.mall.mapper: debug
+

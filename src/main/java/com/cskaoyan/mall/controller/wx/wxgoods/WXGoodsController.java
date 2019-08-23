@@ -11,7 +11,7 @@ import com.cskaoyan.mall.service.user.CollectService;
 import com.cskaoyan.mall.service.user.FootPrintService;
 import com.cskaoyan.mall.service.user.SearchHistoryService;
 import com.cskaoyan.mall.service.user.UserService;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

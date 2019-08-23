@@ -7,11 +7,10 @@ import com.cskaoyan.mall.mapper.CartMapper;
 import com.cskaoyan.mall.service.popularize.CouponService;
 import com.cskaoyan.mall.service.popularize.GrouponRulesService;
 import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.utils.wx_util.CartUtil;
+import com.cskaoyan.mall.utils.wx.CartUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;

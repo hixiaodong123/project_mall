@@ -11,7 +11,7 @@ import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.popularize.CouponService;
 import com.cskaoyan.mall.service.user.AddressService;
 import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

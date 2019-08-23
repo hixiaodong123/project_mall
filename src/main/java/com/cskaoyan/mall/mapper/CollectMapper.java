@@ -4,6 +4,7 @@ import com.cskaoyan.mall.bean.Collect;
 import com.cskaoyan.mall.bean.CollectExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 public interface CollectMapper {
     long countByExample(CollectExample example);
@@ -29,4 +30,8 @@ public interface CollectMapper {
     int updateByPrimaryKey(Collect record);
 
     List<Collect> listColletByCondition(@Param("userId") String userId,@Param("valueId") String valueId,@Param("sort") String sort,@Param("order") String order);
+
+
+    @Update("update cskaoyan_mall_collect set deleted=true where value_id = ${valueId} and user_id = ${userId} and type = ${type}")
+    void updateDelete(Integer valueId, Integer userId, Byte type);
 }
