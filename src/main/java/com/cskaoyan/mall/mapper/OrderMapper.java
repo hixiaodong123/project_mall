@@ -49,7 +49,11 @@ public interface OrderMapper {
     @Select("select id from cskaoyan_mall_order where order_status = #{status} and deleted*1=0 and user_id = #{userId}")
     List<Integer> queryOrderIdByStatus(@Param("status")int status,@Param("userId")int userId);
 
+    // List<Order> selectOrderIdByStatus(@Param("showType")Integer showType);
+
     int updataStatusByOrderId(@Param("status") int status,@Param("orderId")int orderId);
 
-    int updateDeleteByOrderId(@Param("delete") boolean delete,@Param("orderId") int orderId);
+    int updateDeleteByOrderId(@Param("delete") boolean delete, @Param("orderId") int orderId);
+
+    Order selectOrderByOrderSn(@Param("orderSn") String orderSn);
 }
