@@ -16,14 +16,13 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @RestController
 @RequestMapping("/wx/goods")
-public class WXGoodsController {
+public class WXGoodsController
+{
     @Autowired
     GoodsService goodsService;
 
@@ -71,11 +70,12 @@ public class WXGoodsController {
     String oldKeyword = "";
 
     @RequestMapping("/count")
-    public BaseResponseModel countGoods(){
+    public BaseResponseModel countGoods()
+    {
         long size = goodsService.selectAllGoods();
         BaseResponseModel<Map<String, Object>> responseModel = new BaseResponseModel<>();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsCount",size);
+        map.put("goodsCount", size);
         responseModel.setErrmsg("成功");
         responseModel.setErrno(0);
         responseModel.setData(map);
@@ -83,7 +83,8 @@ public class WXGoodsController {
     }
 
     @RequestMapping("/detail")
-    public BaseResponseModel detailGoods(int id,HttpServletRequest request){
+    public BaseResponseModel detailGoods(int id, HttpServletRequest request)
+    {
         Goods goods = goodsService.selectByPrimaryKey(id);
 
         //1.attribute 根据goods_attribute表查询
@@ -94,10 +95,10 @@ public class WXGoodsController {
         //2.comment 根据comment表查询
         Map<String, Object> commentMap = commentService.selectGoodsCommentByValueId(id + "");
         //更换map中的key值,total-->count
-        commentMap.put("count",commentMap.remove("total"));
+        commentMap.put("count", commentMap.remove("total"));
         //因为需要返回的json数据融合了User信息和Comment信息，
         //所以调用mergeUserAndComment方法生成符合要求的List<Map>对象
-        commentMap.put("data",mergeUserAndComment((List<Comment>)commentMap.get("items")));
+        commentMap.put("data", mergeUserAndComment((List<Comment>) commentMap.get("items")));
         //删除commentMap原有的items键值对
         commentMap.remove("items");
 
@@ -106,7 +107,7 @@ public class WXGoodsController {
         //4.info 根据goods表查询
 
         //5.issue 根据issue表查询
-        List<Issue> issueList = issueService.queryIssueList(null,null,null);
+        List<Issue> issueList = issueService.queryIssueList(null, null, null);
 
         //6.productList 根据goods_products表查询
         List<GoodsProduct> goodsProductList = goodsProductService.selectGoodsProductsByGoodsId(id);
@@ -122,32 +123,36 @@ public class WXGoodsController {
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
         List<Collect> collects = new ArrayList<>();
-        if(userId != null){
+        if (userId != null)
+        {
             collects = collectService.listColletByCondition(userId.toString(), id + "", "add_time", "desc");
         }
-        if(collects.size() != 0){
+        if (collects.size() != 0)
+        {
             userHasCollect = 1;
-        }else{
+        }
+        else
+        {
             userHasCollect = 0;
         }
 
 
-
         HashMap<String, Object> map = new HashMap<>();
-        map.put("attribute",attributeList);
-        map.put("brand",brand);
-        map.put("comment",commentMap);
-        map.put("groupon",grouponList);
-        map.put("info",goods);
-        map.put("issue",issueList);
-        map.put("productList",goodsProductList);
-        map.put("shareImage",shareImage);
-        map.put("specificationList",goodsSpecificationList);
-        map.put("userHasCollect",userHasCollect);
+        map.put("attribute", attributeList);
+        map.put("brand", brand);
+        map.put("comment", commentMap);
+        map.put("groupon", grouponList);
+        map.put("info", goods);
+        map.put("issue", issueList);
+        map.put("productList", goodsProductList);
+        map.put("shareImage", shareImage);
+        map.put("specificationList", goodsSpecificationList);
+        map.put("userHasCollect", userHasCollect);
 
         //增加用户足迹记录
-        if(userId != null){
-            footPrintService.insertFootPrint(userId,id);
+        if (userId != null)
+        {
+            footPrintService.insertFootPrint(userId, id);
         }
 
         BaseResponseModel<Map> responseModel = new BaseResponseModel<>();
@@ -156,27 +161,31 @@ public class WXGoodsController {
         responseModel.setErrno(0);
         return responseModel;
     }
-    private List<Map> mergeUserAndComment(List<Comment> items) {
+
+    private List<Map> mergeUserAndComment(List<Comment> items)
+    {
         ArrayList<Map> maps = new ArrayList<>();
         int size = items.size();
         size = size > 2 ? 2 : size;
-        for (int i = 0; i < size; i++)  {
+        for (int i = 0; i < size; i++)
+        {
             Integer userId = items.get(i).getUserId();
             User user = userService.selectByPrimaryKey(userId);
             Map<String, Object> map = new HashMap<>();
-            map.put("addTime",items.get(i).getAddTime());
-            map.put("avatar",user.getAvatar());
-            map.put("content",items.get(i).getContent());
-            map.put("id",items.get(i).getId());
-            map.put("nickname",user.getNickname());
-            map.put("picList",items.get(i).getPicUrls());
+            map.put("addTime", items.get(i).getAddTime());
+            map.put("avatar", user.getAvatar());
+            map.put("content", items.get(i).getContent());
+            map.put("id", items.get(i).getId());
+            map.put("nickname", user.getNickname());
+            map.put("picList", items.get(i).getPicUrls());
             maps.add(map);
         }
         return maps;
     }
 
     @RequestMapping("/related")
-    public BaseResponseModel relatedGoods(int id){
+    public BaseResponseModel relatedGoods(int id)
+    {
         Goods goods = goodsService.selectByPrimaryKey(id);
         //根据当前商品的category_id查询对应分类下的所有商品
         List<Goods> goodsList = goodsService.selectGoodsByCategoryId(goods.getCategoryId());
@@ -184,33 +193,52 @@ public class WXGoodsController {
         responseModel.setErrmsg("成功");
         responseModel.setErrno(0);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsList",goodsList.subList(0,goodsListSize));
+        map.put("goodsList", goodsList.subList(0, goodsListSize));
         responseModel.setData(map);
         return responseModel;
     }
 
     @RequestMapping("/list")
-    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId,Integer brandId, HttpServletRequest request) {
+    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId, Integer brandId, HttpServletRequest request)
+    {
         PageHelper.startPage(page, size);
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         Map<String, Object> data = new HashMap<>();
         List<Goods> goodsList = new ArrayList<>();
-        if(brandId != null){
+
+        keyword = com.cskaoyan.mall.controller.webcontroller.user.BaseEncapsulation.judgeString(keyword);
+        if (sort == null)
+        {
+            sort = "add_time";
+        }
+        if (order == null)
+        {
+            order = "desc";
+        }
+
+        if (brandId != null)
+        {
             goodsList = goodsService.selectGoodsByBrandId(brandId);
             categoryId = 0;
-        }else{
+        }
+        else
+        {
             goodsList = goodsService.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
         }
-        if (categoryId == 0) {
-            if(oldKeyword != keyword){
+        if (categoryId == 0)
+        {
+            if (oldKeyword != keyword)
+            {
                 filter.clear();
             }
             Set<Integer> idSet = new HashSet<>();
-            for (Goods goods : goodsList) {
+            for (Goods goods : goodsList)
+            {
                 idSet.add(goods.getCategoryId());
             }
             List<Category> filterCategoryList = new ArrayList<>();
-            for (int i : idSet) {
+            for (int i : idSet)
+            {
                 Category category = categoryService.selectByPrimaryKey(i);
                 filterCategoryList.add(category);
                 filter.add(category);
@@ -225,20 +253,25 @@ public class WXGoodsController {
         //获得userId，添加用户搜索记录,含去重操作
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
-        if(userId == null){
+        if (userId == null)
+        {
             //默认未登录时，userId为999。通过这个id做searchHistory的操作
-            searchHistoryService.insertSearchHistory(keyword,999);
-        }else{
-            searchHistoryService.insertSearchHistory(keyword,userId);
+            searchHistoryService.insertSearchHistory(keyword, 999);
+        }
+        else
+        {
+            searchHistoryService.insertSearchHistory(keyword, userId);
         }
         return baseResponseModel;
     }
 
     // 根据一个category的Id去查询该category的父类和兄弟类
     @RequestMapping("/category")
-    public BaseResponseModel goodsCategory(int id) {
+    public BaseResponseModel goodsCategory(int id)
+    {
         Category currentCategory = categoryService.selectByPrimaryKey(id);
-        if("L1".equals(currentCategory.getLevel())){
+        if ("L1".equals(currentCategory.getLevel()))
+        {
             List<Category> categoryListByPid = categoryService.selectByPid(currentCategory.getId());
             currentCategory = categoryListByPid.get(0);
             id = currentCategory.getId();
