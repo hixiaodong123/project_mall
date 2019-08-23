@@ -237,7 +237,14 @@ public class CartController {
         int i = cartService.addCart(cart, userId);
         long l = cartService.countByExample(new CartExample());
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
-        baseResponseModel.setData(l);
+        CartExample cartExample = new CartExample();
+        cartExample.createCriteria().andDeletedEqualTo(false);
+        List<Cart> carts = cartService.selectByExample(cartExample);
+        int count = 0;
+        for (Cart c : carts) {
+            count += c.getNumber();
+        }
+        baseResponseModel.setData(count);
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
@@ -265,5 +272,20 @@ public class CartController {
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
+    }
+    @RequestMapping("/cart/goodscount")
+    public Map goodsCount(){
+        CartExample cartExample = new CartExample();
+        cartExample.createCriteria().andDeletedEqualTo(false);
+        List<Cart> carts = cartService.selectByExample(cartExample);
+        int count = 0;
+        for (Cart c : carts) {
+            count += c.getNumber();
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("data",count);
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        return map;
     }
 }

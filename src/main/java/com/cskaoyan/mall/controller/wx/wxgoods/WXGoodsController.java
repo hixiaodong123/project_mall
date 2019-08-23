@@ -118,7 +118,7 @@ public class WXGoodsController {
         List<Map> goodsSpecificationList = goodsSpecificationService.selectGoodsSpecificationByGoodsId(id);
 
         //9.userHasCollect 根据user表查询
-        String userHasCollect;
+        Integer userHasCollect;
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
         List<Collect> collects = new ArrayList<>();
@@ -126,10 +126,11 @@ public class WXGoodsController {
             collects = collectService.listColletByCondition(userId.toString(), id + "", "add_time", "desc");
         }
         if(collects.size() != 0){
-            userHasCollect = "1";
+            userHasCollect = 1;
         }else{
-            userHasCollect = "0";
+            userHasCollect = 0;
         }
+
 
 
         HashMap<String, Object> map = new HashMap<>();
@@ -142,7 +143,7 @@ public class WXGoodsController {
         map.put("productList",goodsProductList);
         map.put("shareImage",shareImage);
         map.put("specificationList",goodsSpecificationList);
-        map.put("userHasCollect",0);
+        map.put("userHasCollect",userHasCollect);
 
         //增加用户足迹记录
         if(userId != null){

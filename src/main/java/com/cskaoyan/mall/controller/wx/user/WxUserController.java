@@ -54,7 +54,7 @@ public class WxUserController {
     }*/
 
     @RequestMapping("order/list")
-    public Map<String,Object> returnOrderList(int showType, int page, int size, HttpServletRequest request){
+    public Map<String,Object> returnOrderList(Integer showType, int page, int size, HttpServletRequest request){
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
         int showType1 = showType*100 + 1;
