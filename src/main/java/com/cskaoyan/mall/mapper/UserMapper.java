@@ -32,7 +32,5 @@ public interface UserMapper {
     @Select("select count(*) from cskaoyan_mall_user")
     int queryAllUserNum();
 
-    String queryPasswordByName(String username);
-
-    List<String> queryPermissionsByName(String username);
+    User selectByUsername(String username);
 }

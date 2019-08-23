@@ -8,6 +8,7 @@ spring:
       url: ${myUrl}
       username: root
       password: ${myPassword}
+
       type: com.alibaba.druid.pool.DruidDataSource
       # 初始化大小，最小，最大
       initial-size: 5

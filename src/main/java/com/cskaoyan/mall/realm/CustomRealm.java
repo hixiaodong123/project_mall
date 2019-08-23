@@ -1,6 +1,8 @@
 package com.cskaoyan.mall.realm;
 
 import com.cskaoyan.mall.bean.Admin;
+import com.cskaoyan.mall.bean.User;
+import com.cskaoyan.mall.bean.UserExample;
 import com.cskaoyan.mall.mapper.AdminMapper;
 import com.cskaoyan.mall.mapper.PermissionMapper;
 import com.cskaoyan.mall.mapper.UserMapper;
@@ -25,22 +27,35 @@ public class CustomRealm extends AuthorizingRealm {
     @Autowired
     AdminMapper adminMapper;
     @Autowired
+    UserMapper userMapper;
+    @Autowired
     PermissionMapper permissionMapper;
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
-        Admin admin = adminMapper.queryUserByName(username);
-        String password = admin.getPassword();
-
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, "customRealm");
-        return authenticationInfo;
+        String password = null;
+        MallToken mallToken = (MallToken) authenticationToken;
+        String type = mallToken.getType();
+        if ("admin".equals(type)) {
+            Admin admin = adminMapper.queryUserByName(username);
+            password = admin.getPassword();
+        } else if ("user".equals(type)) {
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andUsernameEqualTo(username);
+            List<User> users = userMapper.selectByExample(userExample);
+            if (users.size() == 0) return null;
+            User user = users.get(0);
+            password = user.getPassword();
+        }
+        return new SimpleAuthenticationInfo(username, password, "customRealm");
     }
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         String username = (String) principalCollection.getPrimaryPrincipal();
-        //authorizationInfo.addStringPermission("hello");
         int[] ids = adminMapper.selectRolesIdByName(username);
+        Object primaryPrincipal = principalCollection.getPrimaryPrincipal();
         ArrayList<String> permissions = new ArrayList<>();
         for (int id : ids) {
             List<String> list = permissionMapper.queryPermissionsByRolesId(id);

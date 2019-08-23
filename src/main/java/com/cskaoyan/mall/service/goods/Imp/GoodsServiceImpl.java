@@ -124,7 +124,7 @@ public class GoodsServiceImpl implements GoodsService {
         Integer firstLevel = categoryMapper.selectFirstLevelBySortOrder(sortOrder);
         int[] arr={firstLevel,categoryId};
         map1.put("categoryIds",arr);
-        map1.put("goods",goods);
+        map1.put("wxgoods",goods);
         List<GoodsProduct> products = goodsProductMapper.selectGoodsProductByGoodsId(id);
         map1.put("products",products);
         List<GoodsSpecification> specifications = goodsSpecificationMapper.selectGoodsSpecificationByGoodsId(id);

@@ -60,7 +60,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Map> listAdmins() {
+    public List<Admin> listAdmins() {
         return null;
     }
 

@@ -24,8 +24,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByPrimaryKey(int id) {
+    public boolean deleteByPrimaryKey(int id) {
         User user = userMapper.selectByPrimaryKey(id);
-        return user;
+        user.setDeleted(true);
+        return 0 != userMapper.updateByPrimaryKey(user);
     }
+
+    @Override
+    public boolean insert(User record) {
+        User user = userMapper.selectByUsername(record.getUsername());
+        if (user == null) return 0 != userMapper.insert(record);
+        return false;
+    }
+
+    @Override
+    public User selectByPrimaryKey(int id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public User selectByUsername(String username) {
+        return userMapper.selectByUsername(username);
+    }
+
+    @Override
+    public boolean update(User record) {
+        return 0 != userMapper.updateByPrimaryKey(record);
+    }
+
 }
