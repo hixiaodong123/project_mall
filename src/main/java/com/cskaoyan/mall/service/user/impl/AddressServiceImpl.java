@@ -20,4 +20,44 @@ public class AddressServiceImpl implements AddressService {
         List<Address> users = addressMapper.listAddressByCondition(userId,name,sort,order);
         return users;
     }
+
+    @Override
+    public List<Address> selectAddressList() {
+        return addressMapper.selectAllAddress();
+    }
+
+    @Override
+    public Address selectAddressById(int id) {
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateAddress(Address address) {
+        return addressMapper.updateByPrimaryKeySelective(address);
+    }
+
+    @Override
+    public int deleteAdminById(int id) {
+        return addressMapper.deleteAddressById(id);
+    }
+
+    @Override
+    public List<Address> selectAddressByUserId(Integer userId) {
+        return addressMapper.selectAddressByUserId(userId);
+    }
+
+    @Override
+    public int updateByAddressIdForDelete(Integer addressId) {
+        return addressMapper.updateByAddressIdForDelete(addressId);
+    }
+
+    @Override
+    public int insert(Address record) {
+        return addressMapper.insert(record);
+    }
+
+    @Override
+    public long countByExample(AddressExample example) {
+        return addressMapper.countByExample(example);
+    }
 }

@@ -4,12 +4,12 @@ spring:
     active: db
   datasource:
     druid:
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: ${myDriverClassName}
       url: ${myUrl}
-      username: root
+      username: ${myUsername}
       password: ${myPassword}
+      type: ${myType}
 
-      type: com.alibaba.druid.pool.DruidDataSource
       # 初始化大小，最小，最大
       initial-size: 5
       min-idle: 5

@@ -43,6 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
+    public User selectByUsernameAndPassword(String username, String password) {
+        return userMapper.selectByUsernameAndPassword(username,password);
+    }
     public User selectByUsername(String username) {
         return userMapper.selectByUsername(username);
     }

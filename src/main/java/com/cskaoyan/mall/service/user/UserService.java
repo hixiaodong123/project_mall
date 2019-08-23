@@ -17,6 +17,7 @@ public interface UserService {
 
     User selectByPrimaryKey(int id);
 
+    User selectByUsernameAndPassword(String username, String password);
     User selectByUsername(String username);
 
     boolean update(User record);

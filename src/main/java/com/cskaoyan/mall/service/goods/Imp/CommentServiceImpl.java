@@ -83,4 +83,9 @@ public class CommentServiceImpl implements CommentService {
         int i = commentMapper.updateByPrimaryKey(comment);
         return i;
     }
+
+    @Override
+    public int insertComment(Comment comment) {
+        return commentMapper.insert(comment);
+    }
 }

@@ -34,4 +34,5 @@ public interface AdminMapper {
 
     Admin queryUserByName(@Param("username")String username);
 
+
 }

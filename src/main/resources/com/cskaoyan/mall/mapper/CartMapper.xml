@@ -350,4 +350,42 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_cart
+    <where>
+      <if test="userId != null">
+        user_id = #{userId}
+      </if>
+      and deleted = 0
+    </where>
+  </select>
+
+  <select id="selectByUserIdAndChecked" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_cart
+    <where>
+      <if test="userId != null">
+        user_id = #{userId}
+      </if>
+      and checked = 1
+      and deleted = 0
+    </where>
+  </select>
+
+  <update id="updateByProductIdForDelete">
+    update cskaoyan_mall_cart
+    set deleted = 1
+    where product_id = #{productId}
+  </update>
+
+  <update id="updateByProductIdForChecked">
+    update cskaoyan_mall_cart
+    set checked = #{checked}
+    where product_id = #{productId}
+  </update>
 </mapper>

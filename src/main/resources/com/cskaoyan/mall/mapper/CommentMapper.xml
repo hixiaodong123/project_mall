@@ -335,4 +335,5 @@
      where deleted = 0
      order by ${sort} ${order}
   </select>
+
 </mapper>

@@ -331,4 +331,30 @@
     `name` like #{name}
     order by ${sort} ${order}
   </select>
+
+  <select id="selectAddressByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_address
+    where user_id = #{userId}
+    and deleted = 0
+  </select>
+
+  <update id="updateByAddressIdForDelete">
+    update cskaoyan_mall_address
+    set deleted = 1
+    where id = #{addressId}
+  </update>
+
+  <select id="selectAllAddress" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from cskaoyan_mall_address
+    where deleted = false
+  </select>
+
+  <update id="deleteAddressById">
+    update cskaoyan_mall_address
+    set deleted = true
+    where id = #{id}
+  </update>
 </mapper>
