@@ -38,4 +38,6 @@ public interface BrandMapper {
     Brand selectBrandByDescAndNameAndFloorPriceAndPicUrl(@Param("desc") String desc, @Param("name") String name, @Param("floorPrice") BigDecimal floorPrice, @Param("picUrl") String picUrl);
 
     List<OtherBrand> selectAllBrand();
+
+    List<Brand> queryBrandListForWXHome();
 }

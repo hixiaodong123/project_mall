@@ -69,4 +69,6 @@ public interface GoodsService {
     List<FloorGood> selectFloorGoods(int categoryListSize, int goodsListSize);
 
     List<Goods> selectAllGoods();
+
+    List<Goods> queryGoodsListByCategoryId(int category_id);
 }

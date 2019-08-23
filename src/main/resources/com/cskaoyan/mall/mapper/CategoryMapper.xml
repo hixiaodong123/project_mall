@@ -412,4 +412,11 @@
     from cskaoyan_mall_category
     where `level` = 'L1' and deleted = 0
   </select>
+
+  <select id="queryChildCategory" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_category
+    where `level` = 'L2' and deleted = 0 and pid = ${id}
+  </select>
 </mapper>

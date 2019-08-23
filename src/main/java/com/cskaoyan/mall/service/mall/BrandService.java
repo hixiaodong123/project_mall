@@ -17,4 +17,6 @@ public interface BrandService {
     int insert(Brand brand);
 
     Brand selectBrandByDescAndNameAndFloorPriceAndPicUrl(String desc, String name, BigDecimal floorPrice, String picUrl);
+
+    List<Brand> queryBrandListForWXHome();
 }

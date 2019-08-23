@@ -399,4 +399,10 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
         return goods;
     }
+
+    @Override
+    public List<Goods> queryGoodsListByCategoryId(int category_id) {
+        List<Goods> goodsList = goodsMapper.queryGoodsListByCategoryId(category_id);
+        return goodsList;
+    }
 }

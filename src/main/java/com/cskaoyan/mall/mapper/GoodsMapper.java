@@ -51,4 +51,6 @@ public interface GoodsMapper {
 
     List<Goods> queryGoodsByKeywordOrId(@Param("name") String keyword, @Param("sort") String sort,
                                         @Param("order") String order, @Param("id") int categoryId);
+
+    List<Goods> queryGoodsListByCategoryId(@Param("category_id") int category_id);
 }

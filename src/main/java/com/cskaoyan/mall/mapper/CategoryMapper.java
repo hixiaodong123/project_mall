@@ -46,4 +46,6 @@ public interface CategoryMapper {
     Category selectCategoryByLevelAndKeywordsAndDescAndPid(String level, String keywords, String desc, Integer pid);
 
     List<Category> queryAllParentCategory();
+
+    List<Category> queryChildCategory(@Param("id") int id);
 }

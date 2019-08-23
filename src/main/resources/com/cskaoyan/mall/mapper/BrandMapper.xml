@@ -303,4 +303,11 @@
     from cskaoyan_mall_brand
     where `name` = #{name} and `desc` = #{desc} and floor_price = #{floorPrice} and pic_url = #{picUrl}
   </select>
+
+  <select id="queryBrandListForWXHome" resultMap="BaseResultMap">
+     select
+    id, `name`, `desc`, pic_url, floor_price, add_time, update_time
+    from cskaoyan_mall_brand
+    order by add_time desc limit 0 offset 4
+  </select>
 </mapper>

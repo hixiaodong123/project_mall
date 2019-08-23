@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("wx")
@@ -24,6 +21,10 @@ public class WXGoodsController {
 
     @Autowired
     GoodsService goodsService;
+
+    Set<Category> filter = new HashSet<>();
+
+    String oldKeyword;
 
     @RequestMapping("goods/count")
     public BaseResponseModel count() {
@@ -44,13 +45,24 @@ public class WXGoodsController {
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         Map<String, Object> data = new HashMap<>();
         List<Goods> goodsList = goodsService.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
-        List<Category> filterCategoryList = new ArrayList<>();
-        for(Goods goods : goodsList) {
-            Category category = categoryService.selectByPrimaryKey(goods.getCategoryId());
-            filterCategoryList.add(category);
+        if(categoryId == 0) {
+            if(oldKeyword != keyword) {
+                filter.clear();
+            }
+            Set<Integer> idSet = new HashSet<>();
+            for (Goods goods : goodsList) {
+                idSet.add(goods.getCategoryId());
+            }
+            List<Category> filterCategoryList = new ArrayList<>();
+            for (int i : idSet) {
+                Category category = categoryService.selectByPrimaryKey(i);
+                filterCategoryList.add(category);
+                filter.add(category);
+            }
+            data.put("filterCategoryList", filterCategoryList);
         }
+        data.put("filterCategoryList", filter);
         data.put("goodsList", goodsList);
-        data.put("filterCategoryList", filterCategoryList);
         baseResponseModel.setData(data);
         baseResponseModel.setErrno(0);
         baseResponseModel.setErrmsg("成功");

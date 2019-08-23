@@ -42,11 +42,7 @@ public class WXSearchController {
     public BaseResponseModel searcherHelper(String keyword) {
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         List<String> queryKeyword = keywordService.queryKeyword(keyword);
-        Map<Object, Object> data = new HashMap<>();
-        for(String s : queryKeyword) {
-            data.put(queryKeyword.indexOf(s), s);
-        }
-        baseResponseModel.setData(data);
+        baseResponseModel.setData(queryKeyword);
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
