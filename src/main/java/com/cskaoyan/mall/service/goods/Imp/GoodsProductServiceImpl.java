@@ -18,4 +18,10 @@ public class GoodsProductServiceImpl implements GoodsProductService {
         List<GoodsProduct> goodsProductList = goodsProductMapper.selectGoodsProductByGoodsId(goodsId);
         return goodsProductList;
     }
+
+    @Override
+    public int queryGoodsProductNumByGoodsId(Integer goodsId) {
+        int i = goodsProductMapper.queryGoodsProductNumByGoodsId(goodsId);
+        return i;
+    }
 }

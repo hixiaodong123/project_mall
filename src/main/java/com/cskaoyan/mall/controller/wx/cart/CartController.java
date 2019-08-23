@@ -5,12 +5,12 @@ import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import com.cskaoyan.mall.bean.bean_for_wx_car.RecvBean;
 
+import com.cskaoyan.mall.service.goods.GoodsProductService;
 import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.popularize.CouponService;
 import com.cskaoyan.mall.service.user.AddressService;
 import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.service.wx_service.cart.GoodsProductService;
 import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

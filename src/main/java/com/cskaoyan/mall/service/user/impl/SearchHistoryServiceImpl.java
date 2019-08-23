@@ -25,7 +25,7 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     @Override
     public int clearHistoryByUserId(int userId) {
         SearchHistoryExample historyExample = new SearchHistoryExample();
-        historyExample.createCriteria().andUserIdEqualTo(userId);
+        historyExample.createCriteria().andUserIdEqualTo(userId).andDeletedEqualTo(false);
         List<SearchHistory> searchHistoryList = searchHistoryMapper.selectByExample(historyExample);
         int update = 0;
         for (SearchHistory searchHistory : searchHistoryList) {
@@ -39,7 +39,7 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     @Override
     public void insertSearchHistory(String keyword, int userId) {
         SearchHistoryExample searchHistoryExample = new SearchHistoryExample();
-        searchHistoryExample.createCriteria().andKeywordEqualTo(keyword);
+        searchHistoryExample.createCriteria().andKeywordEqualTo(keyword).andDeletedEqualTo(false);
         List<SearchHistory> list = searchHistoryMapper.selectByExample(searchHistoryExample);
         if(list == null || list.size() == 0){
             SearchHistory searchHistory = new SearchHistory();

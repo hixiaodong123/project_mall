@@ -246,8 +246,9 @@
     from
     cskaoyan_mall_search_history
     where
-    user_id like #{userId}
+    user_id = #{userId}
     and keyword like #{keyword}
+    and deleted = 0
     order by ${sort} ${order}
   </select>
 </mapper>
