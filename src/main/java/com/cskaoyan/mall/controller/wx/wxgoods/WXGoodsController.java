@@ -2,6 +2,7 @@ package com.cskaoyan.mall.controller.wx.wxgoods;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.controller.webcontroller.user.BaseEncapsulation;
 import com.cskaoyan.mall.service.goods.*;
 import com.cskaoyan.mall.service.mall.BrandService;
 import com.cskaoyan.mall.service.mall.CategoryService;
@@ -195,6 +196,13 @@ public class WXGoodsController {
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         Map<String, Object> data = new HashMap<>();
         List<Goods> goodsList = new ArrayList<>();
+        keyword = BaseEncapsulation.judgeString(keyword);
+        if(sort == null){
+            sort = "add_time";
+        }
+        if(order == null){
+            order = "desc";
+        }
         if(brandId != null){
             goodsList = goodsService.selectGoodsByBrandId(brandId);
             categoryId = 0;
