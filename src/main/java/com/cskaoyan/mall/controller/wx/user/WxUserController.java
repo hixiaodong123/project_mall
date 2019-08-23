@@ -58,7 +58,7 @@ public class WxUserController {
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
         int showType1 = showType*100 + 1;
-        return orderService.returnOrderListType1(showType1,page,size);
+        return orderService.returnOrderListType1(showType1,page,size,userId);
     }
 
     @RequestMapping("order/detail")

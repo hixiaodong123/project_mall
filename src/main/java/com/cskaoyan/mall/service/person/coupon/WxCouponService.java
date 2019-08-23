@@ -1,6 +1,7 @@
 package com.cskaoyan.mall.service.person.coupon;
 
 import com.cskaoyan.mall.bean.Coupon;
+import com.cskaoyan.mall.bean.CouponUser;
 
 import java.util.List;
 
@@ -12,7 +13,17 @@ import java.util.List;
 
 public interface WxCouponService
 {
-    List<Coupon> findByStatus(Short status);
+    List<CouponUser> findByStatus(Short status);
 
     long findCount();
+
+    Coupon selectById(Integer couponId);
+
+    long CountCouponById(Integer couponId);
+
+    int countByUseIdAndCoupId(Integer userId, Integer couponId);
+
+    void add(CouponUser couponuser);
+
+    Coupon findByCode(String code);
 }

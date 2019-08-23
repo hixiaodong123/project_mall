@@ -6,6 +6,7 @@ import com.cskaoyan.mall.bean.wx.GrouponWX;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GrouponService {
     long countByExample(GrouponExample example);
@@ -33,4 +34,8 @@ public interface GrouponService {
     int updateByPrimaryKeySelective(Groupon record);
 
     int updateByPrimaryKey(Groupon record);
+
+    Map<String,Object> returnGrouponList(int showType);
+
+    Map<String,Object> returnGrouponDetail(int grouponId);
 }

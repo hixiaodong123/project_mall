@@ -1,7 +1,9 @@
 package com.cskaoyan.mall.service.mall.impl;
 
 import com.cskaoyan.mall.bean.Order;
+import com.cskaoyan.mall.bean.OrderExample;
 import com.cskaoyan.mall.bean.OrderGoods;
+import com.cskaoyan.mall.bean.OrderGoodsExample;
 import com.cskaoyan.mall.mapper.OrderGoodsMapper;
 import com.cskaoyan.mall.mapper.OrderMapper;
 import com.cskaoyan.mall.service.mall.OrderService;
@@ -45,8 +47,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public long queryOrderStatusNum(int status) {
-        return orderMapper.queryOrderStatusNum(status);
+    public long queryOrderStatusNum(int status,int userId) {
+        return orderMapper.queryOrderStatusNum(status,userId);
     }
 
     @Override
@@ -67,23 +69,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Map<String, Object> returnOrderListType1(int showType, int page, int size) {
-        List<Object> list = new ArrayList<>();
+    public Map<String, Object> returnOrderListType1(int showType, int page, int size,int userId) {
         List<Integer> ids = new ArrayList<>();
         if (showType != 1) {
-            ids = (ArrayList<Integer>) orderMapper.queryOrderIdByStatus(showType);
+            ids = (ArrayList<Integer>) orderMapper.queryOrderIdByStatus(showType,userId);
         } else {
             for (int i = 1; i <= 4; i++) {
-                List<Integer> id = orderMapper.queryOrderIdByStatus(i * 100 + 1);
+                List<Integer> id = orderMapper.queryOrderIdByStatus(i * 100 + 1,userId);
                 ids.addAll(id);
             }
         }
         PageHelper.startPage(page, size);
-        for (Integer id : ids) {
+        List<Object> list = new ArrayList<>();
+        OrderExample example = new OrderExample();
+        example.createCriteria().andIdIn(ids);
+        PageHelper.startPage(page,size);
+        List<Order> orders = orderMapper.selectByExample(example);
+        for (Order order : orders) {
             HashMap<String, Object> map = new HashMap<>();
-            Order order = orderMapper.selectByPrimaryKey(id);
             map.put("actualPrice", order.getActualPrice());
-            map.put("id", id);
+            map.put("id", order.getId());
             map.put("isGroupin", !order.getCouponPrice().equals(0));
             map.put("orderSn", order.getOrderSn());
             switch (order.getOrderStatus()) {
@@ -100,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
                     map.put("orderStatusText", "已收货");
                     break;
             }
-            List<OrderGoods> orderGoods = orderGoodsMapper.selectByOrderId(id);
+            List<OrderGoods> orderGoods = orderGoodsMapper.selectByOrderId(order.getId());
             //List<OrderGoods> orderGoods = orderService.returnGoodsList(id, page, size);
             List<Object> list1 = new ArrayList<>();
             for (OrderGoods orderGood : orderGoods) {
@@ -140,13 +145,6 @@ public class OrderServiceImpl implements OrderService {
             map.put("handleOption", map1);
             list.add(map);
         }
-       /* int i = list.size();
-        List<Object> list2=new ArrayList<>();
-        if(i>(size*page)){
-             list2 = list.subList((size * (page - 1)), size * page);
-        }else {
-             list2 = list.subList((size * (page - 1)), i - 1);
-        }*/
         Map<String, Object> map2 = new HashMap<>();
         map2.put("count", ids.size());
         map2.put("data", list);

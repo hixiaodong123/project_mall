@@ -1,4 +1,6 @@
-package com.cskaoyan.mall.controller.webController.popularize;
+package com.cskaoyan.mall.controller.webcontroller.popularize;
+
+
 
 import com.cskaoyan.mall.bean.Ad;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
@@ -7,7 +9,10 @@ import com.cskaoyan.mall.utils.popularize.PopularizeUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +27,7 @@ public class AdController {
     AdService adService;
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public BaseResponseModel<Map<String,Object>> list(int page, int limit,String name,String content,String sort, String order) {
+    public BaseResponseModel<Map<String,Object>> list(int page, int limit, String name, String content, String sort, String order) {
         PageHelper.startPage(page, limit);
         List<Ad> ads = adService.selectAll(name,content,sort,order);
         PageInfo<Ad> adPageInfo = new PageInfo<>(ads);

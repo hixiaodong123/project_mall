@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.user;
+package com.cskaoyan.mall.controller.webcontroller.user;
 
 import com.cskaoyan.mall.bean.Feedback;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
