@@ -582,4 +582,26 @@
     set deleted = true
     where id = #{orderId}
   </update>
+
+  <select id="selectOrderByOrderSn"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_order
+    where order_sn = #{orderSn}
+  </select>
+
+  <!--订单查看-->
+  <!--<select id="selectOrderIdByStatus"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_order
+    <where>
+      <if test="showType == 0">
+        1=1
+      </if>
+      <if test="showType != 0">
+        order_status = #{showType}
+      </if>
+    </where>
+  </select>-->
 </mapper>

@@ -8,6 +8,33 @@ public class OrderBeanForCat {
     Integer grouponLinkId;
     Integer grouponRulesId;
     String message;
+    Integer goodsId;
+    Integer number;
+    Integer productId;
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
     public Integer getOrderId() {
         return orderId;

@@ -1,11 +1,12 @@
-package com.cskaoyan.mall.service.wx_service.cart;
+package com.cskaoyan.mall.service.cart;
 
 import com.cskaoyan.mall.bean.Cart;
 import com.cskaoyan.mall.bean.CartExample;
+import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import org.apache.ibatis.annotations.Param;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,13 @@ public interface CartService {
 
     int updateByProductIdForChecked(@Param("productId") Integer productId,@Param("checked")Integer checked);
 
-    List<Cart> selectByUserIdAndChecked(@Param("userId") Integer userId);
+    List<Cart> selectByUserIdAndChecked(@Param("userId") Integer userId,@Param("cartId")Integer cartId);
+
+    Order addOrder(OrderBeanForCat orderBeanForCat);
+
+    // BaseResponseModel orderList(Integer showType, int page, int size);
+
+    Cart addCart(Cart cart);
+
 
 }
