@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.statistics;
+package com.cskaoyan.mall.controller.webcontroller.statistics;
 
 import com.cskaoyan.mall.service.statistics.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;

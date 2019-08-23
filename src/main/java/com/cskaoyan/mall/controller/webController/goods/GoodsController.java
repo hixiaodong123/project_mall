@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.goods;
+package com.cskaoyan.mall.controller.webcontroller.goods;
 
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.UpdateGoods;

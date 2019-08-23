@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.system;
+package com.cskaoyan.mall.controller.webcontroller.statistics;
 
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.service.system.SystemService;
