@@ -118,24 +118,24 @@ public class CartServiceImpl implements CartService {
         List<Cart> carts = cartMapper.selectByUserIdAndChecked(address.getUserId(),null);
         order.setUserId(address.getUserId());
         order.setOrderSn(UUID.randomUUID().toString());
-        int random = (int) (Math.random()*9);
+        int random = (int) (Math.random()*4);
         short status = 0;
         switch (random) {
             case 0:
                 status = 101;
-            case 1:
+            /*case 1:
                 status = 102;
             case 2:
-                status = 103;
-            case 3:
+                status = 103;*/
+            case 1:
                 status = 201;
-            case 4:
+           /* case 4:
                 status = 202;
             case 5:
-                status = 203;
-            case 6:
+                status = 203;*/
+            case 2:
                 status = 301;
-            case 7:
+            case 3:
                 status = 401;
             break;
         }
@@ -243,7 +243,7 @@ public class CartServiceImpl implements CartService {
         BigDecimal checkedGoodsAmount = CartUtil.getCheckedGoodsAmount(carts);
         BigDecimal goodsAmount = CartUtil.getGoodsAmount(carts);
         Coupon coupon = null;
-        if (couponId != 0) {
+        if (couponId > 0) {
             coupon = couponMapper.selectByPrimaryKey(couponId);
             if (checkedGoodsAmount.compareTo(coupon.getMin()) > -1) {
                 BigDecimal discount = coupon.getDiscount();
