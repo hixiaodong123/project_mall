@@ -182,7 +182,6 @@ public class CartServiceImpl implements CartService {
     /* 加入购物车 */
     @Override
     public int addCart(Cart cart,Integer userId) {
-
         Cart cart1 = selectByUserIdAndProductId(cart.getProductId(), userId);
         if (cart1 != null) {
             short number1 = cart.getNumber();

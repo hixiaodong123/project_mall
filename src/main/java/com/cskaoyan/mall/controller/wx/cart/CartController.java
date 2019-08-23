@@ -6,6 +6,7 @@ import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import com.cskaoyan.mall.bean.bean_for_wx_car.RecvBean;
 
 import com.cskaoyan.mall.service.goods.GoodsProductService;
+import com.cskaoyan.mall.service.goods.GoodsService;
 import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.popularize.CouponService;
@@ -36,6 +37,8 @@ public class CartController {
     OrderService orderService;
     @Autowired
     GoodsProductService goodsProductService;
+    @Autowired
+    GoodsService goodsService;
 
     Integer userId;
     @RequestMapping("/cart/index")
@@ -232,7 +235,25 @@ public class CartController {
 
     @RequestMapping(value = "/cart/fastadd", method = RequestMethod.POST)
     public BaseResponseModel cartFastAdd(@RequestBody Cart cart) {
-        BaseResponseModel baseResponseModel = cartAdd(cart);
+        Goods goods = goodsService.selectByPrimaryKey(cart.getGoodsId());
+        GoodsProduct goodsProduct = goodsProductService.selectByPrimaryKey(cart.getProductId());
+        cart.setGoodsSn(goods.getGoodsSn());
+        cart.setGoodsName(goods.getName());
+        cart.setPrice(goodsProduct.getPrice());
+        String[] specifications = goodsProduct.getSpecifications();
+        cart.setSpecifications(specifications[0]);
+        cart.setChecked(true);
+        cart.setPicUrl(goodsProduct.getUrl());
+        cart.setAddTime(new Date());
+        cart.setUpdateTime(new Date());
+        cart.setDeleted(false);
+        cart.setUserId(userId);
+        int insert = cartService.insert(cart);
+        long l = cartService.countByExample(new CartExample());
+        BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
+        baseResponseModel.setData(l);
+        baseResponseModel.setErrmsg("成功");
+        baseResponseModel.setErrno(0);
         return baseResponseModel;
     }
 }

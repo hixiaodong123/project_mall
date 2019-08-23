@@ -9,4 +9,6 @@ public interface GoodsProductService {
     List<GoodsProduct> selectGoodsProductsByGoodsId(int goodsId);
 
     int queryGoodsProductNumByGoodsId(@Param("goodsId") Integer goodsId);
+
+    GoodsProduct selectByPrimaryKey(Integer id);
 }
