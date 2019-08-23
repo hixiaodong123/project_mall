@@ -5,6 +5,7 @@ import com.cskaoyan.mall.bean.CommentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);
@@ -35,7 +36,7 @@ public interface CommentMapper {
 
     List<Comment> selectGoodsCommentByValueId(String valueId ,String sort,String order);
 
-    List<Comment> selectGoodsComment(String sort,String order);
+    List<Comment> selectGoodsComment(@Param("sort") String sort,@Param("order") String order);
 
     @Select("select count(*) from cskaoyan_mall_comment")
     int selectAllGoodsCommentNum();

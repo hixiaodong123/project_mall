@@ -5,12 +5,12 @@ import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import com.cskaoyan.mall.bean.bean_for_wx_car.RecvBean;
 
+import com.cskaoyan.mall.service.goods.GoodsProductService;
 import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.popularize.CouponService;
 import com.cskaoyan.mall.service.user.AddressService;
 import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.service.wx_service.cart.GoodsProductService;
 import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/wx")
-public class CarController {
+public class CartController {
     @Autowired
     CartService cartService;
     @Autowired
@@ -98,7 +98,9 @@ public class CarController {
     }
 
     @RequestMapping(value = "/address/list", method = RequestMethod.GET)
-    public BaseResponseModel addressList() {
+    public BaseResponseModel addressList(HttpServletRequest request) {
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        userId = UserTokenManager.getUserId(tokenKey);
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         List<Address> addresses = addressService.selectAddressByUserId(userId);
         baseResponseModel.setData(addresses);
@@ -108,7 +110,9 @@ public class CarController {
     }
 
     @RequestMapping(value = "/address/delete", method = RequestMethod.POST)
-    public BaseResponseModel delete(@RequestBody Address address) {
+    public BaseResponseModel delete(@RequestBody Address address,HttpServletRequest request) {
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        userId = UserTokenManager.getUserId(tokenKey);
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         int update = addressService.updateByAddressIdForDelete(address.getId());
         if (update == 1) {
@@ -129,6 +133,31 @@ public class CarController {
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
+    }
+
+    @RequestMapping("address/detail")
+    public Map<String,Object> returnAddressDetailById(int id){
+        Address address = addressService.selectAddressById(id);
+        String areaName = regionService.queryReginNameById(address.getAreaId());
+        String cityName = regionService.queryReginNameById(address.getCityId());
+        String provinceName = regionService.queryReginNameById(address.getProvinceId());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("address",address.getAddress());
+        map.put("areaId",address.getAreaId());
+        map.put("areaName",areaName);
+        map.put("cityId",address.getCityId());
+        map.put("cityName",cityName);
+        map.put("id",id);
+        map.put("isDefault",address.getIsDefault());
+        map.put("mobile",address.getMobile());
+        map.put("name",address.getName());
+        map.put("provinceId",address.getProvinceId());
+        map.put("provinceName",provinceName);
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("data",map);
+        map1.put("errmsg","成功");
+        map1.put("errno",0);
+        return map1;
     }
 
     @RequestMapping(value = "/address/save", method = RequestMethod.POST)
@@ -166,10 +195,9 @@ public class CarController {
     @RequestMapping(value = "/order/submit", method = RequestMethod.POST)
     public BaseResponseModel orderSubmit(@RequestBody OrderBeanForCat orderBeanForCat) {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
-
-
+        Order order = cartService.addOrder(orderBeanForCat);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("orderId", 123);
+        map.put("orderId", order.getId());
         baseResponseModel.setData(map);
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
@@ -182,6 +210,31 @@ public class CarController {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         baseResponseModel.setErrmsg("订单不能支付");
         baseResponseModel.setErrno(724);
+        return baseResponseModel;
+    }
+
+    @RequestMapping(value = "/order/list", method = RequestMethod.GET)
+    public BaseResponseModel orderList(Integer showType, int page, int size) {
+        BaseResponseModel baseResponseModel = cartService.orderList(showType, page, size);
+        return baseResponseModel;
+    }
+
+    @RequestMapping(value = "/cart/add", method = RequestMethod.POST)
+    public BaseResponseModel cartAdd(@RequestBody Cart cart) {
+        Cart cart1 = cartService.addCart(cart);
+        cart1.setUserId(userId);
+        int insert = cartService.insert(cart);
+        long l = cartService.countByExample(new CartExample());
+        BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
+        baseResponseModel.setData(l);
+        baseResponseModel.setErrmsg("成功");
+        baseResponseModel.setErrno(0);
+        return baseResponseModel;
+    }
+
+    @RequestMapping(value = "/cart/fastadd", method = RequestMethod.POST)
+    public BaseResponseModel cartFastAdd(@RequestBody OrderBeanForCat orderBeanForCat) {
+        BaseResponseModel baseResponseModel = orderSubmit(orderBeanForCat);
         return baseResponseModel;
     }
 }

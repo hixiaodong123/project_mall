@@ -8,5 +8,9 @@ import java.util.List;
 public interface RegionService {
     List<Region> queryRegionList();
 
+    String queryReginNameById(int id);
+
+    List<Region> queryReginListByPid(int pid);
+
     List<Region> selectRegionByPid(@Param("pid")Integer pid);
 }

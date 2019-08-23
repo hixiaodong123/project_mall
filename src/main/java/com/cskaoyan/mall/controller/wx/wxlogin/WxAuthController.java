@@ -5,6 +5,7 @@ import com.cskaoyan.mall.bean.login.UserInfo;
 
 import com.cskaoyan.mall.bean.login.BaseRespVo;
 import com.cskaoyan.mall.bean.login.UserToken;
+import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.user.UserService;
 import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
 
@@ -25,6 +26,8 @@ public class WxAuthController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	OrderService orderService;
 
 	/*@RequestMapping("/auth/login")
 	@ResponseBody
@@ -70,10 +73,19 @@ public class WxAuthController {
 			return BaseRespVo.fail();
 		}
 
-		Map<Object, Object> data = new HashMap<Object, Object>();
+		long unpaid = orderService.queryOrderStatusNum(101);
+		long unship = orderService.queryOrderStatusNum(201);
+		long unrecv = orderService.queryOrderStatusNum(301);
+		long uncomment = orderService.queryOrderStatusNum(401);
+		HashMap<String, Object> map1 = new HashMap<>();
+		HashMap<String, Object> data = new HashMap<>();
+		map1.put("unpaid",unpaid);
+		map1.put("unship",unship);
+		map1.put("unrecv",unrecv);
+		map1.put("uncomment",uncomment);
 		//***********************************
 		//根据userId查询订单信息
-		data.put("order", null);
+		data.put("order", map1);
 		//***********************************
 
 		return BaseRespVo.ok(data);

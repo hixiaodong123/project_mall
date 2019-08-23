@@ -329,6 +329,6 @@
     where
     username like #{username}
     and id like #{id}
-    order by #{sort} #{order}
+    order by ${sort} ${order}
   </select>
 </mapper>

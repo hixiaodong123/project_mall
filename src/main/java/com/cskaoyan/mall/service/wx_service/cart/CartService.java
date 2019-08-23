@@ -6,6 +6,7 @@ import com.cskaoyan.mall.bean.Order;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -49,5 +50,10 @@ public interface CartService {
     List<Cart> selectByUserIdAndChecked(@Param("userId") Integer userId);
 
     Order addOrder(OrderBeanForCat orderBeanForCat);
+
+    BaseResponseModel orderList(Integer showType, int page, int size);
+
+    Cart addCart(Cart cart);
+
 
 }

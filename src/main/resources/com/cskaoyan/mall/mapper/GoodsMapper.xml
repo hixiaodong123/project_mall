@@ -591,7 +591,7 @@
       and category_id = #{id}
     </if>
     <if test="name != null">
-      and `name` like concat("%", #{name}, "%") order by ${sort} ${order}
+      and keywords like concat("%", #{name}, "%") order by ${sort} ${order}
     </if>
   </select>
 </mapper>

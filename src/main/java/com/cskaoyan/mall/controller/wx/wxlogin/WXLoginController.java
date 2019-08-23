@@ -60,6 +60,7 @@ public class WXLoginController {
         result.put("tokenExpire", userToken.getExpireTime().toString());
 
         Subject subject = SecurityUtils.getSubject();
+        //subject.getSession().setAttribute("user",loginBean);
         try {
             subject.login(mallToken);
         } catch (AuthenticationException e) {
@@ -71,12 +72,15 @@ public class WXLoginController {
             baseRespModel.setData(null);
             return baseRespModel;
         }
-//        User user = userService.selectByUsername(username);
-//
-//        int userId = user.getId();
-//
-//        user.setLastLoginTime(new Date());
-//        userService.update(user);
+        User user = userService.selectByUsername(username);
+        int userId = user.getId();
+        user.setLastLoginTime(new Date());
+        userService.update(user);
+        String avatar = user.getAvatar();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("avatarUrl",avatar);
+        map.put("nickName",username);
+        result.put("userInfo",map);
         baseRespModel.setErrno(0);
         baseRespModel.setErrmsg("成功");
         baseRespModel.setData(result);

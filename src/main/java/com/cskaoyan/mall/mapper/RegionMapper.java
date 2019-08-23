@@ -30,5 +30,7 @@ public interface RegionMapper {
 
     List<Region> queryRegionList();
 
+    List<Region> selectReginListByPid(@Param("pid") int pid);
+
     List<Region> selectRegionByPid(@Param("pid")Integer pid);
 }

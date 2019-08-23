@@ -253,4 +253,9 @@
     from cskaoyan_mall_region
     where pid = #{pid}
   </select>
+  <select id="selectReginListByPid" resultMap="BaseResultMap">
+    select id, pid, name, type, code
+    from cskaoyan_mall_region
+    where pid = #{pid}
+  </select>
 </mapper>

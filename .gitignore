@@ -32,6 +32,6 @@ build/
 
 /src/main/resources/application-db.properties
 
-/src/main/resouces/application.yml
+/src/main//application.yml
 
-.gitignore
+*/.gitignore
