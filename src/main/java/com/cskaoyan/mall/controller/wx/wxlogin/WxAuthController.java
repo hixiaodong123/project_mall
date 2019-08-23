@@ -68,10 +68,10 @@ public class WxAuthController {
 			return BaseRespVo.fail();
 		}
 
-		long unpaid = orderService.queryOrderStatusNum(101);
-		long unship = orderService.queryOrderStatusNum(201);
-		long unrecv = orderService.queryOrderStatusNum(301);
-		long uncomment = orderService.queryOrderStatusNum(401);
+		long unpaid = orderService.queryOrderStatusNum(101,userId);
+		long unship = orderService.queryOrderStatusNum(201,userId);
+		long unrecv = orderService.queryOrderStatusNum(301,userId);
+		long uncomment = orderService.queryOrderStatusNum(401,userId);
 		HashMap<String, Object> map1 = new HashMap<>();
 		HashMap<String, Object> data = new HashMap<>();
 		map1.put("unpaid",unpaid);
