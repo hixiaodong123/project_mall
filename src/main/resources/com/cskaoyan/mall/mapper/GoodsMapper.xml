@@ -594,4 +594,11 @@
       and keywords like concat("%", #{name}, "%") order by ${sort} ${order}
     </if>
   </select>
+
+  <select id="queryGoodsListByCategoryId" resultMap="BaseResultMap">
+    select
+    id, `name`, brief,
+    pic_url, is_new, is_hot, counter_price
+    from cskaoyan_mall_goods where category_id = ${category_id}
+  </select>
 </mapper>

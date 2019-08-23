@@ -94,4 +94,22 @@ public class TopicServiceImpl implements TopicService {
     public int updateByPrimaryKey(Topic record) {
         return topicMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public List queryGoodsById(int id) {
+        List list = topicMapper.queryGoodsById(id);
+        return list;
+    }
+
+    @Override
+    public List<Topic> queryTopicRelated(int id) {
+        List<Topic> topics = topicMapper.selectTopicForFive();
+        for(Topic topic : topics) {
+            if(topic.getId() == id) {
+                topics.remove(topic);
+                break;
+            }
+        }
+        return topics;
+    }
 }

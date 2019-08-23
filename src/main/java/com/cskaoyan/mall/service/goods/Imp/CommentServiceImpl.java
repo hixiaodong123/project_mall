@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -87,5 +88,24 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int insertComment(Comment comment) {
         return commentMapper.insert(comment);
+    }
+
+    @Override
+    public Set<Integer> queryUserIdByValueId(int valueId, int type) {
+        Set<Integer> userId = commentMapper.queryUserIdByValueId(valueId, type);
+        return userId;
+    }
+
+    @Override
+    public List<Comment> queryComment(int valueId, int type, int showType, int userId) {
+        List<Comment> comments = commentMapper.queryComment(valueId, type, showType, userId);
+        return comments;
+    }
+
+    @Override
+    public Comment selectComment(Comment comment) {
+        Comment selectCommet = commentMapper.selectComment(comment.getContent(), comment.getHasPicture(), comment.getPicUrls(),
+                comment.getStar(), comment.getType(), comment.getValueId());
+        return selectCommet;
     }
 }

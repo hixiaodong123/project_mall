@@ -1,5 +1,7 @@
 package com.cskaoyan.mall.bean;
 
+import com.cskaoyan.mall.bean.login.UserInfo;
+
 import java.util.Arrays;
 import java.util.Date;
 
@@ -25,6 +27,8 @@ public class Comment {
     private Date updateTime;
 
     private boolean deleted;
+
+    private UserInfo userInfo;
 
     public Integer getId() {
         return id;
@@ -112,6 +116,14 @@ public class Comment {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     @Override

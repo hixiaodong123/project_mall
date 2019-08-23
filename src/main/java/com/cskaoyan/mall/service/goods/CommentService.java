@@ -1,8 +1,11 @@
 package com.cskaoyan.mall.service.goods;
 
 import com.cskaoyan.mall.bean.Comment;
+import com.cskaoyan.mall.bean.User;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface CommentService {
 
@@ -20,4 +23,9 @@ public interface CommentService {
 
     int insertComment(Comment comment);
 
+    Set<Integer> queryUserIdByValueId(int valueId, int type);
+
+    List<Comment> queryComment(int valueId, int type, int showType, int userId);
+
+    Comment selectComment(Comment comment);
 }

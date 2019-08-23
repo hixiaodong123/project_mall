@@ -48,4 +48,10 @@ public class BrandServiceImpl implements BrandService {
     public Brand selectBrandByDescAndNameAndFloorPriceAndPicUrl(String desc, String name, BigDecimal floorPrice, String picUrl) {
         return null;
     }
+
+    @Override
+    public List<Brand> queryBrandListForWXHome() {
+        List<Brand> brands = brandMapper.queryBrandListForWXHome();
+        return brands;
+    }
 }

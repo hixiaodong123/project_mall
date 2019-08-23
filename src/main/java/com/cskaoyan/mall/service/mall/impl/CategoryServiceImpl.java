@@ -101,4 +101,6 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = categoryMapper.queryAllParentCategory();
         return categoryList;
     }
+
+
 }

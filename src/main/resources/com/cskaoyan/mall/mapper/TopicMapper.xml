@@ -403,4 +403,10 @@
     from cskaoyan_mall_topic
     where title = #{title}
   </select>
+  <select id="selectTopicForFive" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_topic
+    limit 0, 5
+  </select>
 </mapper>

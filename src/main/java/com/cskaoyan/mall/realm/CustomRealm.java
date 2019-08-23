@@ -69,6 +69,4 @@ public class CustomRealm extends AuthorizingRealm {
         PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         super.clearCache(principals);
     }
-
-
 }

@@ -149,18 +149,6 @@ public class RoleController {
         return map;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     //    将数据库中的日期转化为指定格式的字符串
     private String date2String(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
