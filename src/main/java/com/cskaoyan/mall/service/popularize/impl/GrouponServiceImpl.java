@@ -204,4 +204,122 @@ public class GrouponServiceImpl implements GrouponService {
         return ReturnMapUntil.returnMap(map,"成功",0);
     }
 
+    @Override
+    public Map<String, Object> returnGrouponDetail(int grouponId) {
+        Groupon groupon = grouponMapper.selectByPrimaryKey(grouponId);
+        HashMap<String, Object> map = new HashMap<>();
+        GrouponExample example = new GrouponExample();
+        example.createCriteria().andOrderIdEqualTo(grouponId).andCreatorUserIdNotEqualTo(0);
+        List<Groupon> groupons = grouponMapper.selectByExample(example);
+        User user = userMapper.selectByPrimaryKey(groupons.get(0).getCreatorUserId());
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("avatar",user.getAvatar());
+        map1.put("nickname",user.getUsername());
+        map.put("creator",map1);
+        map.put("groupon",groupon);
+        example.createCriteria().andOrderIdEqualTo(groupon.getOrderId()).andCreatorUserIdEqualTo(0);
+        List<Groupon> grouponList = grouponMapper.selectByExample(example);
+        ArrayList<Object> list1 = new ArrayList<>();
+        for (Groupon groupon1 : grouponList) {
+            HashMap<String, Object> map2 = new HashMap<>();
+            User user1 = userMapper.selectByPrimaryKey(groupon1.getGrouponId());
+            if(user1!=null){
+                map2.put("avatar",user1.getAvatar());
+                map2.put("nickname",user1.getUsername());
+            }
+            list1.add(map2);
+        }
+        list1.add(map1.get("creator"));
+        map.put("joiners",list1);
+        map.put("linkGrouponId",grouponId);
+        List<OrderGoods> orderGoods = orderGoodsMapper.selectByOrderId(groupon.getOrderId());
+        ArrayList<Object> list2 = new ArrayList<>();
+        for (OrderGoods orderGood : orderGoods) {
+            HashMap<String, Object> map3 = new HashMap<>();
+            map3.put("goodsId",orderGood.getGoodsId());
+            map3.put("goodsName",orderGood.getGoodsName());
+            map3.put("goodsSpecificationValues",orderGood.getSpecifications());
+            map3.put("id",orderGood.getId());
+            map3.put("number",orderGood.getNumber());
+            map3.put("orderId",orderGood.getId());
+            map3.put("picUrl",orderGood.getPicUrl());
+            map3.put("retailPrice",orderGood.getPrice());
+            list2.add(map3);
+        }
+        map.put("orderGoods",list2);
+
+        HashMap<String, Object> map3 = new HashMap<>();
+        Order order = orderMapper.selectByPrimaryKey(groupon.getOrderId());
+        map3.put("actualPrice",order.getActualPrice());
+        map3.put("addTime",order.getAddTime());
+        map3.put("address",order.getAddress());
+        map3.put("consignee",order.getConsignee());
+        map3.put("freighPrice",order.getFreightPrice());
+        map3.put("goodsPrice",order.getGoodsPrice());
+
+        Short orderStatus = order.getOrderStatus();
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("cancel", false);
+        map2.put("comment", false);
+        map2.put("delete", false);
+        map2.put("confirm", false);
+        map2.put("pay", false);
+        map2.put("rebuy", false);
+        map2.put("refund", false);
+        switch (orderStatus) {
+            case 101:
+                map2.put("cancel", true);
+                map2.put("pay", true);
+                break;
+            case 201:
+                map2.put("refund", true);
+                break;
+            case 301:
+                map2.put("confirm", true);
+                break;
+            case 401:
+                map2.put("comment", true);
+                map2.put("delete", true);
+                map2.put("rebuy", true);
+                break;
+        }
+        map3.put("handleOption",map2);
+        map3.put("id",order.getId());
+        map3.put("mobile",order.getMobile());
+        map3.put("orderSn",order.getOrderSn());
+        switch (order.getOrderStatus()) {
+            case 101:
+                map3.put("orderStatusText", "未付款");
+                break;
+            case 102:
+                map3.put("orderStatusText", "已取消");
+                break;
+            case 103:
+                map3.put("orderStatusText", "已取消");
+                break;
+            case 201:
+                map3.put("orderStatusText", "已付款");
+                break;
+            case 202:
+                map3.put("orderStatusText", "申请退款");
+                break;
+            case 203:
+                map3.put("orderStatusText", "已退款");
+                break;
+            case 301:
+                map3.put("orderStatusText", "已发货");
+                break;
+            case 401:
+                map3.put("orderStatusText", "已收货");
+                break;
+            case 402:
+                map3.put("orderStatusText", "已收货");
+                break;
+        }
+        map.put("orderInfo",map3);
+        GrouponRules grouponRules = grouponRulesMapper.selectByPrimaryKey(groupon.getRulesId());
+        map.put("rules",grouponRules);
+        return ReturnMapUntil.returnMap(map,"成功",0);
+    }
+
 }

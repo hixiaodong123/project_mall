@@ -36,4 +36,6 @@ public interface GrouponService {
     int updateByPrimaryKey(Groupon record);
 
     Map<String,Object> returnGrouponList(int showType);
+
+    Map<String,Object> returnGrouponDetail(int grouponId);
 }

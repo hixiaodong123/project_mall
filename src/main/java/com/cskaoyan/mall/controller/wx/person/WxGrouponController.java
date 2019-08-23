@@ -16,7 +16,11 @@ public class WxGrouponController {
 
     @RequestMapping("groupon/my")
     public Map<String,Object> getGrouponList(int showType){
-        /*int showType = (int) map1.get("showType");*/
         return grouponService.returnGrouponList(showType);
+    }
+
+    @RequestMapping("groupon/detail")
+    public Map<String,Object> returnGrouponDetail(int grouponId){
+        return grouponService.returnGrouponDetail(grouponId);
     }
 }
