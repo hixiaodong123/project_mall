@@ -590,7 +590,8 @@
     where order_sn = #{orderSn}
   </select>
 
-  <select id="selectOrderIdByStatus"  resultMap="BaseResultMap">
+  <!--订单查看-->
+  <!--<select id="selectOrderIdByStatus"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from cskaoyan_mall_order
@@ -602,5 +603,5 @@
         order_status = #{showType}
       </if>
     </where>
-  </select>
+  </select>-->
 </mapper>

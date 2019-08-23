@@ -10,8 +10,8 @@ import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.popularize.CouponService;
 import com.cskaoyan.mall.service.user.AddressService;
-import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
+import com.cskaoyan.mall.service.cart.CartService;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -213,17 +213,17 @@ public class CartController {
         return baseResponseModel;
     }
 
-    @RequestMapping(value = "/order/list", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/order/list", method = RequestMethod.GET)
     public BaseResponseModel orderList(Integer showType, int page, int size) {
         BaseResponseModel baseResponseModel = cartService.orderList(showType, page, size);
         return baseResponseModel;
-    }
+    }*/
 
     @RequestMapping(value = "/cart/add", method = RequestMethod.POST)
     public BaseResponseModel cartAdd(@RequestBody Cart cart) {
         Cart cart1 = cartService.addCart(cart);
         cart1.setUserId(userId);
-        int insert = cartService.insert(cart);
+        int insert = cartService.insert(cart1);
         long l = cartService.countByExample(new CartExample());
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         baseResponseModel.setData(l);
@@ -233,8 +233,8 @@ public class CartController {
     }
 
     @RequestMapping(value = "/cart/fastadd", method = RequestMethod.POST)
-    public BaseResponseModel cartFastAdd(@RequestBody OrderBeanForCat orderBeanForCat) {
-        BaseResponseModel baseResponseModel = orderSubmit(orderBeanForCat);
+    public BaseResponseModel cartFastAdd(@RequestBody Cart cart) {
+        BaseResponseModel baseResponseModel = cartAdd(cart);
         return baseResponseModel;
     }
 }

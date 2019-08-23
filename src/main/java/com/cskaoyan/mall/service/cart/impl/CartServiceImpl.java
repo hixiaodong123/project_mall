@@ -1,12 +1,11 @@
-package com.cskaoyan.mall.service.wx_service.cart.impl;
+package com.cskaoyan.mall.service.cart.impl;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
 import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import com.cskaoyan.mall.mapper.*;
-import com.cskaoyan.mall.service.goods.GoodsService;
-import com.cskaoyan.mall.service.wx_service.cart.CartService;
-import com.cskaoyan.mall.utils.wx_util.CartUtil;
+import com.cskaoyan.mall.service.cart.CartService;
+import com.cskaoyan.mall.utils.wx.CartUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +45,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int insert(Cart record) {
-        return 0;
+        return cartMapper.insert(record);
     }
 
     @Override
@@ -102,8 +101,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Cart> selectByUserIdAndChecked(Integer userId) {
-        return cartMapper.selectByUserIdAndChecked(userId);
+    public List<Cart> selectByUserIdAndChecked(Integer userId,Integer cartId) {
+        return cartMapper.selectByUserIdAndChecked(userId,cartId);
     }
 
     @Override
@@ -112,14 +111,35 @@ public class CartServiceImpl implements CartService {
         // Coupon coupon = couponMapper.selectByPrimaryKey(orderBeanForCat.getCouponId());
         Coupon coupon = null;
         Integer couponId = orderBeanForCat.getCouponId();
-        if (couponId != 0) {
+        if (couponId != null && couponId != 0) {
             coupon = couponMapper.selectByPrimaryKey(couponId);
         }
         Address address = addressMapper.selectByPrimaryKey(orderBeanForCat.getAddressId());
-        List<Cart> carts = cartMapper.selectByUserIdAndChecked(address.getUserId());
+        List<Cart> carts = cartMapper.selectByUserIdAndChecked(address.getUserId(),null);
         order.setUserId(address.getUserId());
         order.setOrderSn(UUID.randomUUID().toString());
-        order.setOrderStatus((short) 101);
+        int random = (int) (Math.random()*9);
+        short status = 0;
+        switch (random) {
+            case 0:
+                status = 101;
+            case 1:
+                status = 102;
+            case 2:
+                status = 103;
+            case 3:
+                status = 201;
+            case 4:
+                status = 202;
+            case 5:
+                status = 203;
+            case 6:
+                status = 301;
+            case 7:
+                status = 401;
+            break;
+        }
+        order.setOrderStatus(status);
         order.setConsignee(address.getName());
         order.setMobile(address.getMobile());
         order.setAddress(address.getAddress());
@@ -156,7 +176,7 @@ public class CartServiceImpl implements CartService {
         return order1;
     }
 
-    @Override
+    /*@Override
     public BaseResponseModel orderList(Integer showType, int page, int size) {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         int l = (int) orderMapper.countByExample(new OrderExample());
@@ -174,7 +194,7 @@ public class CartServiceImpl implements CartService {
             case 4:
                 showType = 401;
         }
-        List<Order> orders = orderMapper.selectOrderIdByStatus(1);
+        List<Order> orders = orderMapper.selectOrderIdByStatus(showType);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("count", l);
@@ -184,7 +204,7 @@ public class CartServiceImpl implements CartService {
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
-    }
+    }*/
 
     /* 加入购物车 */
     @Override
@@ -228,7 +248,7 @@ public class CartServiceImpl implements CartService {
     public BaseResponseModel checkoutRespValue(Integer cartId, Integer addressId, Integer couponId, Integer grouponRulesId,Integer userId) {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         Map<String, Object> map = new HashMap<>();
-        List<Cart> carts = cartMapper.selectByUserIdAndChecked(userId);
+        List<Cart> carts = cartMapper.selectByUserIdAndChecked(userId,cartId);
         BigDecimal checkedGoodsAmount = CartUtil.getCheckedGoodsAmount(carts);
         BigDecimal goodsAmount = CartUtil.getGoodsAmount(carts);
         Coupon coupon = null;

@@ -39,7 +39,10 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     @Override
     public void insertSearchHistory(String keyword, int userId) {
         SearchHistoryExample searchHistoryExample = new SearchHistoryExample();
-        searchHistoryExample.createCriteria().andKeywordEqualTo(keyword).andDeletedEqualTo(false);
+        if(keyword != null){
+            searchHistoryExample.createCriteria().andKeywordEqualTo(keyword);
+        }
+        searchHistoryExample.createCriteria().andDeletedEqualTo(false);
         List<SearchHistory> list = searchHistoryMapper.selectByExample(searchHistoryExample);
         if(list == null || list.size() == 0){
             SearchHistory searchHistory = new SearchHistory();

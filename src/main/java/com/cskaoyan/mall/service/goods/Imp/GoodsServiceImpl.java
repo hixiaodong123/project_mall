@@ -422,4 +422,12 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
         return goodsList;
     }
+
+    @Override
+    public List<Goods> selectGoodsByBrandId(Integer brandId) {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.createCriteria().andBrandIdEqualTo(brandId);
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        return goodsList;
+    }
 }

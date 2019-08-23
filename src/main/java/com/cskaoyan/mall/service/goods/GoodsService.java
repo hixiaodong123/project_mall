@@ -73,4 +73,6 @@ public interface GoodsService {
     List<Goods> selectGoodsByCategoryId(Integer categoryId);
 
     List<Goods> listGoodsByCondition(String s,Integer categoryId, String sort, String order);
+
+    List<Goods> selectGoodsByBrandId(Integer brandId);
 }

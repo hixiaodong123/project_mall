@@ -372,6 +372,9 @@
       <if test="userId != null">
         user_id = #{userId}
       </if>
+      <if test="cartId != null and cartId != 0">
+        and id = #{cartId}
+      </if>
       and checked = 1
       and deleted = 0
     </where>

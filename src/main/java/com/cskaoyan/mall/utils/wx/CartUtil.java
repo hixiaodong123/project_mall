@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.utils.wx_util;
+package com.cskaoyan.mall.utils.wx;
 
 import com.cskaoyan.mall.bean.Cart;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
