@@ -2,6 +2,7 @@ package com.cskaoyan.mall.controller.wx.wxgoods;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.controller.webcontroller.user.BaseEncapsulation;
 import com.cskaoyan.mall.service.goods.*;
 import com.cskaoyan.mall.service.mall.BrandService;
 import com.cskaoyan.mall.service.mall.CategoryService;
