@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wx_controller;
+package com.cskaoyan.mall.controller.wx.wxlogin;
 
 import com.cskaoyan.mall.bean.User;
 import com.cskaoyan.mall.bean.login.UserInfo;

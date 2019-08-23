@@ -2,6 +2,7 @@ package com.cskaoyan.mall.service.wx_service.cart.impl;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
+import com.cskaoyan.mall.bean.bean_for_wx_car.OrderBeanForCat;
 import com.cskaoyan.mall.mapper.AddressMapper;
 import com.cskaoyan.mall.mapper.CartMapper;
 import com.cskaoyan.mall.service.popularize.CouponService;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -104,6 +106,21 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Cart> selectByUserIdAndChecked(Integer userId) {
         return cartMapper.selectByUserIdAndChecked(userId);
+    }
+
+    @Override
+    public Order addOrder(OrderBeanForCat orderBeanForCat) {
+        Order order = new Order();
+        Address address = addressMapper.selectByPrimaryKey(orderBeanForCat.getAddressId());
+        order.setUserId(address.getUserId());
+        order.setOrderSn(UUID.randomUUID().toString());
+        order.setOrderStatus((short) 101);
+        order.setConsignee(address.getName());
+        order.setMobile(address.getMobile());
+        order.setAddress(address.getAddress());
+        order.setMessage(orderBeanForCat.getMessage());
+
+        return null;
     }
 
     @Override

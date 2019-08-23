@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wx_controller.cart;
+package com.cskaoyan.mall.controller.wx.cart;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;
@@ -166,6 +166,8 @@ public class CarController {
     @RequestMapping(value = "/order/submit", method = RequestMethod.POST)
     public BaseResponseModel orderSubmit(@RequestBody OrderBeanForCat orderBeanForCat) {
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
+
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("orderId", 123);
         baseResponseModel.setData(map);

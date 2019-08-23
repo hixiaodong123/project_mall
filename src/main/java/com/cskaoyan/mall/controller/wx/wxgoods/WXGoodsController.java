@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wxController.wxgoods;
+package com.cskaoyan.mall.controller.wx.wxgoods;
 
 import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.Goods;
