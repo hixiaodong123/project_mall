@@ -251,7 +251,7 @@ public class CartController {
         int insert = cartService.insert(cart);
         long l = cartService.countByExample(new CartExample());
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
-        baseResponseModel.setData(l);
+        baseResponseModel.setData(l+1);
         baseResponseModel.setErrmsg("成功");
         baseResponseModel.setErrno(0);
         return baseResponseModel;
