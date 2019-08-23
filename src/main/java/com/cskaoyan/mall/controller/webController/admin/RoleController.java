@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.admin;
+package com.cskaoyan.mall.controller.webcontroller.admin;
 
 
 import com.alibaba.fastjson.JSONObject;

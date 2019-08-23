@@ -59,8 +59,8 @@ public class AdminLoginController {
             baseRespModel.setErrmsg("用户账号或密码不正确");
             return baseRespModel;
         }
-        Log log = new Log(username,request.getRemoteAddr(),1,"登录",true,"");
-        logService.insertLog(log);
+//        Log log = new Log(username,request.getRemoteAddr(),1,"登录",true,"");
+//        logService.insertLog(log);
         baseRespModel.setErrno(0);
         baseRespModel.setErrmsg("成功");
         Serializable id = subject.getSession().getId();
@@ -101,11 +101,4 @@ public class AdminLoginController {
         SecurityUtils.getSubject().logout();
         return ReturnMapUntil.returnMap(null,"成功",0);
     }
-
-    /*@RequestMapping("user/query")
-    @RequiresPermissions("user:query")
-    public BaseRespModel queryUser(){
-
-    }
-*/
 }

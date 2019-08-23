@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.mall;
+package com.cskaoyan.mall.controller.webcontroller.mall;
 
 import com.cskaoyan.mall.bean.Region;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;

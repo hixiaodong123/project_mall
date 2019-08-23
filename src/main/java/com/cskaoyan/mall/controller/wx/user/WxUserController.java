@@ -2,7 +2,6 @@ package com.cskaoyan.mall.controller.wx.user;
 
 import com.cskaoyan.mall.bean.*;
 import com.cskaoyan.mall.bean.login.LoginBean;
-import com.cskaoyan.mall.mapper.OrderGoodsMapper;
 import com.cskaoyan.mall.service.admin.AdminService;
 import com.cskaoyan.mall.service.goods.CommentService;
 import com.cskaoyan.mall.service.mall.OrderGoodsService;
@@ -10,11 +9,9 @@ import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.mall.RegionService;
 import com.cskaoyan.mall.service.user.AddressService;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
-import io.swagger.models.auth.In;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 import java.util.*;
 
 @RestController
@@ -62,7 +58,7 @@ public class WxUserController {
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
         int showType1 = showType*100 + 1;
-        return orderService.returnOrderListType1(showType1,page,size);
+        return orderService.returnOrderListType1(showType1,page,size,userId);
     }
 
     @RequestMapping("order/detail")

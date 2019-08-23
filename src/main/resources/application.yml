@@ -1,5 +1,9 @@
 ## 数据库配置
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
   profiles:
     active: db
   datasource:
@@ -9,7 +13,6 @@ spring:
       username: ${myUsername}
       password: ${myPassword}
       type: ${myType}
-
       # 初始化大小，最小，最大
       initial-size: 5
       min-idle: 5
@@ -54,3 +57,4 @@ logging:
   path: /spring/log
   level:
     com.cskaoyan.mall.mapper: debug
+

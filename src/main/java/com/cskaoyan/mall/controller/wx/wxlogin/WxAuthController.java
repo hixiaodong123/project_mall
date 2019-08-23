@@ -1,20 +1,15 @@
 package com.cskaoyan.mall.controller.wx.wxlogin;
 
-import com.cskaoyan.mall.bean.User;
-import com.cskaoyan.mall.bean.login.UserInfo;
-
 import com.cskaoyan.mall.bean.login.BaseRespVo;
-import com.cskaoyan.mall.bean.login.UserToken;
 import com.cskaoyan.mall.service.mall.OrderService;
 import com.cskaoyan.mall.service.user.UserService;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by little Stone
@@ -73,10 +68,10 @@ public class WxAuthController {
 			return BaseRespVo.fail();
 		}
 
-		long unpaid = orderService.queryOrderStatusNum(101);
-		long unship = orderService.queryOrderStatusNum(201);
-		long unrecv = orderService.queryOrderStatusNum(301);
-		long uncomment = orderService.queryOrderStatusNum(401);
+		long unpaid = orderService.queryOrderStatusNum(101,userId);
+		long unship = orderService.queryOrderStatusNum(201,userId);
+		long unrecv = orderService.queryOrderStatusNum(301,userId);
+		long uncomment = orderService.queryOrderStatusNum(401,userId);
 		HashMap<String, Object> map1 = new HashMap<>();
 		HashMap<String, Object> data = new HashMap<>();
 		map1.put("unpaid",unpaid);

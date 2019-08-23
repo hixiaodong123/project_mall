@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.popularize;
+package com.cskaoyan.mall.controller.webcontroller.popularize;
 
 import com.cskaoyan.mall.bean.Goods;
 import com.cskaoyan.mall.bean.Groupon;

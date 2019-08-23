@@ -41,15 +41,19 @@ public interface OrderMapper {
 
     int updateStatuAs203ByOrderId(@Param("id") int orderId, @Param("refundMoney") int refundMoney);
 
-    @Select("select count(*) from cskaoyan_mall_order where order_status = #{status}")
-    long queryOrderStatusNum(@Param("status") int status);
+    @Select("select count(*) from cskaoyan_mall_order where order_status = #{status} and user_id=#{userId}")
+    long queryOrderStatusNum(@Param("status") int status,@Param("userId")int userId);
 
     int updateOrderStatuByOrderId(@Param("order_status") int order_satus, @Param("ship_channel") String ship_channel, @Param("ship_sn") String ship_sn);
 
-    @Select("select id from cskaoyan_mall_order where order_status = #{status} and deleted*1=0")
-    List<Integer> queryOrderIdByStatus(@Param("status")int status);
+    @Select("select id from cskaoyan_mall_order where order_status = #{status} and deleted*1=0 and user_id = #{userId}")
+    List<Integer> queryOrderIdByStatus(@Param("status")int status,@Param("userId")int userId);
+
+    // List<Order> selectOrderIdByStatus(@Param("showType")Integer showType);
 
     int updataStatusByOrderId(@Param("status") int status,@Param("orderId")int orderId);
 
-    int updateDeleteByOrderId(@Param("delete") boolean delete,@Param("orderId") int orderId);
+    int updateDeleteByOrderId(@Param("delete") boolean delete, @Param("orderId") int orderId);
+
+    Order selectOrderByOrderSn(@Param("orderSn") String orderSn);
 }

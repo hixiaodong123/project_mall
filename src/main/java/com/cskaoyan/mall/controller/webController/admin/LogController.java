@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.webController.admin;
+package com.cskaoyan.mall.controller.webcontroller.admin;
 
 import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.bean.page.Page;

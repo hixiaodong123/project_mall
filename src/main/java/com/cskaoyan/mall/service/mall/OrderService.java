@@ -15,11 +15,11 @@ public interface OrderService {
 
     int updateStatuAs203ByOrderId(int orderId, int refundMoney);
 
-    long queryOrderStatusNum(int status);
+    long queryOrderStatusNum(int status,int userId);
 
     int updateOrderStatuByOrderId(int order_satus, String ship_channel, String ship_sn);
 
-    Map<String,Object> returnOrderListType1(int showType,int page, int size);
+    Map<String,Object> returnOrderListType1(int showType,int page, int size,int userId);
 
     List<OrderGoods> returnGoodsList(int id,int page, int size);
 

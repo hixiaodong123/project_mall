@@ -19,13 +19,20 @@ public class GoodsSpecificationServiceImpl implements GoodsSpecificationService 
     @Override
     public List<Map> selectGoodsSpecificationByGoodsId(int goodsId) {
         List<Map> mapArrayList = new ArrayList<>();
+//        List<GoodsSpecification> goodsSpecificationList = goodsSpecificationMapper.selectGoodsSpecificationByGoodsId(goodsId);
+//        for (GoodsSpecification specification : goodsSpecificationList) {
+//            Map<String, Object> map = new HashMap<String, Object>();
+//            map.put("name","规格");
+//            ArrayList<GoodsSpecification> goodsSpecifications = new ArrayList<>();
+//            goodsSpecifications.add(specification);
+//            map.put("valueList",goodsSpecifications);
+//            mapArrayList.add(map);
+//        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name","规格");
         List<GoodsSpecification> goodsSpecificationList = goodsSpecificationMapper.selectGoodsSpecificationByGoodsId(goodsId);
-        for (GoodsSpecification specification : goodsSpecificationList) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("name",specification.getValue());
-            map.put("valueList",new ArrayList<GoodsSpecification>().add(specification));
-            mapArrayList.add(map);
-        }
+        map.put("valueList",goodsSpecificationList);
+        mapArrayList.add(map);
         return mapArrayList;
     }
 }

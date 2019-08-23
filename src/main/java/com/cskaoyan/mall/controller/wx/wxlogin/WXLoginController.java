@@ -1,25 +1,19 @@
 package com.cskaoyan.mall.controller.wx.wxlogin;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cskaoyan.mall.bean.Admin;
-import com.cskaoyan.mall.bean.Log;
 import com.cskaoyan.mall.bean.User;
 import com.cskaoyan.mall.bean.login.BaseRespModel;
 import com.cskaoyan.mall.bean.login.LoginBean;
-import com.cskaoyan.mall.bean.login.UserInfo;
 import com.cskaoyan.mall.bean.login.UserToken;
 import com.cskaoyan.mall.bean.retister.UserRegister;
 import com.cskaoyan.mall.realm.MallToken;
 import com.cskaoyan.mall.service.admin.LogService;
 import com.cskaoyan.mall.service.login.LoginService;
 import com.cskaoyan.mall.service.user.UserService;
-import com.cskaoyan.mall.utils.MD5Utils;
 import com.cskaoyan.mall.utils.ReturnMapUntil;
-import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
+import com.cskaoyan.mall.utils.wx.UserTokenManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
