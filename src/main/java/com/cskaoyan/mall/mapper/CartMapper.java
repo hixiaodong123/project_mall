@@ -41,4 +41,5 @@ public interface CartMapper {
 
     int updateByProductIdForChecked(@Param("productId") Integer productId,@Param("checked")Integer checked);
 
+    Cart selectByUserIdAndProductId(@Param("productId") Integer productId,@Param("userId")Integer userId);
 }

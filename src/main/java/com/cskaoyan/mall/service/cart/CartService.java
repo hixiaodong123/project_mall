@@ -51,7 +51,10 @@ public interface CartService {
 
     // BaseResponseModel orderList(Integer showType, int page, int size);
 
-    Cart addCart(Cart cart);
+    int addCart(Cart cart,Integer userId);
+
+    Cart selectByUserIdAndProductId(@Param("productId") Integer productId,@Param("userId")Integer userId);
+
 
 
 }

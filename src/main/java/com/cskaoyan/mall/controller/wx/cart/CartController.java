@@ -221,9 +221,7 @@ public class CartController {
 
     @RequestMapping(value = "/cart/add", method = RequestMethod.POST)
     public BaseResponseModel cartAdd(@RequestBody Cart cart) {
-        Cart cart1 = cartService.addCart(cart);
-        cart1.setUserId(userId);
-        int insert = cartService.insert(cart1);
+        int i = cartService.addCart(cart, userId);
         long l = cartService.countByExample(new CartExample());
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         baseResponseModel.setData(l);

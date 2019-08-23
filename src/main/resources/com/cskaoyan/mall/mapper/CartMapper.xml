@@ -391,4 +391,19 @@
     set checked = #{checked}
     where product_id = #{productId}
   </update>
+
+  <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cskaoyan_mall_cart
+    <where>
+      <if test="userId != null">
+        user_id = #{userId}
+      </if>
+      <if test="productId != null">
+        and product_id = #{productId}
+      </if>
+      and deleted = 0
+    </where>
+  </select>
 </mapper>

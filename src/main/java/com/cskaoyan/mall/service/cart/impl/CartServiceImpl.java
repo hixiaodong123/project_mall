@@ -176,52 +176,44 @@ public class CartServiceImpl implements CartService {
         return order1;
     }
 
-    /*@Override
-    public BaseResponseModel orderList(Integer showType, int page, int size) {
-        BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
-        int l = (int) orderMapper.countByExample(new OrderExample());
-        int totalPages = (int) Math.ceil(l/size);
 
-        switch (showType) {
-            case 0:
-                showType = 0;
-            case 1:
-                showType = 101;
-            case 2:
-                showType = 201;
-            case 3:
-                showType = 301;
-            case 4:
-                showType = 401;
-        }
-        List<Order> orders = orderMapper.selectOrderIdByStatus(showType);
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("count", l);
-        map.put("data", orders);
-        map.put("totalPages", totalPages);
-        baseResponseModel.setData(map);
-        baseResponseModel.setErrmsg("成功");
-        baseResponseModel.setErrno(0);
-        return baseResponseModel;
-    }*/
 
     /* 加入购物车 */
     @Override
-    public Cart addCart(Cart cart) {
-        Goods goods = goodsMapper.selectByPrimaryKey(cart.getGoodsId());
-        GoodsProduct goodsProduct = goodsProductMapper.selectByPrimaryKey(cart.getProductId());
-        cart.setGoodsSn(goods.getGoodsSn());
-        cart.setGoodsName(goods.getName());
-        cart.setPrice(goodsProduct.getPrice());
-        String[] specifications = goodsProduct.getSpecifications();
-        cart.setSpecifications(specifications[0]);
-        cart.setChecked(true);
-        cart.setPicUrl(goodsProduct.getUrl());
-        cart.setAddTime(new Date());
-        cart.setUpdateTime(new Date());
-        cart.setDeleted(false);
-        return cart;
+    public int addCart(Cart cart,Integer userId) {
+
+        Cart cart1 = selectByUserIdAndProductId(cart.getProductId(), userId);
+        if (cart1 != null) {
+            short number1 = cart.getNumber();
+            Short number2 = cart1.getNumber();
+            short number = (short) (number1 + number2);
+            cart1.setNumber(number);
+            int update = updateByPrimaryKeySelective(cart1);
+            return update;
+        } else {
+            Goods goods = goodsMapper.selectByPrimaryKey(cart.getGoodsId());
+            GoodsProduct goodsProduct = goodsProductMapper.selectByPrimaryKey(cart.getProductId());
+            cart.setGoodsSn(goods.getGoodsSn());
+            cart.setGoodsName(goods.getName());
+            cart.setPrice(goodsProduct.getPrice());
+            String[] specifications = goodsProduct.getSpecifications();
+            cart.setSpecifications(specifications[0]);
+            cart.setChecked(true);
+            cart.setPicUrl(goodsProduct.getUrl());
+            cart.setAddTime(new Date());
+            cart.setUpdateTime(new Date());
+            cart.setDeleted(false);
+            cart.setUserId(userId);
+            int insert = insert(cart);
+            return insert;
+        }
+    }
+
+
+    @Override
+    public Cart selectByUserIdAndProductId(Integer productId, Integer userId) {
+        return cartMapper.selectByUserIdAndProductId(productId, userId);
     }
 
     @Override
