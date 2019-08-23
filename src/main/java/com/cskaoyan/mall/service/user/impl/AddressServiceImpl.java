@@ -22,6 +22,26 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<Address> selectAddressList() {
+        return addressMapper.selectAllAddress();
+    }
+
+    @Override
+    public Address selectAddressById(int id) {
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateAddress(Address address) {
+        return addressMapper.updateByPrimaryKeySelective(address);
+    }
+
+    @Override
+    public int deleteAdminById(int id) {
+        return addressMapper.deleteAddressById(id);
+    }
+
+    @Override
     public List<Address> selectAddressByUserId(Integer userId) {
         return addressMapper.selectAddressByUserId(userId);
     }

@@ -98,7 +98,9 @@ public class CarController {
     }
 
     @RequestMapping(value = "/address/list", method = RequestMethod.GET)
-    public BaseResponseModel addressList() {
+    public BaseResponseModel addressList(HttpServletRequest request) {
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        userId = UserTokenManager.getUserId(tokenKey);
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         List<Address> addresses = addressService.selectAddressByUserId(userId);
         baseResponseModel.setData(addresses);
@@ -108,7 +110,9 @@ public class CarController {
     }
 
     @RequestMapping(value = "/address/delete", method = RequestMethod.POST)
-    public BaseResponseModel delete(@RequestBody Address address) {
+    public BaseResponseModel delete(@RequestBody Address address,HttpServletRequest request) {
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        userId = UserTokenManager.getUserId(tokenKey);
         BaseResponseModel<Object> baseResponseModel = new BaseResponseModel<>();
         int update = addressService.updateByAddressIdForDelete(address.getId());
         if (update == 1) {

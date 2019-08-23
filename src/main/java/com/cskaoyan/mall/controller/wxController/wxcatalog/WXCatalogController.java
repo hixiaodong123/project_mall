@@ -1,4 +1,4 @@
-package com.cskaoyan.mall.controller.wxController.wxcatalog;
+package com.cskaoyan.mall.controller.wxcontroller.wxcatalog;
 
 import com.cskaoyan.mall.bean.Category;
 import com.cskaoyan.mall.bean.base.BaseResponseModel;

@@ -345,4 +345,16 @@
     set deleted = 1
     where id = #{addressId}
   </update>
+
+  <select id="selectAllAddress" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from cskaoyan_mall_address
+    where deleted = false
+  </select>
+
+  <update id="deleteAddressById">
+    update cskaoyan_mall_address
+    set deleted = true
+    where id = #{id}
+  </update>
 </mapper>

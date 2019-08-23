@@ -30,6 +30,10 @@ public interface AddressMapper {
 
     List<Address> listAddressByCondition(@Param("userId") String userId,@Param("name") String name,@Param("sort") String sort,@Param("order") String order);
 
+    List<Address> selectAllAddress();
+
+    int deleteAddressById(@Param("id") int id);
+
     List<Address> selectAddressByUserId(@Param("userId") Integer userId);
 
     int updateByAddressIdForDelete(@Param("addressId") Integer addressId);

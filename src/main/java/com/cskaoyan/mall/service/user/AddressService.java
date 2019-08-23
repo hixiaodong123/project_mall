@@ -9,6 +9,15 @@ import java.util.List;
 public interface AddressService {
     List<Address> listAddressByCondition(String userId,String name,String sort,String order);
 
+    List<Address> selectAddressList();
+
+    Address selectAddressById(int id);
+
+    int updateAddress(Address address);
+
+    int deleteAdminById(int id);
+
+
     List<Address> selectAddressByUserId(@Param("userId") Integer userId);
 
     int updateByAddressIdForDelete(@Param("addressId") Integer addressId);
