@@ -8,6 +8,7 @@ import com.cskaoyan.mall.service.mall.CategoryService;
 import com.cskaoyan.mall.service.mall.IssueService;
 import com.cskaoyan.mall.service.popularize.GrouponRulesService;
 import com.cskaoyan.mall.service.user.CollectService;
+import com.cskaoyan.mall.service.user.FootPrintService;
 import com.cskaoyan.mall.service.user.SearchHistoryService;
 import com.cskaoyan.mall.service.user.UserService;
 import com.cskaoyan.mall.utils.wx_util.UserTokenManager;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @RestController
@@ -57,6 +59,9 @@ public class WXGoodsController {
 
     @Autowired
     CollectService collectService;
+
+    @Autowired
+    FootPrintService footPrintService;
 
     //设置显示数目，避免网页响应时间过长
     int goodsListSize = 8;
@@ -139,6 +144,11 @@ public class WXGoodsController {
         map.put("specificationList",goodsSpecificationList);
         map.put("userHasCollect",0);
 
+        //增加用户足迹记录
+        if(userId != null){
+            footPrintService.insertFootPrint(userId,id);
+        }
+
         BaseResponseModel<Map> responseModel = new BaseResponseModel<>();
         responseModel.setData(map);
         responseModel.setErrmsg("成功");
@@ -179,11 +189,17 @@ public class WXGoodsController {
     }
 
     @RequestMapping("/list")
-    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId, HttpServletRequest request) {
+    public BaseResponseModel goodsList(String keyword, int page, int size, String sort, String order, Integer categoryId,Integer brandId, HttpServletRequest request) {
         PageHelper.startPage(page, size);
         BaseResponseModel baseResponseModel = new BaseResponseModel();
         Map<String, Object> data = new HashMap<>();
-        List<Goods> goodsList = goodsService.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
+        List<Goods> goodsList = new ArrayList<>();
+        if(brandId != null){
+            goodsList = goodsService.selectGoodsByBrandId(brandId);
+            categoryId = 0;
+        }else{
+            goodsList = goodsService.queryGoodsByKeywordOrId(keyword, sort, order, categoryId);
+        }
         if (categoryId == 0) {
             if(oldKeyword != keyword){
                 filter.clear();
@@ -221,6 +237,11 @@ public class WXGoodsController {
     @RequestMapping("/category")
     public BaseResponseModel goodsCategory(int id) {
         Category currentCategory = categoryService.selectByPrimaryKey(id);
+        if("L1".equals(currentCategory.getLevel())){
+            List<Category> categoryListByPid = categoryService.selectByPid(currentCategory.getId());
+            currentCategory = categoryListByPid.get(0);
+            id = currentCategory.getId();
+        }
         List<Category> brotherCategory = categoryService.queryBrotherCategory(currentCategory.getPid());
         Category parentCategory = categoryService.queryParentCategory(currentCategory.getPid());
         Map<String, Object> data = new HashMap<>();
@@ -233,4 +254,5 @@ public class WXGoodsController {
         baseResponseModel.setData(data);
         return baseResponseModel;
     }
+
 }
